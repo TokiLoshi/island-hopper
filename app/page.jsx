@@ -33,14 +33,19 @@ export default function Page() {
         </div>
         <View orbit className='relative h-full  sm:h-48 sm:w-full'>
           <Suspense fallback={null}>
-            <mesh position={[-2, 1, 1]}>
-              <boxGeometry />
-              <meshStandardMaterial color='red' />
-            </mesh>
             <Dog scale={2} position={[0, -1.6, 0]} rotation={[0.0, -0.3, 0]} />
             <Common color={'lightpink'} />
           </Suspense>
         </View>
+      </div>
+      {/* Add the MapboxExample component */}
+      <div className='mx-auto w-full p-6 lg:w-4/5'>
+        <h2 className='mb-4 text-2xl font-bold'>Mapbox Integration</h2>
+        <Suspense
+          fallback={
+            <div className='flex h-96 w-full items-center justify-center bg-gray-200'>Loading map component...</div>
+          }
+        ></Suspense>
       </div>
     </>
   )

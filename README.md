@@ -10,7 +10,7 @@ Created for three.js journey
 - [ ] Deploy
 - [ ] Decide on specs for MVP
 - [ ] Get set up with Mapbox and add API key to deployed environment
-- [ ] Review these tutorials
+- [ ] Review these tutorials https://docs.mapbox.com/mapbox-gl-js/guides/install/
 - [ ] Create Globe starter
 - [ ] Choose Islands of interest
 - [ ] Choose models for each island
@@ -27,3 +27,4 @@ Ideas:
 - [ ] Island with volcano and errupting shader
 - [ ] Animals with different interactions https://quaternius.com/packs/ultimateanimatedanimals.html
 - [ ] One mini game
+- [ ]
