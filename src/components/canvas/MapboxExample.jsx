@@ -5,6 +5,8 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+// const MAPBOX_ACCESS_TOKEN = process.env.NEXT_TEST
+
 export default function MapboxExample() {
   const mapContainerRef = useRef(null)
   const mapRef = useRef(null)
@@ -18,6 +20,13 @@ export default function MapboxExample() {
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
     if (typeof window !== 'undefined' && mapContainerRef.current) {
+      if (!MAPBOX_ACCESS_TOKEN) {
+        console.error('Mapbox access token is missing')
+        mapContainerRef.current.innerHTML =
+          '<p style: red; text-align: center; padding: 20px>Mapbox access token missing </p>'
+        return
+      }
+
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: 'mapbox://styles/mapbox/satellite-v9',
@@ -25,9 +34,10 @@ export default function MapboxExample() {
         zoom: 1.5,
         center: [-90, 40],
       })
+
       mapRef.current = map
       map.addControl(new mapboxgl.NavigationControl())
-      map.scrollZoom.disable()
+      // map.scrollZoom.disable()
 
       const spinGlobe = () => {
         if (!mapRef.current) return
@@ -52,7 +62,9 @@ export default function MapboxExample() {
       })
       map.on('mousedown', () => {
         isUserInteracting.current = true
-        spinGlobe()
+      })
+      map.on('dragstart', () => {
+        isUserInteracting.current = true
       })
       map.on('mouseup', () => {
         isUserInteracting.current = false
@@ -60,7 +72,7 @@ export default function MapboxExample() {
       })
 
       map.on('moveend', () => {
-        isUserInteracting.current = false
+        if (!mapRef.current) return
         spinGlobe()
       })
       map.on('touchend', () => {
@@ -80,12 +92,12 @@ export default function MapboxExample() {
     <div
       ref={mapContainerRef}
       style={{
-        position: 'absolute',
+        position: 'relative',
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
-        width: '100vh',
+        width: '100%',
         height: '100vh',
       }}
     ></div>
