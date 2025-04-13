@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { GEOJSON } from '@/data/islands'
 
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 // const MAPBOX_ACCESS_TOKEN = process.env.NEXT_TEST
@@ -37,6 +38,7 @@ export default function MapboxExample() {
 
       mapRef.current = map
       map.addControl(new mapboxgl.NavigationControl())
+
       // map.scrollZoom.disable()
 
       const spinGlobe = () => {
@@ -58,6 +60,31 @@ export default function MapboxExample() {
       map.on('style.load', () => {
         if (!mapRef.current) return
         map.setFog({})
+
+        for (const marker of GEOJSON.features) {
+          const el = document.createElement('div')
+          el.className = 'marker'
+          const size = 50
+          el.style.width = `${size}px`
+          el.style.height = `${size}px`
+          el.style.backgroundImage = "url('https://docs.mapbox.com/mapbox-gl-js/assets/pin.svg')"
+          el.style.backgroundSize = 'cover'
+          el.style.cursor = 'pointer'
+
+          const popup = new mapboxgl.Popup({ offset: 25 })
+          popup.setHTML(`<div style: padding: 20px;>
+            <h2>${marker.properties.name}</h2>
+            <div>`)
+
+          new mapboxgl.Marker({
+            element: el,
+            rotationAlignment: 'horizon',
+            offset: [0, -size / 2],
+          })
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(popup)
+            .addTo(mapRef.current)
+        }
         spinGlobe()
       })
       map.on('mousedown', () => {
@@ -79,6 +106,7 @@ export default function MapboxExample() {
         isUserInteracting.current = false
         spinGlobe()
       })
+
       // CleanUp
       return () => {
         if (mapRef.current) {
@@ -88,6 +116,7 @@ export default function MapboxExample() {
       }
     }
   }, [])
+
   return (
     <div
       ref={mapContainerRef}
