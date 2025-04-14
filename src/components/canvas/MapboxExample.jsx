@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { GEOJSON } from '@/data/islands'
+import { useRouter } from 'next/navigation'
 
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 // const MAPBOX_ACCESS_TOKEN = process.env.NEXT_TEST
@@ -13,10 +14,40 @@ export default function MapboxExample() {
   const mapRef = useRef(null)
   const isUserInteracting = useRef(false)
   const spinEnabled = useRef(true)
+  const router = useRouter()
 
   const secondsPerRevolution = useRef(240)
   const maxSpinZoom = useRef(5)
   const slowSpinZoom = useRef(3)
+
+  const flyToLocation = (map, coordinates, locationName) => {
+    spinEnabled.current = false
+    const flyToOptions = {
+      center: coordinates,
+      zoom: 10,
+      pitch: 60,
+      bearing: 30,
+      duration: 5000,
+      essential: true,
+    }
+    map.flyTo(flyToOptions)
+
+    map.once('moveend', () => {
+      let routePath = `/${locationName.toLowerCase().replace(/\s+/g, '-')}`
+      console.log(`RoutePath to set up: ${routePath}`)
+      if (routePath === '/kīlauea') {
+        routePath = '/kilauea'
+      } else if (
+        routePath ===
+        '/taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu'
+      ) {
+        routePath = '/longestPlace'
+      }
+      setTimeout(() => {
+        router.push(routePath)
+      }, 1000)
+    })
+  }
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
@@ -59,7 +90,21 @@ export default function MapboxExample() {
       }
       map.on('style.load', () => {
         if (!mapRef.current) return
-        map.setFog({})
+        map.setFog({
+          color: 'rgb(220, 159, 159)',
+          'high-color': 'rgb(36, 92, 223)',
+          'horizon-blend': 0.4,
+        })
+
+        map.addSource('mapbox-dem', {
+          type: 'raster-dem',
+          url: 'mapbox://mapbox.terrain-rgb',
+        })
+
+        map.setTerrain({
+          source: 'mapbox-dem',
+          exaggeration: 1.5,
+        })
 
         for (const marker of GEOJSON.features) {
           const el = document.createElement('div')
@@ -71,19 +116,34 @@ export default function MapboxExample() {
           el.style.backgroundSize = 'cover'
           el.style.cursor = 'pointer'
 
-          const popup = new mapboxgl.Popup({ offset: 25 })
-          popup.setHTML(`<div style: padding: 20px;>
-            <h2>${marker.properties.name}</h2>
-            <div>`)
+          const popUpContent = `
+          <div style="padding: 15px; text-align: center;>
+          <h2 style="margin-bottom: 10px;">${marker.properties.name}</h2>
+          <button id="visit-${marker.properties.name.toLowerCase()}"
+          style="background-color: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold;">
+          Visit
+          </button>
+          <div>`
 
-          new mapboxgl.Marker({
+          const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true })
+
+          popup.setHTML(popUpContent)
+
+          const markerObj = new mapboxgl.Marker({
             element: el,
             rotationAlignment: 'horizon',
-            offset: [0, -size / 2],
+            offset: [25, -size / 2],
           })
             .setLngLat(marker.geometry.coordinates)
             .setPopup(popup)
             .addTo(mapRef.current)
+
+          popup.on('open', () => {
+            document.getElementById(`visit-${marker.properties.name.toLowerCase()}`)?.addEventListener('click', () => {
+              popup.remove()
+              flyToLocation(map, marker.geometry.coordinates, marker.properties.name)
+            })
+          })
         }
         spinGlobe()
       })
@@ -115,7 +175,7 @@ export default function MapboxExample() {
         }
       }
     }
-  }, [])
+  }, [router])
 
   return (
     <div
