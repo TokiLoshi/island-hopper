@@ -35,42 +35,6 @@ export default function LongestPlace() {
   const cleanedFirst = first.replace(/\u00AD/g, '')
   const cleanedSecond = second.replace(/\u00AD/g, '')
   const cleanedThird = third.replace(/\u00AD/g, '')
-  const [introAudio, setIntroAudio] = useState(null)
-  const boomRef = useRef()
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const audio = new Audio('/voiceover.wav')
-      audio.preload = 'auto'
-      setIntroAudio(audio)
-      const handleEnded = () => setIsPlaying(false)
-      audio.addEventListener('ended', handleEnded)
-
-      return () => {
-        audio.pause()
-        audio.removeEventListener('ended', handleEnded)
-      }
-    }
-  }, [])
-
-  const handleBoomboxClick = (event) => {
-    event.stopPropagation()
-    if (!introAudio) {
-      return
-    }
-    if (isPlaying) {
-      introAudio.pause()
-
-      setIsPlaying(false)
-    } else {
-      introAudio.play().catch((error) => {
-        setIsPlaying(false)
-      })
-      setIsPlaying(true)
-    }
-  }
 
   return (
     <>
@@ -94,8 +58,6 @@ export default function LongestPlace() {
             scale={0.2}
             position={[1.29, -0.5, 0]}
             rotation={[0, -0.5, 0]}
-            ref={boomRef}
-            onClick={handleBoomboxClick}
             onPointerEnter={() => (document.body.style.cursor = 'pointer')}
             onPointerLeave={() => (document.body.style.cursor = 'default')}
           />
