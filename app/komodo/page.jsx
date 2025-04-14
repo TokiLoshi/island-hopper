@@ -1,3 +1,7 @@
 export default function Komodo() {
-  return <h2>Komodo to go here</h2>
+  return (
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <h2 style={{ color: 'whitesmoke' }}>Komodo Island Placeholder</h2>
+    </div>
+  )
 }

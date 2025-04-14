@@ -1,3 +1,7 @@
 export default function Farralon() {
-  return <h2>Farallon to go here</h2>
+  return (
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <h2 style={{ color: 'white' }}>Farallon Island Placeholder</h2>
+    </div>
+  )
 }

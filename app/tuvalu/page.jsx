@@ -1,3 +1,7 @@
 export default function Tuvalu() {
-  ;<h2>Tuvalu to go here</h2>
+  return (
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <h2 style={{ color: 'whitesmoke' }}>Placeholder for Tuvalu</h2>
+    </div>
+  )
 }
