@@ -6,12 +6,12 @@ import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-const Volcano = dynamic(() => import('@/components/canvas/models/Volcano').then((mod) => mod.Volcano), { ssr: false })
+const Volcano = dynamic(() => import('@/components/canvas/Volcano').then((mod) => mod.Volcano), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
     <div className='flex h-96 w-full flex-col items-center justify-center'>
-      <svg className='-ml-1 mr-3 h-5 w-5 animate-spin text-black' fill='none' viewBox='0 0 24 24'>
+      <svg className='-ml-1 mr-3 size-5 animate-spin text-black' fill='none' viewBox='0 0 24 24'>
         <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
         <path
           className='opacity-75'
@@ -54,7 +54,7 @@ export default function Kilauea() {
 
   return (
     <>
-      <div ref={mapContainerRef} className='absolute top-0 left-0 w-full h-full z-0'></div>
+      <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
         <Volcano />
