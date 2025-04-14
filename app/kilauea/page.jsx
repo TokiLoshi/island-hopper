@@ -34,7 +34,6 @@ export default function Kilauea() {
   mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
 
   useEffect(() => {
-    // if (map.instanceRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
     if (mapRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,

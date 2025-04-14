@@ -14,4 +14,4 @@ export function Volcano(props) {
   )
 }
 
-useGLTF.preload('/Volcano.glb')
+useGLTF.preload('/models/Volcano.glb')
