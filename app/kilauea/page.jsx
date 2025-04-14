@@ -2,9 +2,10 @@
 
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
+import React, { useEffect, useRef } from 'react'
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
-const Blob = dynamic(() => import('@/components/canvas/models/Volcano').then((mod) => mod.Blob), { ssr: false })
-const Dog = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Dog))
 const Volcano = dynamic(() => import('@/components/canvas/models/Volcano').then((mod) => mod.Volcano), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -22,10 +23,39 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
   ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-
+const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+if (!MAPBOX_ACCESS_TOKEN) {
+  console.error('Mapbox token not set')
+}
 export default function Kilauea() {
+  const mapContainerRef = useRef(null)
+  const mapRef = useRef(null)
+
+  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
+
+  useEffect(() => {
+    // if (map.instanceRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
+    if (mapRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      center: [-155.286, 19.41],
+      zoom: 13,
+      pitch: 60,
+      antialias: true,
+    })
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right')
+    mapRef.current = map
+
+    return () => {
+      mapRef.current?.remove()
+      mapRef.current = null
+    }
+  }, [])
+
   return (
     <>
+      <div ref={mapContainerRef} className='absolute top-0 left-0 w-full h-full z-0'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
         <Volcano />
