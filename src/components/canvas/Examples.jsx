@@ -64,6 +64,11 @@ export function Duck(props) {
 }
 export function Dog(props) {
   const { scene } = useGLTF('/dog.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+  return <primitive object={scene} {...props} />
+}
 
+export function Volcano(props) {
+  const { scene } = useGLTF('/models/Volcano.glb')
   return <primitive object={scene} {...props} />
 }

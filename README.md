@@ -4,6 +4,12 @@ This project was bootstrapped with [`create-r3f-app`](https://github.com/utsuboc
 
 Created for three.js journey
 
+# Stack
+
+Next.js starter kit by [pmndrs]()
+Mapbox with [threebox](https://docs.mapbox.com/mapbox-gl-js/example/add-3d-model-threebox/)
+Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
+
 #TODO:
 
 # Islands of Interest
@@ -48,14 +54,14 @@ Asset and Information Gathering
 
 Is one of the world's youngest and most active Volcanoes on the Island of Hawai'i. [Source](https://www.usgs.gov/volcanoes/kilauea) live streaming [USGS](https://www.youtube.com/usgs/live). It is home to a lava lake that appeared on September 29, 2021 [Source](https://www.nps.gov/havo/learn/nature/kilauea.htm)
 
-Model from [Low Poly Pizza](https://poly.pizza/m/dwSigTeSMCo)
+Volcano by Poly by [Google](https://poly.pizza/u/Poly%20by%20Google)[CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Low Poly Pizza](https://poly.pizza/m/dwSigTeSMCo)
 
 # Komodo
 
 The Komodo National Park can be found on volcanic islands and is home to 5,700 giant "Komodo Dragon" lizards Varanus Komodoensis that grow to an average of 2 - 3 meters. This is a Unesco site.
 [Source](https://whc.unesco.org/en/list/609/)
 
-Model from [SketchFab]: https://sketchfab.com/3d-models/komodo-a3bb3a390dd1466e9bbab4a994329d45
+Komodo by [denys4624](https://sketchfab.com/denys4624) is licensed under Creative Commons Attribution via [SketchFab](https://sketchfab.com/denys4624)
 
 # Farallon
 
@@ -71,7 +77,7 @@ Model from [Low PolyPizza](https://poly.pizza/m/2LCcq8vhqJ3)
 
 The sinking island country [Source](sinking-reality-how-climate-change-is-threatening-a-small-island-nation/) "tuvalu" or is a group of eight islands [Source](https://www.cia.gov/the-world-factbook/countries/tuvalu/). One of the world's least visited countries, and is currently facing an existential threat due to rising ocean levels. It is one of the smallest and most remote islands in the world. [Source](https://www.timelesstuvalu.com/) For COP26 Tuvalu's Foreign Minister Simon Kofe addressed the crowd knee deep in water calling for climate action. [Source](https://earth.org/tuvalus-sinking-reality-how-climate-change-is-threatening-a-small-island-nation/)
 
-Model from [Low Poly Pizza](https://poly.pizza/m/W2vMzztgIi)
+Model: Boat by Poly by Google[CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/d2QPCNGeGp3)
 
 # Madagascar
 
