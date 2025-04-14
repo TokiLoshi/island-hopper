@@ -26,6 +26,8 @@ const View = dynamic(() =>
 
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
+const countryInfo = [176.35238864941738, -40.02640803494223]
+
 export default function LongestPlace() {
   const first = 'Taumata­whakatangihanga­koauau­o­-'
   const second = '­tamatea­turi­pukaka­piki­maungaho-'
@@ -33,11 +35,10 @@ export default function LongestPlace() {
   const cleanedFirst = first.replace(/\u00AD/g, '')
   const cleanedSecond = second.replace(/\u00AD/g, '')
   const cleanedThird = third.replace(/\u00AD/g, '')
-  // const [intro] = useState(() => new Audio('./voiceover.wav'))
-  // const [hitSound] = useState(() => new Audio('./voiceover.mp3'))
   const [introAudio, setIntroAudio] = useState(null)
   const boomRef = useRef()
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -76,6 +77,7 @@ export default function LongestPlace() {
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <Suspense fallback={null}>
           <OrbitControls />
+
           <group>
             <Text color='whitesmoke' anchorX='center' anchorY='middle' fontSize='0.11' position={[0, 1, 0.02]}>
               {cleanedFirst}
@@ -97,8 +99,8 @@ export default function LongestPlace() {
             onPointerEnter={() => (document.body.style.cursor = 'pointer')}
             onPointerLeave={() => (document.body.style.cursor = 'default')}
           />
+          <Common />
         </Suspense>
-        <Common />
       </View>
     </>
   )

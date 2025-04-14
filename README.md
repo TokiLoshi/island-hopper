@@ -62,7 +62,7 @@ Volcano by Poly by [Google](https://poly.pizza/u/Poly%20by%20Google)[CC-BY](http
 The Komodo National Park can be found on volcanic islands and is home to 5,700 giant "Komodo Dragon" lizards Varanus Komodoensis that grow to an average of 2 - 3 meters. This is a Unesco site.
 [Source](https://whc.unesco.org/en/list/609/)
 
-Komodo by [denys4624](https://sketchfab.com/denys4624) is licensed under Creative Commons Attribution via [SketchFab](https://sketchfab.com/3d-models/komodo-a3bb3a390dd1466e9bbab4a994329d45)
+Dragon by [Quaternius](https://poly.pizza/m/VBvzjFIYws)
 
 # Farallon
 

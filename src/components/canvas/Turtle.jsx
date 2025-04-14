@@ -19,4 +19,5 @@ export function Turtle(props) {
   )
 }
 
+Turtle.displayName = 'Turtle'
 useGLTF.preload('/models/Turtle.glb')

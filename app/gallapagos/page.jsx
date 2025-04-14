@@ -4,7 +4,7 @@ import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
+const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
 
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -27,7 +27,7 @@ export default function Gallapagos() {
   return (
     <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
       <OrbitControls />
-      <Shark />
+      <Turtle scale={0.08} position={[0, 0, 0]} rotation={[0, 0.8, 0]} />
       <Common />
     </View>
   )
