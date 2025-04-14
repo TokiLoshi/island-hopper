@@ -10,7 +10,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF('/komodo.glb')
+  const { nodes, materials } = useGLTF('/models/komodo.glb')
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -298,4 +298,4 @@ export function Model(props) {
   )
 }
 
-useGLTF.preload('/komodo.glb')
+useGLTF.preload('/models/komodo.glb')
