@@ -40,7 +40,8 @@ Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 
 ## Still to do
 
-- [ ] Render 3D models and map base for each place
+- [ ] Render 3D models and map base for Kilauea
+- [ ] Render model for Madagascar
 - [ ] Create companion to go with you to each Island (choose a animated C0 model)
 - [ ] Create a dialogue animation to explain what to do and tell you about the Island
 - [ ] Load page
