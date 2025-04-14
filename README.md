@@ -6,7 +6,7 @@ Created for three.js journey
 
 # Stack
 
-Next.js starter kit by [pmndrs]()
+Next.js starter kit by [pmndrs](https://github.com/pmndrs/react-three-next)
 Mapbox with [threebox](https://docs.mapbox.com/mapbox-gl-js/example/add-3d-model-threebox/)
 Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 
@@ -62,33 +62,33 @@ Volcano by Poly by [Google](https://poly.pizza/u/Poly%20by%20Google)[CC-BY](http
 The Komodo National Park can be found on volcanic islands and is home to 5,700 giant "Komodo Dragon" lizards Varanus Komodoensis that grow to an average of 2 - 3 meters. This is a Unesco site.
 [Source](https://whc.unesco.org/en/list/609/)
 
-Komodo by [denys4624](https://sketchfab.com/denys4624) is licensed under Creative Commons Attribution via [SketchFab](https://sketchfab.com/denys4624)
+Komodo by [denys4624](https://sketchfab.com/denys4624) is licensed under Creative Commons Attribution via [SketchFab](https://sketchfab.com/3d-models/komodo-a3bb3a390dd1466e9bbab4a994329d45)
 
 # Farallon
 
 Also known as "The Devil's Teeth". It is inhabited by researchers, and is not open to the public. The islands have strong winds and swells and is often surrounded by dense fog. It's been attributed to 400 ship and aircraft wrecks. It is also famously home to large numbers of great white sharks. [Source](https://www.oceanicsociety.org/learn/farallon-islands-the-ultimate-guide/#:~:text=The%20Farallon%20Islands%20can%20only,readily%20seen%20from%20a%20boat.)
 
-Model from [Low Poly Pizza](https://poly.pizza/m/YYsK3gRCBZ)
+Shark by Quaternius via [Low Poly Pizza](https://poly.pizza/m/YYsK3gRCBZ)
 
 # Gallapagos
 
-Model from [Low PolyPizza](https://poly.pizza/m/2LCcq8vhqJ3)
+Turtle by Poly by Google [CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/2LCcq8vhqJ3)
 
 # Tuvalu
 
 The sinking island country [Source](sinking-reality-how-climate-change-is-threatening-a-small-island-nation/) "tuvalu" or is a group of eight islands [Source](https://www.cia.gov/the-world-factbook/countries/tuvalu/). One of the world's least visited countries, and is currently facing an existential threat due to rising ocean levels. It is one of the smallest and most remote islands in the world. [Source](https://www.timelesstuvalu.com/) For COP26 Tuvalu's Foreign Minister Simon Kofe addressed the crowd knee deep in water calling for climate action. [Source](https://earth.org/tuvalus-sinking-reality-how-climate-change-is-threatening-a-small-island-nation/)
 
-Model: Boat by Poly by Google[CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/d2QPCNGeGp3)
+Boat by Poly by Google[CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/d2QPCNGeGp3)
 
 # Madagascar
 
-Model from [Low Poly Pizza](https://sketchfab.com/3d-models/lemur-084ba907e5ac452fa9e125eb814884c1)
+[Lemur](https://skfb.ly/6ZonL) by Lary is licensed under [Creative Commons Attribution](http://creativecommons.org/licenses/by/4.0/) via Sketchfab
 
 # taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronu
 
 - One of the longes names in the world with 85 characters. It translates into "he place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as 'landeater’, played his flute to his loved one." According to Newzealand.com It's known locally as Taumata HIll. Tamatea was a legendary chief and warrior. [Source](https://www.newzealand.com/us/feature/the-longest-place-name-in-new-zealand/)
 
-Model from [Low PolyPizza](https://poly.pizza/m/SpRHK36gNl)
+Wooden Sign by iPoly3D via [Low PolyPizza](https://poly.pizza/m/SpRHK36gNl)
 
 Audio
 https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Mecanautes-taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu.wav

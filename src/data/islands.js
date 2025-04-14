@@ -51,16 +51,16 @@ export const GEOJSON = {
         coordinates: [179.1059710111884, -8.529159314585927],
       },
     },
-    {
-      type: 'Feature',
-      properties: {
-        name: 'Madagascar',
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [43.628544161992366, -23.174115943183764],
-      },
-    },
+    // {
+    //   type: 'Feature',
+    //   properties: {
+    //     name: 'Madagascar',
+    //   },
+    //   geometry: {
+    //     type: 'Point',
+    //     coordinates: [43.628544161992366, -23.174115943183764],
+    //   },
+    // },
     {
       type: 'Feature',
       properties: {
