@@ -24,9 +24,7 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-if (!MAPBOX_ACCESS_TOKEN) {
-  console.error('Mapbox token not set')
-}
+
 export default function Kilauea() {
   const mapContainerRef = useRef(null)
   const mapRef = useRef(null)

@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 
 const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
-console.log('Turtle: ', Shark)
 
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,

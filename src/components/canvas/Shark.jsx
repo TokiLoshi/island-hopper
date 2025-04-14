@@ -9,6 +9,7 @@ export function Shark(props) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/models/Shark.glb')
   const { actions } = useAnimations(animations, group)
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group name='Root_Scene'>

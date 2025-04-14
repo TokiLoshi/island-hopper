@@ -34,7 +34,7 @@ export default function MapboxExample() {
 
     map.once('moveend', () => {
       let routePath = `/${locationName.toLowerCase().replace(/\s+/g, '-')}`
-      console.log(`RoutePath to set up: ${routePath}`)
+
       if (routePath === '/kīlauea') {
         routePath = '/kilauea'
       } else if (
@@ -53,7 +53,6 @@ export default function MapboxExample() {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
     if (typeof window !== 'undefined' && mapContainerRef.current) {
       if (!MAPBOX_ACCESS_TOKEN) {
-        console.error('Mapbox access token is missing')
         mapContainerRef.current.innerHTML =
           '<p style: red; text-align: center; padding: 20px>Mapbox access token missing </p>'
         return
@@ -175,6 +174,7 @@ export default function MapboxExample() {
         }
       }
     }
+    // eslint-disable-next-line
   }, [router])
 
   return (
