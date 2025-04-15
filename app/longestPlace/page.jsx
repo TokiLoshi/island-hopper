@@ -2,10 +2,12 @@
 
 import { OrbitControls, Text } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { Suspense, useEffect, useRef, useState } from 'react'
+import React, { Suspense, useState } from 'react'
+import SpeechBubble from '@/components/dom/SpeechBubble'
 
 const Sign = dynamic(() => import('@/components/canvas/Sign').then((mod) => mod.Sign), { ssr: false })
 const Boombox = dynamic(() => import('@/components/canvas/Boombox').then((mod) => mod.Boombox), { ssr: false })
+const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
 const View = dynamic(() =>
   import('@/components/canvas/View').then((mod) => mod.View, {
     ssr: false,
@@ -36,6 +38,31 @@ export default function LongestPlace() {
   const cleanedSecond = second.replace(/\u00AD/g, '')
   const cleanedThird = third.replace(/\u00AD/g, '')
 
+  const dialogSteps = [
+    { text: 'Hi, there I am Nardina, welcome to the Longest Named Place', animation: 'wave' },
+    {
+      text: 'Locals call this Taumata Hill, I think the full name is much more fun!',
+      animation: 'wave',
+    },
+    { text: 'Want to hear how it is pronounced? Click on the boom box', animation: 'wave' },
+    { text: 'With a total of 85 characters it is certainly quite a mouthful to say', animation: 'wave' },
+    {
+      text: "The name ranslates into 'the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as landeater, played his flute to his loved one.",
+      animation: 'wave',
+    },
+    {
+      text: 'Tamatea was a legendary chief and warrior. That is all I have for you on this longest hill! Click on the world button to go back to the map and keep exploring',
+      animation: 'wave',
+    },
+  ]
+
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const currentDialog = dialogSteps[currentStepIndex]
+
+  const handleNextDialogue = () => {
+    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
+  }
+
   return (
     <>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
@@ -61,9 +88,11 @@ export default function LongestPlace() {
             onPointerEnter={() => (document.body.style.cursor = 'pointer')}
             onPointerLeave={() => (document.body.style.cursor = 'default')}
           />
+          <Bunny position={[-1.4, -1, 0.8]} scale={0.4} rotation={[0, 0.5, 0]} />
           <Common />
         </Suspense>
       </View>
+      <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} />
     </>
   )
 }

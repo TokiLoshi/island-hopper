@@ -18,3 +18,38 @@
     background-color: #313147;
   }
 }
+
+.speech-bubble {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  color: black;
+  padding: 15px 20px;
+  border-radius: 20px;
+  border: 2px solid black;
+  max-width: 300px;
+  z-index: 10;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid black;
+}
+
+.speech-bubble button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
