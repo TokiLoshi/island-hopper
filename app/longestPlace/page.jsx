@@ -6,6 +6,7 @@ import React, { Suspense, useEffect, useRef, useState } from 'react'
 import SpeechBubble from '@/components/dom/SpeechBubble'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import BackButton from '@/components/dom/BackButton'
 
 const Sign = dynamic(() => import('@/components/canvas/Sign').then((mod) => mod.Sign), { ssr: false })
 const Boombox = dynamic(() => import('@/components/canvas/Boombox').then((mod) => mod.Boombox), { ssr: false })
@@ -72,7 +73,7 @@ export default function LongestPlace() {
     { text: 'Want to hear how it is pronounced? Click on the boom box', animation: 'wave' },
     { text: 'With a total of 85 characters it is certainly quite a mouthful to say', animation: 'wave' },
     {
-      text: "The name ranslates into 'the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as landeater, played his flute to his loved one.",
+      text: "The name translates into 'the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as landeater, played his flute to his loved one.",
       animation: 'wave',
     },
     {
@@ -118,6 +119,7 @@ export default function LongestPlace() {
           <Common />
         </Suspense>
       </View>
+      <BackButton />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} />
     </>
   )

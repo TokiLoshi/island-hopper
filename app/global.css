@@ -53,3 +53,20 @@
   padding: 5px 10px;
   cursor: pointer;
 }
+
+.back-button {
+  position: absolute;
+  top: 10%;
+  right: 20%;
+  background-color: rgb(129, 36, 166);
+  color: ghostwhite;
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: 1px solid rgb(172, 97, 202);
+  text-align: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 10;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
