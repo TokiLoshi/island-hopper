@@ -2,8 +2,10 @@
 
 import { OrbitControls, Text } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import SpeechBubble from '@/components/dom/SpeechBubble'
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Sign = dynamic(() => import('@/components/canvas/Sign').then((mod) => mod.Sign), { ssr: false })
 const Boombox = dynamic(() => import('@/components/canvas/Boombox').then((mod) => mod.Boombox), { ssr: false })
@@ -28,7 +30,7 @@ const View = dynamic(() =>
 
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
-const countryInfo = [176.35238864941738, -40.02640803494223]
+const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
 export default function LongestPlace() {
   const first = 'Taumata­whakatangihanga­koauau­o­-'
@@ -37,6 +39,29 @@ export default function LongestPlace() {
   const cleanedFirst = first.replace(/\u00AD/g, '')
   const cleanedSecond = second.replace(/\u00AD/g, '')
   const cleanedThird = third.replace(/\u00AD/g, '')
+
+  const mapContainerRef = useRef(null)
+  const mapRef = useRef(null)
+
+  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
+
+  useEffect(() => {
+    if (mapRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      center: [176.58526125541246, -40.340802662468434],
+      zoom: 13,
+      pitch: 60,
+      antialias: true,
+    })
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right')
+    mapRef.current = map
+    return () => {
+      mapRef.current?.remove()
+      mapRef.current = null
+    }
+  }, [])
 
   const dialogSteps = [
     { text: 'Hi, there I am Nardina, welcome to the Longest Named Place', animation: 'wave' },
@@ -51,7 +76,7 @@ export default function LongestPlace() {
       animation: 'wave',
     },
     {
-      text: 'Tamatea was a legendary chief and warrior. That is all I have for you on this longest hill! Click on the world button to go back to the map and keep exploring',
+      text: 'Tamatea was a legendary chief and warrior. That is all I have for you on this hill, the longest place name in the world! Click on the world button to go back to the map and keep exploring',
       animation: 'wave',
     },
   ]
@@ -65,6 +90,7 @@ export default function LongestPlace() {
 
   return (
     <>
+      <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <Suspense fallback={null}>
           <OrbitControls />
