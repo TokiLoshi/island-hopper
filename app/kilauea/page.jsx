@@ -2,11 +2,14 @@
 
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import BackButton from '@/components/dom/BackButton'
+import SpeechBubble from '@/components/dom/SpeechBubble'
 
 const Volcano = dynamic(() => import('@/components/canvas/Volcano').then((mod) => mod.Volcano), { ssr: false })
+const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -50,14 +53,37 @@ export default function Kilauea() {
     }
   }, [])
 
+  const dialogSteps = [
+    { text: 'tex1', animation: 'wave' },
+    { text: 'text2', animation: 'yes' },
+    { text: 'text3', animation: 'no' },
+  ]
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [hasEnded, setHasEnded] = useState(false)
+  const currentDialog = dialogSteps[currentIndex]
+  const handleNextDialog = () => {
+    setCurrentIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
+    if (currentIndex === dialogSteps.length - 1) {
+      setHasEnded(true)
+    }
+  }
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
         <Volcano position={[0.3, 0.4, 0]} rotation={[0.5, 1, 0]} scale={1} />
+        <Bunny
+          position={[-1.4, -1, -0.8]}
+          scale={0.4}
+          rotation={[0, 0.5, 0]}
+          currentAnimation={currentDialog.animation}
+        />
         <Common />
       </View>
+      <BackButton />
+      <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
     </>
   )
 }

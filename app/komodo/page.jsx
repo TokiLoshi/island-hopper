@@ -2,7 +2,9 @@
 
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { Suspense, useEffect, useRef } from 'react'
+import React, { Suspense, useState } from 'react'
+import BackButton from '@/components/dom/BackButton'
+import SpeechBubble from '@/components/dom/SpeechBubble'
 
 const Dragon = dynamic(() => import('@/components/canvas/Dragon').then((mod) => mod.Dragon), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -23,14 +25,29 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
 export default function Komodo() {
+  const dialogSteps = [{ text: 'text1' }, { text: 'text2' }, { text: 'text3' }]
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [hasEnded, setHasEnded] = useState(false)
+  const currentDialog = dialogSteps[currentIndex]
+  const handleNextDialog = () => {
+    setCurrentIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
+    if (currentIndex === dialogSteps.length - 1) {
+      setHasEnded(true)
+    }
+  }
+
   return (
-    <Suspense fallback={null}>
+    <>
+      {/* <Suspense fallback={null}> */}
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <OrbitControls />
         <Dragon scale={0.5} position={[0, -1, 0]} rotation={[0, -0.3, 0]} />
         <Common />
       </View>
-    </Suspense>
+      {/* </Suspense> */}
+      <BackButton />
+      <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
+    </>
   )
 }

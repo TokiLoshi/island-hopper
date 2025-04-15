@@ -2,10 +2,12 @@
 
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React from 'react'
+import React, { useState } from 'react'
+import SpeechBubble from '@/components/dom/SpeechBubble'
+import BackButton from '@/components/dom/BackButton'
 
 const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
-
+const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -24,11 +26,37 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
 export default function Gallapagos() {
+  const dialogSteps = [
+    { text: 'text1', animation: 'wave' },
+    { text: 'text2', animation: 'yes' },
+    { text: 'text3', animation: 'no' },
+    { text: 'text4', animation: 'yes' },
+  ]
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [hasEnded, setHasEnded] = useState(false)
+  const currentDialog = dialogSteps[currentStepIndex]
+  const handleNextDialog = () => {
+    setCurrentStepIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
+    if (currentStepIndex === dialogSteps.length - 1) {
+      setHasEnded(true)
+    }
+  }
+
   return (
-    <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
-      <OrbitControls />
-      <Turtle scale={0.08} position={[0, 0, 0]} rotation={[0, 0.8, 0]} />
-      <Common />
-    </View>
+    <>
+      <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
+        <OrbitControls />
+        <Turtle scale={0.08} position={[0, 0, 0]} rotation={[0, 0.8, 0]} />
+        <Bunny
+          position={[-1.4, -1, -0.8]}
+          scale={0.4}
+          rotation={[0, 0.5, 0]}
+          currentAnimation={currentDialog.animation}
+        />
+        <Common />
+      </View>
+      <BackButton />
+      <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
+    </>
   )
 }

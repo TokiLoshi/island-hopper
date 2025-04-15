@@ -30,10 +30,10 @@ export default function Farralon() {
   const currentDialog = dialogSteps[currentStepIndex]
   const [hasEnded, setHasEnded] = useState(false)
   const handleNextDialog = () => {
-    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
     if (currentStepIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
+    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
   }
   return (
     <>

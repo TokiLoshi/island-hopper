@@ -39,30 +39,33 @@ Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 - [x] Choose models for each island
 - [x] Render 3D models and map base for Kilauea
 - [x] Create companion to go with you to each Island (choose a animated C0 model)
+- [x] Fix animations on dialogs on longestPlace
+- [x] Add starter dialogs to everything
+- [x] Add back buttons to everything
+- [x] Add bunny to Gallapagos, Kileau
 
 ## Still to do
 
-- [ ] Fix animations on dialogs on longestPlace
 - [ ] Add Dialog and animations to farallon
-- [ ] Add back button to Farallon
 - [ ] Add maps to Farallon
-- [ ] Add Dialog and Back button to Gallapagos
+- [ ] Add Dialog to Gallapagos
 - [ ] Animate the sprite for the Turtle so that it looks like it walks back and forth
-- [ ] Add bunny to Gallapagos
 - [ ] Add maps to the Gallapagos
-- [ ] Add back button and Dialog to Kilauea
+- [ ] Add back Dialog to Kilauea
 - [ ] Add physics and make volcano explode in Kilauea
 - [ ] Change dragon's colour in Komodo
 - [ ] Add dialog and back button to Komodo
 - [ ] Fix animations on Komodo
 - [ ] Add Maps to Komodo
-- [ ] Add Dialog and BackButton to Tuvalu
+- [ ] Add Dialog to Tuvalu
 - [ ] Add animations to Tuvalu
 - [ ] Add maps to Tuvalu
 - [ ] Add other icons to world
 - [ ] Fix colour space
 - [ ] Fix design of buttons and dialogs
 - [ ] Add Leva
+- [ ] Add music
+- [ ] Fix for mobile
 - [ ] Fix orbit controls and positioning of maps
 - [ ] Add Perf
 - [ ] Add more interactivity
