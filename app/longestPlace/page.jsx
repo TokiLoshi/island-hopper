@@ -1,6 +1,6 @@
 'use client'
 
-import { OrbitControls, Text } from '@react-three/drei'
+import { OrbitControls, PresentationControls, Text } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import SpeechBubble from '@/components/dom/SpeechBubble'
@@ -68,25 +68,29 @@ export default function LongestPlace() {
     { text: 'Hi, there I am Nardina, welcome to the Longest Named Place', animation: 'wave' },
     {
       text: 'Locals call this Taumata Hill, I think the full name is much more fun!',
-      animation: 'wave',
+      animation: 'jump',
     },
-    { text: 'Want to hear how it is pronounced? Click on the boom box', animation: 'wave' },
-    { text: 'With a total of 85 characters it is certainly quite a mouthful to say', animation: 'wave' },
+    { text: 'Want to hear how it is pronounced? Click on the boom box', animation: 'yes' },
+    { text: 'With a total of 85 characters it is certainly quite a mouthful to say', animation: 'walk' },
     {
       text: "The name translates into 'the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as landeater, played his flute to his loved one.",
-      animation: 'wave',
+      animation: 'duck',
     },
     {
-      text: 'Tamatea was a legendary chief and warrior. That is all I have for you on this hill, the longest place name in the world! Click on the world button to go back to the map and keep exploring',
-      animation: 'wave',
+      text: 'Tamatea was a legendary chief and warrior. That is all I have for you on this hill, the longest place name in the world! Click on the world button to go back to the map and keep exploring.',
+      animation: 'punch',
     },
   ]
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const currentDialog = dialogSteps[currentStepIndex]
+  const [hasEnded, setHasEnded] = useState(false)
 
   const handleNextDialogue = () => {
     setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
+    if (currentStepIndex === dialogSteps.length - 1) {
+      setHasEnded(true)
+    }
   }
 
   return (
@@ -95,7 +99,6 @@ export default function LongestPlace() {
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <Suspense fallback={null}>
           <OrbitControls />
-
           <group>
             <Text color='whitesmoke' anchorX='center' anchorY='middle' fontSize='0.11' position={[0, 1, 0.02]}>
               {cleanedFirst}
@@ -115,12 +118,17 @@ export default function LongestPlace() {
             onPointerEnter={() => (document.body.style.cursor = 'pointer')}
             onPointerLeave={() => (document.body.style.cursor = 'default')}
           />
-          <Bunny position={[-1.4, -1, 0.8]} scale={0.4} rotation={[0, 0.5, 0]} />
+          <Bunny
+            position={[-1.4, -1, 0.8]}
+            scale={0.4}
+            rotation={[0, 0.5, 0]}
+            currentAnimation={currentDialog.animation}
+          />
           <Common />
         </Suspense>
       </View>
       <BackButton />
-      <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} />
+      <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
     </>
   )
 }

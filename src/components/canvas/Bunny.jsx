@@ -39,19 +39,80 @@ const ACTION_MAP = {
   sittingEnd: 'CharacterArmature|CharacterArmature|CharacterArmature|Sitting_End',
 }
 
-export function Bunny(props) {
+const IDLE_ANIMATION_KEY = 'idle'
+const TRANSITION_DURATION = 0.5
+
+export function Bunny({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/models/Bunny.glb')
   const { actions } = useAnimations(animations, group)
 
+  const currentActionRef = useRef(null)
+  const timeoutRef = useRef(null)
+
   useEffect(() => {
-    const waveAction = actions[ACTION_MAP['wave']]
-    const idleAction = actions[ACTION_MAP['idle']]
-    if (waveAction && idleAction) {
-      idleAction.play()
-      waveAction.reset().setLoop(THREE.LoopOnce, 1).play()
+    if (!actions || Object.keys(actions).length === 0) return
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
     }
-  }, [actions])
+
+    const playIdleAnimation = () => {
+      const idleFullName = ACTION_MAP[IDLE_ANIMATION_KEY]
+      if (!idleFullName || !actions[idleFullName]) {
+        console.warn('Idle animation not found')
+        return
+      }
+      const idleAction = actions[idleFullName]
+      if (currentActionRef.current) {
+        currentActionRef.current.fadeOut(TRANSITION_DURATION)
+      }
+      idleAction.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(TRANSITION_DURATION).play()
+
+      currentActionRef.current = idleAction
+    }
+
+    const playRequestedAnimation = (animationKey) => {
+      if (animationKey === IDLE_ANIMATION_KEY && currentActionRef.current === actions[ACTION_MAP[IDLE_ANIMATION_KEY]])
+        return
+
+      const fullAnimationName = ACTION_MAP[animationKey]
+      if (!fullAnimationName) {
+        // eslint-disable-next-line no-console
+        console.warn(`Animation not found: ${animationKey}`)
+        playIdleAnimation()
+        return
+      }
+
+      const targetAction = actions[fullAnimationName]
+      if (currentActionRef.current) {
+        currentActionRef.current.fadeOut(TRANSITION_DURATION)
+      }
+
+      if (animationKey === IDLE_ANIMATION_KEY) {
+        targetAction.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(TRANSITION_DURATION).play()
+      } else {
+        targetAction.reset().setLoop(THREE.LoopRepeat, 1).fadeIn(TRANSITION_DURATION).play()
+
+        const duration = targetAction.getClip().duration * 1000
+        timeoutRef.current = setTimeout(
+          () => {
+            playIdleAnimation()
+          },
+          duration + TRANSITION_DURATION * 1000,
+        )
+      }
+      currentActionRef.current = targetAction
+    }
+
+    playRequestedAnimation(currentAnimation)
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [currentAnimation, actions])
 
   return (
     <group ref={group} {...props} dispose={null}>

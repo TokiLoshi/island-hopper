@@ -58,13 +58,13 @@
   position: absolute;
   top: 10%;
   right: 20%;
-  background-color: rgb(129, 36, 166);
+  background-color: rgb(49, 82, 57);
   color: ghostwhite;
   padding: 8px 15px;
   border-radius: 8px;
-  border: 1px solid rgb(172, 97, 202);
+  border: 1px solid rgb(177, 246, 194);
   text-align: center;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 2px rgba(1, 40, 5, 0.2);
   cursor: pointer;
   z-index: 10;
   font-size: 0.9rem;

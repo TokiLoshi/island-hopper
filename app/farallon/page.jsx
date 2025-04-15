@@ -2,7 +2,9 @@
 
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import SpeechBubble from '@/components/dom/SpeechBubble'
+import BackButton from '@/components/dom/BackButton'
 
 const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -23,11 +25,25 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
 export default function Farralon() {
+  const dialogSteps = [{ text: 'text1' }, { text: 'text2' }, { text: 'text3' }]
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const currentDialog = dialogSteps[currentStepIndex]
+  const [hasEnded, setHasEnded] = useState(false)
+  const handleNextDialog = () => {
+    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
+    if (currentStepIndex === dialogSteps.length - 1) {
+      setHasEnded(true)
+    }
+  }
   return (
-    <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
-      <OrbitControls />
-      <Shark />
-      <Common />
-    </View>
+    <>
+      <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
+        <OrbitControls />
+        <Shark />
+        <Common />
+      </View>
+      <BackButton />
+      <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
+    </>
   )
 }
