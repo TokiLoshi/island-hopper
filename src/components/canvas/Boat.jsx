@@ -14,4 +14,5 @@ export function Boat(props) {
   )
 }
 
+Boat.displayName = 'Boat'
 useGLTF.preload('/models/Boat.glb')

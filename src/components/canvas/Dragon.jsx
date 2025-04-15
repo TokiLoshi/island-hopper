@@ -23,7 +23,7 @@ export function Dragon(props) {
 
   const handleClick = (event) => {
     event.stopPropagation()
-    const randomNumber = Math.floor(Math.random() * 5)
+    const randomNumber = Math.floor(Math.random() * ACTIONS.length)
 
     const actionName = ACTIONS[randomNumber]
     const action = actions[actionName]

@@ -55,7 +55,7 @@ export default function Kilauea() {
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
-        <Volcano />
+        <Volcano position={[0.3, 0.4, 0]} rotation={[0.5, 1, 0]} scale={1} />
         <Common />
       </View>
     </>

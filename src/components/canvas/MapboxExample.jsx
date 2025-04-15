@@ -7,6 +7,7 @@ import { GEOJSON } from '@/data/islands'
 import { useRouter } from 'next/navigation'
 
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+
 // const MAPBOX_ACCESS_TOKEN = process.env.NEXT_TEST
 
 export default function MapboxExample() {
