@@ -2,9 +2,11 @@
 
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SpeechBubble from '@/components/dom/SpeechBubble'
 import BackButton from '@/components/dom/BackButton'
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -24,8 +26,31 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
   ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
 export default function Gallapagos() {
+  const mapContainerRef = useRef(null)
+  const mapRef = useRef(null)
+
+  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
+
+  useEffect(() => {
+    if (mapRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      center: [-90.44075279054056, -0.29511532015757685],
+      zoom: 13,
+      pitch: 60,
+      antialias: true,
+    })
+    mapRef.current = map
+    return () => {
+      mapRef.current?.remove()
+      mapRef.current = null
+    }
+  }, [])
+
   const dialogSteps = [
     {
       text: 'Welcome to the Gallapagos, a volcanic archipelago filled with amazing animals you would be luck to see!',
@@ -57,6 +82,7 @@ export default function Gallapagos() {
 
   return (
     <>
+      <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
         <Turtle scale={0.08} position={[0, 0, 0]} rotation={[0, 0.8, 0]} />
