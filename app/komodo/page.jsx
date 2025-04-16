@@ -25,13 +25,28 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
 export default function Komodo() {
-  const dialogSteps = [{ text: 'text1' }, { text: 'text2' }, { text: 'text3' }]
+  const dialogSteps = [
+    { text: 'Welcome to my Volcanic Island! The Komodo National Park is the home of Dragons', animation: 'flying' },
+    {
+      text: 'You might be wondering where your guide is? I imagine as a rabbit she was worried she might be mistaken as food',
+      animation: 'attack',
+    },
+    {
+      text: 'You`ll find around 5,700 giant `Komodo Dragons` or Varanus Komodoensis, granted I am a different kind of dragon',
+      animation: 'attack2',
+    },
+    {
+      text: 'Komodo Dragons can grow to an average of 2-3 meters. Their bites are venemous and can be fatal to their prey. They rarely bite humans but you may want to hurry away and not risk it. ',
+    },
+  ]
   const [currentIndex, setCurrentIndex] = useState(0)
   const [hasEnded, setHasEnded] = useState(false)
   const currentDialog = dialogSteps[currentIndex]
+  const currentanimation = dialogSteps[currentIndex].animation
   const handleNextDialog = () => {
+    const nextIndex = currentIndex + 1
     setCurrentIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
-    if (currentIndex === dialogSteps.length - 1) {
+    if (nextIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
   }
@@ -42,7 +57,7 @@ export default function Komodo() {
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <OrbitControls />
-        <Dragon scale={0.5} position={[0, -1, 0]} rotation={[0, -0.3, 0]} />
+        <Dragon scale={0.5} position={[0, -1, 0]} rotation={[0, -0.3, 0]} currentAnimation={currentanimation} />
         <Common />
       </View>
       {/* </Suspense> */}

@@ -14,7 +14,7 @@ const ACTION_MAP = {
 }
 
 const IDLE_ANIMATION_KEY = 'swim'
-const TRANSITION_DURATION = 0.1
+const TRANSITION_DURATION = 0.08
 
 export function Shark({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {
   const group = useRef()

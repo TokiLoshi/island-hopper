@@ -6,33 +6,105 @@ import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
 
-const ACTIONS = [
-  'DragonArmature|Dragon_Attack',
-  'DragonArmature|Dragon_Attack2',
-  'DragonArmature|Dragon_Flying',
-  'DragonArmature|Dragon_Death',
-  'DragonArmature|Dragon_Hit',
-]
+const komodoMainBody = '#5d8744'
+const komodoBelly = '#70705A'
+const komodoClaws = '#202020'
 
-export function Dragon(props) {
+const ACTION_MAP = {
+  attack: 'DragonArmature|Dragon_Attack',
+  attack2: 'DragonArmature|Dragon_Attack2',
+  flying: 'DragonArmature|Dragon_Flying',
+  death: 'DragonArmature|Dragon_Death',
+  hit: 'DragonArmature|Dragon_Hit',
+}
+
+const IDLE_ANIMATION_KEY = 'flying'
+const TRANSITION_DURATION = 0.1
+
+export function Dragon({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/models/Dragon.glb')
   const { actions } = useAnimations(animations, group)
 
-  useEffect(() => {}, [actions])
+  const currentActionRef = useRef(null)
+  const timeoutRef = useRef(null)
 
-  const handleClick = (event) => {
-    event.stopPropagation()
-    const randomNumber = Math.floor(Math.random() * ACTIONS.length)
+  useEffect(() => {
+    if (!actions || Object.keys(actions).length === 0) return
 
-    const actionName = ACTIONS[randomNumber]
-    const action = actions[actionName]
-    if (action) {
-      action.reset().setLoop(THREE.LoopOnce, 1).play()
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
     }
-  }
+
+    const playIdleAnimation = () => {
+      const idleAnimationName = ACTION_MAP[IDLE_ANIMATION_KEY]
+      if (!idleAnimationName || !actions[idleAnimationName]) {
+        // eslint-disable-next-line no-console
+        console.warn(`No animation fournd for ${idleAnimationName}`)
+        return
+      }
+
+      const idleAction = actions[idleAnimationName]
+
+      if (currentActionRef.current) {
+        currentActionRef.current.fadeOut(TRANSITION_DURATION)
+      }
+      idleAction.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(TRANSITION_DURATION)
+
+      currentActionRef.current = idleAction
+    }
+
+    const playRequestedAnimation = (animationKey) => {
+      if (animationKey === IDLE_ANIMATION_KEY && currentActionRef.current) return
+
+      const fullAnimationName = ACTION_MAP[animationKey]
+      if (!fullAnimationName) {
+        // eslint-disable-next-line no-console
+        console.warn(`No animation name for ${fullAnimationName}`)
+        return
+      }
+      const targetAction = actions[fullAnimationName]
+      if (currentActionRef.current) {
+        currentActionRef.current.fadeOut(TRANSITION_DURATION)
+      }
+
+      if (animationKey === IDLE_ANIMATION_KEY) {
+        targetAction.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(TRANSITION_DURATION).play()
+      } else {
+        targetAction.reset().setLoop(THREE.LoopRepeat, 1).fadeIn(TRANSITION_DURATION).play()
+
+        const duration = targetAction.getClip().duration * 1000
+        timeoutRef.current = setTimeout(
+          () => {
+            playIdleAnimation()
+          },
+          duration + TRANSITION_DURATION * 1000,
+        )
+      }
+      currentActionRef.current = targetAction
+    }
+
+    playRequestedAnimation(currentAnimation)
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [currentAnimation, actions])
+
+  // TODO: wire this up
+  // const handleClick = (event) => {
+  //   event.stopPropagation()
+  //   const randomNumber = Math.floor(Math.random() * ACTIONS.length)
+
+  //   const actionName = ACTIONS[randomNumber]
+  //   const action = actions[actionName]
+  //   if (action) {
+  //     action.reset().setLoop(THREE.LoopOnce, 1).play()
+  //   }
+  // }
   return (
-    <group ref={group} {...props} dispose={null} onClick={handleClick}>
+    <group ref={group} {...props} dispose={null}>
       <group name='Root_Scene'>
         <group name='RootNode'>
           <group name='DragonArmature' rotation={[-Math.PI / 2, 0, 0]} scale={100}>
@@ -42,9 +114,12 @@ export function Dragon(props) {
             <skinnedMesh
               name='Dragon_1'
               geometry={nodes.Dragon_1.geometry}
-              material={materials.Main}
+              // material={materials.Main}
+
               skeleton={nodes.Dragon_1.skeleton}
-            />
+            >
+              <meshStandardMaterial {...materials.Main} color={komodoMainBody} />
+            </skinnedMesh>
             <skinnedMesh
               name='Dragon_2'
               geometry={nodes.Dragon_2.geometry}

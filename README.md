@@ -43,10 +43,10 @@ Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 - [x] Add starter dialogs to everything
 - [x] Add back buttons to everything
 - [x] Add bunny to Gallapagos, Kileau
+- [x] Add Dialog and animations to farallon
 
 ## Still to do
 
-- [ ] Add Dialog and animations to farallon
 - [ ] Add maps to Farallon
 - [ ] Add Dialog to Gallapagos
 - [ ] Animate the sprite for the Turtle so that it looks like it walks back and forth
