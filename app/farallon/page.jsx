@@ -25,21 +25,40 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
 export default function Farralon() {
-  const dialogSteps = [{ text: 'text1' }, { text: 'text2' }, { text: 'text3' }]
-  const [currentStepIndex, setCurrentStepIndex] = useState(0)
-  const currentDialog = dialogSteps[currentStepIndex]
+  const dialogSteps = [
+    {
+      text: 'Welcome to the Farallon Islands! My name is Nelly, I am your guide today.',
+      animation: 'swim',
+    },
+    {
+      text: 'These rocky Islands are also known to Mariners as "The Devil`s Teeth." Do you like my teeth?',
+      animation: 'bite',
+    },
+    {
+      text: 'Between the strong winds, huge swells and dense fog it`s been a pretty dangerous place, blamed for at least 400 ship and aircraft wrecks',
+      animation: 'swimBite',
+    },
+    { text: 'You are lucky to be visiting, only human researchers and wildlife are allowed here.', animation: 'bite' },
+    {
+      text: 'There are also a famous number of great white sharks! You might want to swim away back to the map now, before I take a bigger bite',
+      animation: 'bite',
+    },
+  ]
+  const [currentIndex, setCurrentStepIndex] = useState(0)
+  const currentDialog = dialogSteps[currentIndex]
   const [hasEnded, setHasEnded] = useState(false)
   const handleNextDialog = () => {
-    if (currentStepIndex === dialogSteps.length - 1) {
+    setCurrentStepIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
+    const nextIndex = currentIndex + 1
+    if (nextIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
-    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
   }
   return (
     <>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
-        <Shark />
+        <Shark currentAnimation={currentDialog.animation} />
         <Common />
       </View>
       <BackButton />

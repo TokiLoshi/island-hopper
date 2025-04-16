@@ -6,33 +6,112 @@ import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
 
-const ACTIONS = [
-  'SharkArmature|SharkArmature|SharkArmature|Swim_Bite|SharkArmature|Swim_Bite',
-  'SharkArmature|SharkArmature|SharkArmature|Swim_Fast|SharkArmature|Swim_Fast',
-  'SharkArmature|SharkArmature|SharkArmature|Swim|SharkArmature|Swim',
-  'SharkArmature|SharkArmature|SharkArmature|Swim_Bite|SharkArmature|Swim_Bite',
-]
-export function Shark(props) {
+const ACTION_MAP = {
+  bite: 'SharkArmature|SharkArmature|SharkArmature|Swim_Bite|SharkArmature|Swim_Bite',
+  swimFast: 'SharkArmature|SharkArmature|SharkArmature|Swim_Fast|SharkArmature|Swim_Fast',
+  swim: 'SharkArmature|SharkArmature|SharkArmature|Swim|SharkArmature|Swim',
+  swimBite: 'SharkArmature|SharkArmature|SharkArmature|Swim_Bite|SharkArmature|Swim_Bite',
+}
+
+const IDLE_ANIMATION_KEY = 'swim'
+const TRANSITION_DURATION = 0.1
+
+export function Shark({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/models/Shark.glb')
   const { actions } = useAnimations(animations, group)
 
-  useEffect(() => {}, [actions])
+  const currentActionRef = useRef(null)
+  const timeoutRef = useRef(null)
 
-  const handleClick = (event) => {
-    event.stopPropagation()
-    const randomNumber = Math.floor(Math.random() * ACTIONS.length)
+  useEffect(() => {
+    if (!actions || Object.keys(actions).length === 0) return
 
-    const actionName = ACTIONS[randomNumber]
-    const action = actions[actionName]
-
-    if (action) {
-      action.reset().setLoop(THREE.LoopOnce, 1).play()
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
     }
-  }
+
+    const playIdleAnimation = () => {
+      const idleAnimationName = ACTION_MAP[IDLE_ANIMATION_KEY]
+      if (!idleAnimationName || !actions[idleAnimationName]) {
+        // eslint-disable-next-line no-console
+        console.warn(`No animation foound for ${idleAnimationName}`)
+        return
+      }
+
+      const idleAction = actions[idleAnimationName]
+
+      if (currentActionRef.current) {
+        currentActionRef.current.fadeOut(TRANSITION_DURATION)
+      }
+      idleAction.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(TRANSITION_DURATION)
+
+      currentActionRef.current = idleAction
+    }
+
+    const playRequestedAnimation = (animationKey) => {
+      if (animationKey === IDLE_ANIMATION_KEY && currentActionRef.current === actions[ACTION_MAP[IDLE_ANIMATION_KEY]])
+        return
+      const fullAnimationName = ACTION_MAP[animationKey]
+      if (!fullAnimationName) {
+        // eslint-disable-next-line no-console
+        console.warn(`Animation not found: ${fullAnimationName}`)
+        playIdleAnimation()
+        return
+      }
+
+      const targetAction = actions[fullAnimationName]
+      if (currentActionRef.current) {
+        currentActionRef.current.fadeOut(TRANSITION_DURATION)
+      }
+
+      if (animationKey === IDLE_ANIMATION_KEY) {
+        targetAction.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(TRANSITION_DURATION).play()
+      } else {
+        targetAction.reset().setLoop(THREE.LoopRepeat, 1).fadeIn(TRANSITION_DURATION).play()
+
+        const duration = targetAction.getClip().duration * 1000
+        timeoutRef.current = setTimeout(
+          () => {
+            playIdleAnimation()
+          },
+          duration + TRANSITION_DURATION * 1000,
+        )
+      }
+
+      currentActionRef.current = targetAction
+    }
+
+    playRequestedAnimation(currentAnimation)
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [currentAnimation, actions])
+
+  // TODO:
+  // Set up animation for the Onclick events
+  // const handleClick = (event) => {
+  //   event.stopPropagation()
+  //   const randomNumber = Math.floor(Math.random() * ACTION_MAP.length)
+
+  //   const actionName = ACTIONS[randomNumber]
+  //   const action = actions[actionName]
+
+  //   if (action) {
+  //     action.reset().setLoop(THREE.LoopOnce, 1).play()
+  //   }
+  // }
+
+  // const handleClick = (event) => {
+  //   event.stopPopagation()
+  //   // eslint-disable-next-line no-console
+  //   console.log('Clicked')
+  // }
 
   return (
-    <group ref={group} {...props} dispose={null} onClick={handleClick}>
+    <group ref={group} {...props} dispose={null}>
       <group name='Root_Scene'>
         <group name='RootNode'>
           <group name='SharkArmature' rotation={[-Math.PI / 2, 0, 0]} scale={100}>

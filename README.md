@@ -50,6 +50,7 @@ Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 - [ ] Add maps to Farallon
 - [ ] Add Dialog to Gallapagos
 - [ ] Animate the sprite for the Turtle so that it looks like it walks back and forth
+- [ ] Ad animations to onClicks for all models
 - [ ] Add maps to the Gallapagos
 - [ ] Add back Dialog to Kilauea
 - [ ] Add physics and make volcano explode in Kilauea
@@ -64,13 +65,15 @@ Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 - [ ] Fix colour space
 - [ ] Fix design of buttons and dialogs
 - [ ] Add Leva
-- [ ] Add music
+- [ ] Add music and music interface
+- [ ] Add Bunny to home screen
 - [ ] Fix for mobile
 - [ ] Fix orbit controls and positioning of maps
 - [ ] Add Perf
 - [ ] Add more interactivity
 - [ ] Improve Load Page
 - [ ] Fix Icons on scroll around the horizon
+- [ ] Dispose of items on fly to (they get in the way), shorten the animation
 
 ## Islands
 

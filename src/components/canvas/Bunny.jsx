@@ -61,13 +61,15 @@ export function Bunny({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {
     const playIdleAnimation = () => {
       const idleFullName = ACTION_MAP[IDLE_ANIMATION_KEY]
       if (!idleFullName || !actions[idleFullName]) {
-        console.warn('Idle animation not found')
+        // eslint-disable-next-line no-console
+        console.warn(`Idle animation not found ${idleFullName}`)
         return
       }
       const idleAction = actions[idleFullName]
       if (currentActionRef.current) {
         currentActionRef.current.fadeOut(TRANSITION_DURATION)
       }
+
       idleAction.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(TRANSITION_DURATION).play()
 
       currentActionRef.current = idleAction
@@ -113,6 +115,9 @@ export function Bunny({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {
       }
     }
   }, [currentAnimation, actions])
+
+  // ToDo:
+  // Set up animations for Onclick Events
 
   return (
     <group ref={group} {...props} dispose={null}>

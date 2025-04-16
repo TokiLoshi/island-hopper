@@ -27,17 +27,30 @@ const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mo
 
 export default function Gallapagos() {
   const dialogSteps = [
-    { text: 'text1', animation: 'wave' },
-    { text: 'text2', animation: 'yes' },
-    { text: 'text3', animation: 'no' },
-    { text: 'text4', animation: 'yes' },
+    {
+      text: 'Welcome to the Gallapagos, a volcanic archipelago filled with amazing animals you would be luck to see!',
+      animation: 'wave',
+    },
+    { text: 'These magical Islands are home to giant Tortoises just like this one', animation: 'yes' },
+    { text: 'Bernie here, like a few others, is almost a century old!', animation: 'sittingEating' },
+    {
+      text: 'Fun fact this international UNESCO Heritiage site was also an inspiration for Darwin`s theory of evolution.',
+      animation: 'panLoop',
+    },
+    {
+      text: 'I can`t get enough of hanging out with these creatures, but I`m ready to move on back to the map when you are.',
+      animation: 'punch',
+    },
   ]
-  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [currentIndex, setCurrentStepIndex] = useState(0)
   const [hasEnded, setHasEnded] = useState(false)
-  const currentDialog = dialogSteps[currentStepIndex]
+  const currentDialog = dialogSteps[currentIndex]
+  // eslint-disable next-line no-console
+  console.log(`Current Dialog Index: ${currentIndex}`)
   const handleNextDialog = () => {
     setCurrentStepIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
-    if (currentStepIndex === dialogSteps.length - 1) {
+    const nextIndex = currentIndex + 1
+    if (nextIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
   }

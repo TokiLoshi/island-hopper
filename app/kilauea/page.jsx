@@ -54,18 +54,25 @@ export default function Kilauea() {
   }, [])
 
   const dialogSteps = [
-    { text: 'tex1', animation: 'wave' },
-    { text: 'text2', animation: 'yes' },
-    { text: 'text3', animation: 'no' },
+    { text: 'Welcome to Kilauea on the Island of Hawai`i!', animation: 'wave' },
+    { text: 'Kilauea is one of the youngest and most active Volcanos on earth!', animation: 'yes' },
+    {
+      text: 'It looks pretty active to me right now, we might not want to stick around for very long! Meet me back at the map when you are ready',
+      animation: 'no',
+    },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
   const [hasEnded, setHasEnded] = useState(false)
   const currentDialog = dialogSteps[currentIndex]
   const handleNextDialog = () => {
+    // eslint-disable-next-line no-console
+
     setCurrentIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
-    if (currentIndex === dialogSteps.length - 1) {
+    const nextIndex = currentIndex + 1
+    if (nextIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
+    console.log(`Index: ${currentIndex} and hasEnded: ${hasEnded} dialog ${dialogSteps[currentIndex].text}`)
   }
 
   return (

@@ -27,16 +27,35 @@ const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mo
 
 export default function Tuvalu() {
   const dialogSteps = [
-    { text: 'text1', animation: 'wave' },
-    { text: 'text2', animation: 'yes' },
-    { text: 'text3', animation: 'no' },
+    {
+      text: 'Welcome to Tuvalu, the least visited country in the world! We`re happy you decided to visit!',
+      animation: 'wave',
+    },
+    { text: 'Tuvalu is made up of nine islands, but it it tiny and only covers 26 square kilometers', action: 'sword' },
+    {
+      text: 'As you can see Tuvalu is a beautiful place but it is currently facing an existential threat',
+      animation: 'death',
+    },
+    {
+      text: 'The highest point is 4.6 meters above sea level which makes it especially vulnerable to rising sea levels',
+      animation: 'duck',
+    },
+    {
+      text: 'You might have seen Tuvalu`s foreign minister knee deep in the ocean presenting for COP26 calling for climate action',
+      animation: 'sittingEnd',
+    },
+    {
+      text: 'Keep a look out for the pantropical spotted dolphin, it is the national animal here. When you`re ready meet me back at the map to keep exploring',
+      animation: 'sword',
+    },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
   const [hasEnded, setHasEnded] = useState(false)
   const currentDialog = dialogSteps[currentIndex]
   const handleNextDialog = () => {
     setCurrentIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
-    if (currentIndex === dialogSteps.length - 1) {
+    const nextIndex = currentIndex + 1
+    if (nextIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
   }
