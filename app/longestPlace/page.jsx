@@ -68,21 +68,35 @@ export default function LongestPlace() {
   // ."
   //
 
+  const rootDirectory = './voiceover/split/NardinaLongestPlace/NardinaLongestPlace'
+  const fileType = '.mp3'
+
   const dialogSteps = [
-    { text: `Welcome to the Longest Named Place!`, animation: 'wave' },
+    { text: `Welcome to the Longest Named Place!`, animation: 'wave', audioSrc: `${rootDirectory}1${fileType}` },
     {
       text: `Locals call this Taumata Hill; I think the full name is much more fun!'`,
       animation: 'jump',
+      audioSrc: `${rootDirectory}2${fileType}`,
     },
-    { text: `Want to hear how it is pronounced? Click on the boom box`, animation: 'yes' },
-    { text: `With a total of 85 characters, it is indeed quite a mouthful to say`, animation: 'walk' },
+    {
+      text: `Want to hear how it is pronounced? Click on the boom box`,
+      animation: 'yes',
+      audioSrc: `${rootDirectory}3${fileType}`,
+    },
+    {
+      text: `With a total of 85 characters, it is indeed quite a mouthful to say`,
+      animation: 'walk',
+      audioSrc: `${rootDirectory}4${fileType}`,
+    },
     {
       text: `The name translates into "the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as land eater, played his flute to his loved one"`,
       animation: 'duck',
+      audioSrc: `${rootDirectory}5${fileType}`,
     },
     {
       text: `Tamatea was a legendary chief and warrior. That is all I have for you on the longest place name in the world! Click on the world button to return to the map and keep exploring.`,
       animation: 'punch',
+      audioSrc: `${rootDirectory}6${fileType}`,
     },
   ]
 
@@ -90,9 +104,32 @@ export default function LongestPlace() {
   const currentDialog = dialogSteps[currentStepIndex]
   const [hasEnded, setHasEnded] = useState(false)
 
+  const audioRef = useRef(null)
+
+  useEffect(() => {
+    if (!audioRef.current || !currentDialog.audioSrc) return
+    const audioElement = audioRef.current
+    const audioPath = currentDialog.audioSrc
+    audioElement.pause()
+    audioElement.currentTime = 0
+
+    audioElement.src = audioPath
+    audioElement.load()
+    audioElement.play().catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error(`Audio play failed for ${audioPath}`)
+    })
+  }, [currentStepIndex, currentDialog])
+
   const handleNextDialogue = () => {
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
+    const nextIndex = currentStepIndex + 1
+
     setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
-    if (currentStepIndex === dialogSteps.length - 1) {
+    if (nextIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
   }
@@ -133,6 +170,7 @@ export default function LongestPlace() {
       </View>
       <BackButton />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
+      <audio ref={audioRef} preload='auto' />
     </>
   )
 }
