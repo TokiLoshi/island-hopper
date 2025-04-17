@@ -39,7 +39,9 @@ export default function Gallapagos() {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [-90.44075279054056, -0.29511532015757685],
+      center: [-91.4934201703237, -0.8817195536941],
+      //-0.304800, -90.581085
+      // center: [-90.581085, -0.3048],
       zoom: 13,
       pitch: 60,
       antialias: true,
@@ -53,7 +55,7 @@ export default function Gallapagos() {
 
   const dialogSteps = [
     {
-      text: 'Welcome to the Gallapagos, a volcanic archipelago filled with amazing animals you would be luck to see!',
+      text: 'Welcome to the Galapagos, a volcanic archipelago filled with amazing animals you would be luck to see!',
       animation: 'wave',
     },
     { text: 'These magical Islands are home to giant Tortoises just like this one', animation: 'yes' },
@@ -85,7 +87,7 @@ export default function Gallapagos() {
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
-        <Turtle scale={0.08} position={[0, 0, 0]} rotation={[0, 0.8, 0]} />
+        <Turtle scale={0.08} position={[0.5, 0.5, 0]} rotation={[0, 0.8, 0]} />
         <Bunny
           position={[-1.4, -1, -0.8]}
           scale={0.4}

@@ -51,20 +51,20 @@ export default function Farralon() {
 
   const dialogSteps = [
     {
-      text: 'Welcome to the Farallon Islands! My name is Nelly, I am your guide today.',
+      text: `Welcome to the Farallon Islands! My name is Nelly, I am your guide today.`,
       animation: 'swim',
     },
     {
-      text: 'These rocky Islands are also known to Mariners as "The Devil`s Teeth." Do you like my teeth?',
+      text: `These rocky islands are also known to mariners as "The Devil's Teeth." Do you like my teeth?`,
       animation: 'bite',
     },
     {
-      text: 'Between the strong winds, huge swells and dense fog it`s been a pretty dangerous place, blamed for at least 400 ship and aircraft wrecks',
+      text: `Due to strong winds, large swells, and thick fog, navigating these waters can be perilous; it has been linked to at least 400 ship and aircraft wrecks.`,
       animation: 'swimBite',
     },
-    { text: 'You are lucky to be visiting, only human researchers and wildlife are allowed here.', animation: 'bite' },
+    { text: `You are lucky to be visiting; only human researchers and wildlife are allowed here.`, animation: 'bite' },
     {
-      text: 'There are also a famous number of great white sharks! You might want to swim away back to the map now, before I take a bigger bite',
+      text: `There are also a famous number of great white sharks! You should swim back to the map before I take a bigger bite.`,
       animation: 'bite',
     },
   ]

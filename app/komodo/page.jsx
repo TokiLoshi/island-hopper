@@ -2,9 +2,11 @@
 
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import BackButton from '@/components/dom/BackButton'
 import SpeechBubble from '@/components/dom/SpeechBubble'
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Dragon = dynamic(() => import('@/components/canvas/Dragon').then((mod) => mod.Dragon), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -24,7 +26,33 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
+const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 export default function Komodo() {
+  const mapContainerRef = useRef(null)
+  const mapRef = useRef(null)
+
+  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
+
+  useEffect(() => {
+    if (mapRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      // style: 'mapbox://styles/mapbox/satellite-street-v12',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      // -8.567272437718218, 119.50020430619357
+      center: [119.50020430619357, -8.567272437718218],
+      // center: [119.47468273390366, -8.528087535050792],
+      zoom: 13,
+      pitch: 60,
+      antialias: true,
+    })
+    mapRef.current = map
+    return () => {
+      mapRef.current?.remove()
+      mapRef.current = null
+    }
+  }, [])
+
   const dialogSteps = [
     { text: 'Welcome to my Volcanic Island! The Komodo National Park is the home of Dragons', animation: 'flying' },
     {
@@ -54,10 +82,11 @@ export default function Komodo() {
   return (
     <>
       {/* <Suspense fallback={null}> */}
+      <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <OrbitControls />
-        <Dragon scale={0.5} position={[0, -1, 0]} rotation={[0, -0.3, 0]} currentAnimation={currentanimation} />
+        <Dragon scale={0.5} position={[0.3, -1, 0]} rotation={[0, -0.3, 0]} currentAnimation={currentanimation} />
         <Common />
       </View>
       {/* </Suspense> */}

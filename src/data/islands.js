@@ -34,7 +34,7 @@ export const GEOJSON = {
     {
       type: 'Feature',
       properties: {
-        name: 'Gallapagos',
+        name: 'Galapagos',
       },
       geometry: {
         type: 'Point',

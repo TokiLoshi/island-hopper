@@ -44,7 +44,7 @@ export default function Kilauea() {
       pitch: 60,
       antialias: true,
     })
-    map.addControl(new mapboxgl.NavigationControl(), 'top-right')
+    // map.addControl(new mapboxgl.NavigationControl(), 'top-right')
     mapRef.current = map
 
     return () => {

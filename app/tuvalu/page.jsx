@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic'
 import React, { useEffect, useRef, useState } from 'react'
 import SpeechBubble from '@/components/dom/SpeechBubble'
 import BackButton from '@/components/dom/BackButton'
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Boat = dynamic(() => import('@/components/canvas/Boat').then((mod) => mod.Boat), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -24,8 +26,30 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
   ),
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
 export default function Tuvalu() {
+  const mapContainerRef = useRef(null)
+  const mapRef = useRef(null)
+  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
+
+  useEffect(() => {
+    if (!mapboxgl.accessToken || mapRef.current || !mapContainerRef.current) return
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://sstyles/mapbox/satellite-streets-v12',
+      center: [179.1059710111884, -8.529159314585927],
+      zoom: 12,
+      pitch: 50,
+      antialias: true,
+    })
+    mapRef.current = map
+    return () => {
+      mapRef.current?.remove()
+      mapRef.current = null
+    }
+  }, [])
+
   const dialogSteps = [
     {
       text: 'Welcome to Tuvalu, the least visited country in the world! We`re happy you decided to visit!',
@@ -61,6 +85,7 @@ export default function Tuvalu() {
   }
   return (
     <>
+      <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls />
         <ambientLight intensity={1.5} />

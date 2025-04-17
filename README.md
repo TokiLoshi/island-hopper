@@ -10,6 +10,8 @@ Next.js starter kit by [pmndrs](https://github.com/pmndrs/react-three-next)
 Mapbox with [threebox](https://docs.mapbox.com/mapbox-gl-js/example/add-3d-model-threebox/)
 Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 
+Voiceovers generated with eleven labs
+
 #TODO:
 
 # Islands of Interest
@@ -44,23 +46,34 @@ Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
 - [x] Add back buttons to everything
 - [x] Add bunny to Gallapagos, Kileau
 - [x] Add Dialog and animations to farallon
+- [x] Add maps to Farallon
+- [x] Add Dialog to Galapagos
+- [x] Add maps to the Gallapagos
+- [x] Add back Dialog to Kilauea
+- [x] Add Dialog to Tuvalu
+- [ ] Add animations to Tuvalu
 
 ## Still to do
 
-- [ ] Add maps to Farallon
-- [ ] Add Dialog to Gallapagos
+- [ ] Add maps to Tuvalu
+- [ ] Add Maps to Komodo
+- [ ] Grammarly all the dialogs
+- [ ] Generate voice overs with eleven labs
+- [ ] Edit the voice over into clips with the dialog
+- [ ] Install Zustand
+- [ ] Set global state to whether user wants audio or not
+- [ ] Get audio button to show next to the dialogs
+- [ ] Toggle audio state
+- [ ] Add a play button next to each dialog
+- [ ] Generate play component to play the dialog passed in as props
 - [ ] Animate the sprite for the Turtle so that it looks like it walks back and forth
-- [ ] Ad animations to onClicks for all models
-- [ ] Add maps to the Gallapagos
-- [ ] Add back Dialog to Kilauea
+- [ ] Add animations to onClicks for all models
+
 - [ ] Add physics and make volcano explode in Kilauea
 - [ ] Change dragon's colour in Komodo
 - [ ] Add dialog and back button to Komodo
 - [ ] Fix animations on Komodo
-- [ ] Add Maps to Komodo
-- [ ] Add Dialog to Tuvalu
-- [ ] Add animations to Tuvalu
-- [ ] Add maps to Tuvalu
+
 - [ ] Add other icons to world
 - [ ] Fix colour space
 - [ ] Fix design of buttons and dialogs
