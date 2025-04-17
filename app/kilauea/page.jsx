@@ -53,12 +53,20 @@ export default function Kilauea() {
     }
   }, [])
 
+  //
+  // Oh wow! It looks like it's actively erupting right now!
+  //
   const dialogSteps = [
-    { text: 'Welcome to Kilauea on the Island of Hawai`i!', animation: 'wave' },
-    { text: 'Kilauea is one of the youngest and most active Volcanos on earth!', animation: 'yes' },
+    { text: `Welcome to Kilauea on the Island of Hawai'i!`, animation: 'wave' },
+    { text: `Kilauea is one of the youngest and most active Volcanos on Earth!`, animation: 'yes' },
     {
-      text: 'It looks pretty active to me right now, we might not want to stick around for very long! Meet me back at the map when you are ready',
+      text: `But it's only young in geological terms; this shield volcano is between 210 and 280 thousand years old! It has only been above sea level for about 100 thousand years!`,
       animation: 'no',
+    },
+    {
+      text: `Oh wow! It looks like it's actively erupting right now! While this is a vulcanologist's dream, we might not want to stick around for long! Meet me back at the map when you are ready.
+`,
+      animation: 'death',
     },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)

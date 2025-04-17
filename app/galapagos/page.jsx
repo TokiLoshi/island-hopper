@@ -42,7 +42,7 @@ export default function Gallapagos() {
       center: [-91.4934201703237, -0.8817195536941],
       //-0.304800, -90.581085
       // center: [-90.581085, -0.3048],
-      zoom: 13,
+      zoom: 11,
       pitch: 60,
       antialias: true,
     })
@@ -55,17 +55,17 @@ export default function Gallapagos() {
 
   const dialogSteps = [
     {
-      text: 'Welcome to the Galapagos, a volcanic archipelago filled with amazing animals you would be luck to see!',
+      text: `Welcome to the Galapagos, a volcanic archipelago filled with amazing animals you would be lucky to see!`,
       animation: 'wave',
     },
-    { text: 'These magical Islands are home to giant Tortoises just like this one', animation: 'yes' },
-    { text: 'Bernie here, like a few others, is almost a century old!', animation: 'sittingEating' },
+    { text: `These magical Islands are home to giant Tortoises just like this one.`, animation: 'yes' },
+    { text: `Benardo here, like a few others, is almost a century old!`, animation: 'sittingEating' },
     {
-      text: 'Fun fact this international UNESCO Heritiage site was also an inspiration for Darwin`s theory of evolution.',
+      text: `Fun fact: this international UNESCO Heritage site also inspired Darwin's theory of evolution.`,
       animation: 'panLoop',
     },
     {
-      text: 'I can`t get enough of hanging out with these creatures, but I`m ready to move on back to the map when you are.',
+      text: `I can't get enough of hanging out with these creatures, but I'm ready to return to the map when you are.`,
       animation: 'punch',
     },
   ]

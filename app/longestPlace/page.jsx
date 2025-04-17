@@ -64,20 +64,24 @@ export default function LongestPlace() {
     }
   }, [])
 
+  // ,
+  // ."
+  //
+
   const dialogSteps = [
-    { text: 'Hi, there I am Nardina, welcome to the Longest Named Place', animation: 'wave' },
+    { text: `Welcome to the Longest Named Place!`, animation: 'wave' },
     {
-      text: 'Locals call this Taumata Hill, I think the full name is much more fun!',
+      text: `Locals call this Taumata Hill; I think the full name is much more fun!'`,
       animation: 'jump',
     },
-    { text: 'Want to hear how it is pronounced? Click on the boom box', animation: 'yes' },
-    { text: 'With a total of 85 characters it is certainly quite a mouthful to say', animation: 'walk' },
+    { text: `Want to hear how it is pronounced? Click on the boom box`, animation: 'yes' },
+    { text: `With a total of 85 characters, it is indeed quite a mouthful to say`, animation: 'walk' },
     {
-      text: "The name translates into 'the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as landeater, played his flute to his loved one.",
+      text: `The name translates into "the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as land eater, played his flute to his loved one"`,
       animation: 'duck',
     },
     {
-      text: 'Tamatea was a legendary chief and warrior. That is all I have for you on this hill, the longest place name in the world! Click on the world button to go back to the map and keep exploring.',
+      text: `Tamatea was a legendary chief and warrior. That is all I have for you on the longest place name in the world! Click on the world button to return to the map and keep exploring.`,
       animation: 'punch',
     },
   ]

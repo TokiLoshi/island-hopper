@@ -7,6 +7,7 @@ import SpeechBubble from '@/components/dom/SpeechBubble'
 import BackButton from '@/components/dom/BackButton'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { Dolphin } from '@/components/canvas/Dolphin'
 
 const Boat = dynamic(() => import('@/components/canvas/Boat').then((mod) => mod.Boat), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -50,27 +51,38 @@ export default function Tuvalu() {
     }
   }, [])
 
+  //
+  //
+  //
+  //
+  //
+  //
+
   const dialogSteps = [
     {
-      text: 'Welcome to Tuvalu, the least visited country in the world! We`re happy you decided to visit!',
+      text: `Welcome to Tuvalu, the least-visited country in the world! We're happy you decided to visit!`,
       animation: 'wave',
     },
-    { text: 'Tuvalu is made up of nine islands, but it it tiny and only covers 26 square kilometers', action: 'sword' },
+    { text: `Tuvalu has nine islands but is tiny and collectively only covers 26 square kilometers.`, action: 'sword' },
     {
-      text: 'As you can see Tuvalu is a beautiful place but it is currently facing an existential threat',
+      text: `As you can see, Tuvalu is a beautiful place but faces an existential threat.`,
       animation: 'death',
     },
     {
-      text: 'The highest point is 4.6 meters above sea level which makes it especially vulnerable to rising sea levels',
+      text: `The highest point is 4.6 meters above sea level, making it especially vulnerable to rising sea levels.`,
       animation: 'duck',
     },
     {
-      text: 'You might have seen Tuvalu`s foreign minister knee deep in the ocean presenting for COP26 calling for climate action',
+      text: `You might have seen Tuvalu's foreign minister knee-deep in the ocean, presenting for COP26, calling for climate action.`,
       animation: 'sittingEnd',
     },
     {
-      text: 'Keep a look out for the pantropical spotted dolphin, it is the national animal here. When you`re ready meet me back at the map to keep exploring',
+      text: ` Please keep an eye out for the pantropical spotted dolphin; it is the national animal here.`,
       animation: 'sword',
+    },
+    {
+      text: `When you're ready, meet me back at the map to continue exploring.`,
+      animation: 'punch',
     },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -98,6 +110,9 @@ export default function Tuvalu() {
         />
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <Common />
+        {currentIndex === dialogSteps.length - 1 && (
+          <Dolphin position={[8, -4, -40]} rotation={[0, -0.1, -0.1]} scale={0.1} />
+        )}
       </View>
       <BackButton />
       <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />

@@ -37,11 +37,8 @@ export default function Komodo() {
     if (mapRef.current || !mapContainerRef.current || !mapboxgl.accessToken) return
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      // style: 'mapbox://styles/mapbox/satellite-street-v12',
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      // -8.567272437718218, 119.50020430619357
       center: [119.50020430619357, -8.567272437718218],
-      // center: [119.47468273390366, -8.528087535050792],
       zoom: 13,
       pitch: 60,
       antialias: true,
@@ -54,17 +51,20 @@ export default function Komodo() {
   }, [])
 
   const dialogSteps = [
-    { text: 'Welcome to my Volcanic Island! The Komodo National Park is the home of Dragons', animation: 'flying' },
     {
-      text: 'You might be wondering where your guide is? I imagine as a rabbit she was worried she might be mistaken as food',
+      text: `Hello my name is Claude, welcome to my Volcanic Island! The Komodo National Park is the home of Dragons.`,
+      animation: 'flying',
+    },
+    {
+      text: `You might be wondering where your guide is? I imagine as a rabbit, she was worried she might be mistaken for food.`,
       animation: 'attack',
     },
     {
-      text: 'You`ll find around 5,700 giant `Komodo Dragons` or Varanus Komodoensis, granted I am a different kind of dragon',
+      text: `You'll find around 5,700 giant "Komodo Dragons" or Varanus Komodoensis, granted I am a different kind of dragon.`,
       animation: 'attack2',
     },
     {
-      text: 'Komodo Dragons can grow to an average of 2-3 meters. Their bites are venemous and can be fatal to their prey. They rarely bite humans but you may want to hurry away and not risk it. ',
+      text: `Komodo Dragons can grow to an average of 2-3 meters. Their bites are venomous and can be fatal to their prey. They rarely bite humans, but you may want to hurry away and not risk it.`,
     },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
