@@ -1,71 +1,95 @@
 // 'use client'
 
 // import dynamic from 'next/dynamic'
-// import Link from 'next/link'
-// import { Suspense } from 'react'
 
-// const MapboxGlobeWithNoSSR = dynamic(() => import('@/components/dom/MapboxGlobe'), { ssr: false})
-// const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
-// const Dog = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
-// const Duck = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
-// const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
-//   ssr: false,
-//   loading: () => (
-//     <mesh>
-//       <boxGeometry />
-//       <meshStandardMaterial color='red' />
-//     </mesh>
-//   ),
-// })
+// // const MapboxGlobe = dynamic(() => import('@/components/canvas/MapboxExample'), { ssr: false })
+// const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
+
 // const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
 // export default function Page() {
 //   return (
 //     <>
-//       <div className='mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5'>
-//         {/* jumbo */}
-//         <div className='flex w-full flex-col items-start justify-center p-12 text-center md:w-2/5 md:text-left'>
-//           <p className='w-full uppercase'>The very beggining</p>
-//           <h1 className='my-4 text-5xl font-bold leading-tight'>Island Hopper</h1>
-//           <p className='mb-8 text-2xl leading-normal'>
-//             A project to learn mapbox, next and react three fiber. As a three.js journey challenge.
-//           </p>
-//           <Link href='/example'>Starter Code</Link>
-//         </div>
-//         <View orbit className='relative h-full  sm:h-48 sm:w-full'>
-//           <Suspense fallback={null}>
-//             <Dog scale={2} position={[0, -1.6, 0]} rotation={[0.0, -0.3, 0]} />
-//             <Common color={'lightpink'} />
-//           </Suspense>
-//         </View>
-//       </div>
-//       {/* Add the MapboxExample component */}
-//       <div className='mx-auto w-full p-6 lg:w-4/5'>
-//         <h2 className='mb-4 text-2xl font-bold'>Mapbox Integration</h2>
-//         <Suspense
-//           fallback={
-//             <div className='flex h-96 w-full items-center justify-center bg-gray-200'>Loading map component...</div>
-//           }
-//         ></Suspense>
+//       <div className='absolute left-0 top-0 size-full'>
+//         <MapboxGlobe />
 //       </div>
 //     </>
 //   )
 // }
 
-// app/page.js
 'use client'
 
+import StarterSpeech from '@/components/dom/StarterSpeech'
+import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
+import { Suspense, useState } from 'react'
 
-// Dynamic import with no SSR for the Mapbox component
-// This ensures it only loads on the client side
-const MapboxGlobeWithNoSSR = dynamic(() => import('@/components/canvas/MapboxExample'), { ssr: false })
+const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
+const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
+
+const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+const View = dynamic(() =>
+  import('@/components/canvas/View').then((mod) => mod.View, {
+    ssr: false,
+    loading: () => (
+      <div className='flex h-96 w-full flex-col items-center justify-center'>
+        <svg className='-ml-1 mr-3 size-5 animate-spin text-black' fill='none' viewBox='0 0 24 24'>
+          <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+          <path
+            className='opacity-75'
+            fill='currentColor'
+            d='M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 0 1 4 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+          />
+        </svg>
+      </div>
+    ),
+  }),
+)
 
 export default function Page() {
+  const dialogSteps = [
+    { text: `Welcome to Island Hopper! I'm your guide, Nardina!`, animation: 'wave' },
+    { text: `I'm here to show you around some interesting, and perhaps less traveled places`, animation: 'jump' },
+    {
+      text: `To get started would you like to explore the map yourself, or would you like me to choose the locations for you?`,
+      animation: 'duck',
+    },
+  ]
+
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const currentDialog = dialogSteps[currentStepIndex]
+  const [hasEnded, setHasEnded] = useState(false)
+  const [adventure, setAdventer] = useState('')
+
+  const handleNextDialogue = () => {
+    const nextIndex = currentStepIndex + 1
+
+    setCurrentStepIndex((prevIndex) => Math.min(prevIndex + 1, dialogSteps.length - 1))
+    if (nextIndex === dialogSteps.length - 1) {
+      setHasEnded(true)
+    }
+  }
+
+  // add two buttons choose your next adventure
+
   return (
     <>
       <div className='absolute left-0 top-0 size-full'>
-        <MapboxGlobeWithNoSSR />
+        <MapboxGlobe />
+        <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
+          <Suspense fallback={null}>
+            <OrbitControls />
+
+            <Bunny
+              position={[-0.6, -1, 0.8]}
+              scale={0.4}
+              rotation={[0, 0.1, 0]}
+              currentAnimation={currentDialog.animation}
+            />
+            <Common />
+          </Suspense>
+        </View>
+        <StarterSpeech text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
       </div>
     </>
   )
