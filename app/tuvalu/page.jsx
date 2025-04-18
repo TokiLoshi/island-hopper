@@ -8,6 +8,7 @@ import BackButton from '@/components/dom/BackButton'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { Dolphin } from '@/components/canvas/Dolphin'
+import AudioPlayer from '@/components/dom/AudioPlayer'
 
 const Boat = dynamic(() => import('@/components/canvas/Boat').then((mod) => mod.Boat), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -51,38 +52,44 @@ export default function Tuvalu() {
     }
   }, [])
 
-  //
-  //
-  //
-  //
-  //
-  //
+  const rootDirectory = './voiceover/split/NardinaTuvalu/NardinaTuvalu'
+  const fileType = '.mp3'
 
   const dialogSteps = [
     {
       text: `Welcome to Tuvalu, the least-visited country in the world! We're happy you decided to visit!`,
       animation: 'wave',
+      audioSrc: `${rootDirectory}1${fileType}`,
     },
-    { text: `Tuvalu has nine islands but is tiny and collectively only covers 26 square kilometers.`, action: 'sword' },
+    {
+      text: `Tuvalu has nine islands but is tiny and collectively only covers 26 square kilometers.`,
+      action: 'sword',
+      audioSrc: `${rootDirectory}2${fileType}`,
+    },
     {
       text: `As you can see, Tuvalu is a beautiful place but faces an existential threat.`,
       animation: 'death',
+      audioSrc: `${rootDirectory}3${fileType}`,
     },
     {
       text: `The highest point is 4.6 meters above sea level, making it especially vulnerable to rising sea levels.`,
       animation: 'duck',
+      audioSrc: `${rootDirectory}4${fileType}`,
     },
     {
       text: `You might have seen Tuvalu's foreign minister knee-deep in the ocean, presenting for COP26, calling for climate action.`,
       animation: 'sittingEnd',
+      audioSrc: `${rootDirectory}5${fileType}`,
     },
     {
       text: ` Please keep an eye out for the pantropical spotted dolphin; it is the national animal here.`,
       animation: 'sword',
+      audioSrc: `${rootDirectory}6${fileType}`,
     },
     {
       text: `When you're ready, meet me back at the map to continue exploring.`,
       animation: 'punch',
+      audioSrc: `${rootDirectory}7${fileType}`,
     },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -116,6 +123,7 @@ export default function Tuvalu() {
       </View>
       <BackButton />
       <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
+      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>
   )
 }

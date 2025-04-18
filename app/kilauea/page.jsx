@@ -7,6 +7,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import BackButton from '@/components/dom/BackButton'
 import SpeechBubble from '@/components/dom/SpeechBubble'
+import AudioPlayer from '@/components/dom/AudioPlayer'
 
 const Volcano = dynamic(() => import('@/components/canvas/Volcano').then((mod) => mod.Volcano), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -53,20 +54,29 @@ export default function Kilauea() {
     }
   }, [])
 
-  //
-  // Oh wow! It looks like it's actively erupting right now!
-  //
+  const rootDirectory = './voiceover/split/NardinaKilauea/NardinaKilauea'
+  const fileType = '.mp3'
   const dialogSteps = [
-    { text: `Welcome to Kilauea on the Island of Hawai'i!`, animation: 'wave' },
-    { text: `Kilauea is one of the youngest and most active Volcanos on Earth!`, animation: 'yes' },
+    {
+      text: `Welcome to Kilauea on the Island of Hawai'i!`,
+      animation: 'wave',
+      audioSrc: `${rootDirectory}1${fileType}`,
+    },
+    {
+      text: `Kilauea is one of the youngest and most active Volcanos on Earth!`,
+      animation: 'yes',
+      audioSrc: `${rootDirectory}2${fileType}`,
+    },
     {
       text: `But it's only young in geological terms; this shield volcano is between 210 and 280 thousand years old! It has only been above sea level for about 100 thousand years!`,
       animation: 'no',
+      audioSrc: `${rootDirectory}3${fileType}`,
     },
     {
       text: `Oh wow! It looks like it's actively erupting right now! While this is a vulcanologist's dream, we might not want to stick around for long! Meet me back at the map when you are ready.
 `,
       animation: 'death',
+      audioSrc: `${rootDirectory}4${fileType}`,
     },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -98,6 +108,7 @@ export default function Kilauea() {
       </View>
       <BackButton />
       <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
+      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>
   )
 }

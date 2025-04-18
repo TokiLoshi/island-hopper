@@ -7,6 +7,7 @@ import BackButton from '@/components/dom/BackButton'
 import SpeechBubble from '@/components/dom/SpeechBubble'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import AudioPlayer from '@/components/dom/AudioPlayer'
 
 const Dragon = dynamic(() => import('@/components/canvas/Dragon').then((mod) => mod.Dragon), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -50,21 +51,28 @@ export default function Komodo() {
     }
   }, [])
 
+  const rootDirectory = './voiceover/split/Claude/ClaudeKomodo'
+  const fileType = '.mp3'
   const dialogSteps = [
     {
       text: `Hello my name is Claude, welcome to my Volcanic Island! The Komodo National Park is the home of Dragons.`,
       animation: 'flying',
+      audioSrc: `${rootDirectory}1${fileType}`,
     },
     {
       text: `You might be wondering where your guide is? I imagine as a rabbit, she was worried she might be mistaken for food.`,
       animation: 'attack',
+      audioSrc: `${rootDirectory}2${fileType}`,
     },
     {
       text: `You'll find around 5,700 giant "Komodo Dragons" or Varanus Komodoensis, granted I am a different kind of dragon.`,
-      animation: 'attack2',
+      animation: 'hit',
+      audioSrc: `${rootDirectory}3${fileType}`,
     },
     {
       text: `Komodo Dragons can grow to an average of 2-3 meters. Their bites are venomous and can be fatal to their prey. They rarely bite humans, but you may want to hurry away and not risk it.`,
+      animation: 'death',
+      audioSrc: `${rootDirectory}4${fileType}`,
     },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -92,6 +100,7 @@ export default function Komodo() {
       {/* </Suspense> */}
       <BackButton />
       <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
+      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>
   )
 }

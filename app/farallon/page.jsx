@@ -7,6 +7,7 @@ import SpeechBubble from '@/components/dom/SpeechBubble'
 import BackButton from '@/components/dom/BackButton'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import AudioPlayer from '@/components/dom/AudioPlayer'
 
 const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -49,23 +50,34 @@ export default function Farralon() {
     }
   }, [])
 
+  const rootDirectory = './voiceover/split/Nelly/Nelly'
+  const fileType = '.mp3'
+
   const dialogSteps = [
     {
       text: `Welcome to the Farallon Islands! My name is Nelly, I am your guide today.`,
       animation: 'swim',
+      audioSrc: `${rootDirectory}1${fileType}`,
     },
     {
       text: `These rocky islands are also known to mariners as "The Devil's Teeth." Do you like my teeth?`,
       animation: 'bite',
+      audioSrc: `${rootDirectory}2${fileType}`,
     },
     {
       text: `Due to strong winds, large swells, and thick fog, navigating these waters can be perilous; it has been linked to at least 400 ship and aircraft wrecks.`,
       animation: 'swimBite',
+      audioSrc: `${rootDirectory}3${fileType}`,
     },
-    { text: `You are lucky to be visiting; only human researchers and wildlife are allowed here.`, animation: 'bite' },
+    {
+      text: `You are lucky to be visiting; only human researchers and wildlife are allowed here.`,
+      animation: 'bite',
+      audioSrc: `${rootDirectory}4${fileType}`,
+    },
     {
       text: `There are also a famous number of great white sharks! You should swim back to the map before I take a bigger bite.`,
       animation: 'bite',
+      audioSrc: `${rootDirectory}5${fileType}`,
     },
   ]
   const [currentIndex, setCurrentStepIndex] = useState(0)
@@ -88,6 +100,7 @@ export default function Farralon() {
       </View>
       <BackButton />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
+      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>
   )
 }

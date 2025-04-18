@@ -7,6 +7,7 @@ import SpeechBubble from '@/components/dom/SpeechBubble'
 import BackButton from '@/components/dom/BackButton'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import AudioPlayer from '@/components/dom/AudioPlayer'
 
 const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -53,20 +54,34 @@ export default function Gallapagos() {
     }
   }, [])
 
+  const rootDirectory = `./voiceover/split/NardinaGalapagos/NardinaGalapagos`
+  const fileType = '.mp3'
+
   const dialogSteps = [
     {
       text: `Welcome to the Galapagos, a volcanic archipelago filled with amazing animals you would be lucky to see!`,
       animation: 'wave',
+      audioSrc: `${rootDirectory}1${fileType}`,
     },
-    { text: `These magical Islands are home to giant Tortoises just like this one.`, animation: 'yes' },
-    { text: `Benardo here, like a few others, is almost a century old!`, animation: 'sittingEating' },
+    {
+      text: `These magical Islands are home to giant Tortoises just like this one.`,
+      animation: 'yes',
+      audioSrc: `${rootDirectory}2${fileType}`,
+    },
+    {
+      text: `Benardo here, like a few others, is almost a century old!`,
+      animation: 'sittingEating',
+      audioSrc: `${rootDirectory}3${fileType}`,
+    },
     {
       text: `Fun fact: this international UNESCO Heritage site also inspired Darwin's theory of evolution.`,
       animation: 'panLoop',
+      audioSrc: `${rootDirectory}4${fileType}`,
     },
     {
       text: `I can't get enough of hanging out with these creatures, but I'm ready to return to the map when you are.`,
       animation: 'punch',
+      audioSrc: `${rootDirectory}5${fileType}`,
     },
   ]
   const [currentIndex, setCurrentStepIndex] = useState(0)
@@ -97,6 +112,7 @@ export default function Gallapagos() {
       </View>
       <BackButton />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
+      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>
   )
 }

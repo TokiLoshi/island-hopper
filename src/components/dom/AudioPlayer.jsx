@@ -8,9 +8,9 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const initialPlayTimeoutRef = useRef(null)
-  const hasAttemptedInitialPlayRef = useRef(null)
+  const hasAttemptedInitialPlayRef = useRef(false)
   const audioRef = useRef(null)
-  let previousAudioPathRef = useRef('')
+  const previousAudioPathRef = useRef('')
 
   // Reset state when audio file changes
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
       setIsReady(false)
       hasAttemptedInitialPlayRef.current = false
 
-      previousAudioPathRef = audioFilePath
+      previousAudioPathRef.current = audioFilePath
     }
   }, [audioFilePath])
 
@@ -103,7 +103,7 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
         audioRef.current.removeEventListener('ended', handleEndAudio)
       }
     }
-  }, [])
+  }, [audioFilePath])
 
   const togglePlayPause = (event) => {
     event.stopPropagation()
@@ -114,8 +114,16 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
     <>
       <div
         onClick={togglePlayPause}
-        className='cursor-pointer bg-black text-white p-2 m-2 rounded-full fixed bottom-20 right-60 z-50'
-        style={{ width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        className='fixed z-50 m-2 cursor-pointer rounded-full bg-black p-2 text-white bottom-4 right-4 md:bottom-8 md:right-8 lg:bottom-20 lg:right-20'
+        // className='fixed z-50 m-2 cursor-pointer rounded-full bg-black p-2 text-white bottom-4 right-4 md:bottom-8 md'
+        style={{
+          width: '50px',
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          touchAction: 'manipulation',
+        }}
       >
         {isPlaying ? <CirclePause size={24} color='white' /> : <Play size={24} color='white' />}
       </div>
