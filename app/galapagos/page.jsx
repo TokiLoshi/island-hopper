@@ -72,8 +72,7 @@ export default function Gallapagos() {
   const [currentIndex, setCurrentStepIndex] = useState(0)
   const [hasEnded, setHasEnded] = useState(false)
   const currentDialog = dialogSteps[currentIndex]
-  // eslint-disable next-line no-console
-  console.log(`Current Dialog Index: ${currentIndex}`)
+
   const handleNextDialog = () => {
     setCurrentStepIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
     const nextIndex = currentIndex + 1

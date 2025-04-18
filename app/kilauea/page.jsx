@@ -74,13 +74,12 @@ export default function Kilauea() {
   const currentDialog = dialogSteps[currentIndex]
   const handleNextDialog = () => {
     // eslint-disable-next-line no-console
-
+    console.log(`Index: ${currentIndex} and hasEnded: ${hasEnded} dialog ${dialogSteps[currentIndex].text}`)
     setCurrentIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
     const nextIndex = currentIndex + 1
     if (nextIndex === dialogSteps.length - 1) {
       setHasEnded(true)
     }
-    console.log(`Index: ${currentIndex} and hasEnded: ${hasEnded} dialog ${dialogSteps[currentIndex].text}`)
   }
 
   return (
