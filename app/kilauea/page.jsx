@@ -8,6 +8,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import BackButton from '@/components/dom/BackButton'
 import SpeechBubble from '@/components/dom/SpeechBubble'
 import AudioPlayer from '@/components/dom/AudioPlayer'
+import { useControls } from 'leva'
 
 const Volcano = dynamic(() => import('@/components/canvas/Volcano').then((mod) => mod.Volcano), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -92,12 +93,46 @@ export default function Kilauea() {
     }
   }
 
+  const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
+    useControls('orbit', {
+      enablePan: true,
+      // Polar angle
+      minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      // Azimuth
+      minAzimuthAngle: { value: -Math.PI * 0.4, min: 0, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: Math.PI * 0.3, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minDistance: { value: 3, min: 1, max: 10, step: 0.01 },
+      maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
+    })
+  const { rotationX, rotationY, rotationZ, scaleVolcano, positionX, positionY, positionZ } = useControls('volcano', {
+    positionX: { value: 0.2, min: -5, max: 5, step: 0.01 },
+    positionY: { value: 0.08, min: -5, max: 5, step: 0.01 },
+    positionZ: { value: 0.1, min: -5, max: 5, step: 0.01 },
+    scale: { value: 0.4, min: -0.5, max: 1, step: 0.01 },
+    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+    rotationY: { value: 0.8, min: -5, max: 5, step: 0.01 },
+    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+  })
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
-        {/* <OrbitControls /> */}
-        <Volcano position={[0.3, 0.4, 0]} rotation={[0.5, 1, 0]} scale={1} />
+        <OrbitControls
+          enablePan={enablePan}
+          minPolarAngle={minPolarAngle}
+          maxPolarAngle={maxPolarAngle}
+          minAzimuthAngle={minAzimuthAngle}
+          maxAzimuthAngle={maxAzimuthAngle}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
+        <Volcano
+          position={[positionX, positionY, positionZ]}
+          rotation={[rotationX, rotationY, rotationZ]}
+          scale={scaleVolcano}
+        />
         <Bunny
           position={[-1.4, -1, -0.8]}
           scale={0.4}

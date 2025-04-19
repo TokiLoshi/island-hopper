@@ -8,6 +8,7 @@ import BackButton from '@/components/dom/BackButton'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
+import { useControls } from 'leva'
 
 const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -76,7 +77,7 @@ export default function Farralon() {
     },
     {
       text: `There are also a famous number of great white sharks! You should swim back to the map before I take a bigger bite.`,
-      animation: 'bite',
+      animation: 'swimBite',
       audioSrc: `${rootDirectory}5${fileType}`,
     },
   ]
@@ -90,12 +91,48 @@ export default function Farralon() {
       setHasEnded(true)
     }
   }
+
+  const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
+    useControls('orbit', {
+      enablePan: true,
+      // Polar angle
+      minPolarAngle: { value: 0.91, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      // Azimuth
+      minAzimuthAngle: { value: -1, min: -1, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: 0.94, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minDistance: { value: 7, min: 1, max: 10, step: 0.01 },
+      maxDistance: { value: 17, min: 1, max: 50, step: 0.01 },
+    })
+  const { rotationX, rotationY, rotationZ, scaleShark, positionX, positionY, positionZ } = useControls('volcano', {
+    positionX: { value: 0.0, min: -5, max: 5, step: 0.01 },
+    positionY: { value: 0.78, min: -5, max: 5, step: 0.01 },
+    positionZ: { value: 0, min: -5, max: 5, step: 0.01 },
+    scale: { value: 0.8, min: -0.5, max: 1, step: 0.01 },
+    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+    rotationY: { value: 0, min: -5, max: 5, step: 0.01 },
+    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+  })
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
-        <OrbitControls />
-        <Shark currentAnimation={currentDialog.animation} scale={0.8} position={[0.5, 0, 0]} rotation={[0, 0, 0]} />
+        <OrbitControls
+          enablePan={enablePan}
+          minPolarAngle={minPolarAngle}
+          maxPolarAngle={maxPolarAngle}
+          minAzimuthAngle={minAzimuthAngle}
+          maxAzimuthAngle={maxAzimuthAngle}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
+        <Shark
+          currentAnimation={currentDialog.animation}
+          scale={scaleShark}
+          position={[positionX, positionY, positionZ]}
+          rotation={[rotationX, rotationY, rotationZ]}
+        />
         <Common />
       </View>
       <BackButton />
