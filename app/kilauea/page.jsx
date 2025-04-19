@@ -42,8 +42,8 @@ export default function Kilauea() {
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
       center: [-155.286, 19.41],
-      zoom: 13,
-      pitch: 60,
+      zoom: 12,
+      pitch: 55,
       antialias: true,
     })
     // map.addControl(new mapboxgl.NavigationControl(), 'top-right')
@@ -97,11 +97,11 @@ export default function Kilauea() {
     useControls('orbit', {
       enablePan: true,
       // Polar angle
-      minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
-      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      minPolarAngle: { value: 0.86, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: 1.47, min: 0, max: 2, step: 0.01 },
       // Azimuth
-      minAzimuthAngle: { value: -Math.PI * 0.4, min: 0, max: Math.PI / 4, step: 0.05 },
-      maxAzimuthAngle: { value: Math.PI * 0.3, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minAzimuthAngle: { value: 0.0, min: 0, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: 0.19, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
       minDistance: { value: 3, min: 1, max: 10, step: 0.01 },
       maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
     })

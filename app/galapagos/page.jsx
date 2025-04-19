@@ -8,6 +8,7 @@ import BackButton from '@/components/dom/BackButton'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
+import { useControls } from 'leva'
 
 const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -95,17 +96,50 @@ export default function Gallapagos() {
       setHasEnded(true)
     }
   }
+  const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
+    useControls('orbit', {
+      enablePan: true,
+      // Polar angle
+      minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      // Azimuth
+      minAzimuthAngle: { value: -Math.PI * 0.4, min: 0, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: 0.54, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minDistance: { value: 3, min: 1, max: 10, step: 0.01 },
+      maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
+    })
+  const { rotationX, rotationY, rotationZ, scaleTurtle, positionX, positionY, positionZ } = useControls('turtle', {
+    positionX: { value: 0.74, min: -5, max: 5, step: 0.01 },
+    positionY: { value: 0, min: -5, max: 5, step: 0.01 },
+    positionZ: { value: 0.0, min: -5, max: 5, step: 0.01 },
+    scaleTurtle: { value: 0.08, min: -0.15, max: 1, step: 0.01 },
+    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+    rotationY: { value: 0.5, min: -5, max: 5, step: 0.01 },
+    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+  })
 
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
-        <OrbitControls />
-        <Turtle scale={0.08} position={[0.5, 0.5, 0]} rotation={[0, 0.8, 0]} />
+        <OrbitControls
+          enablePan={enablePan}
+          minPolarAngle={minPolarAngle}
+          maxPolarAngle={maxPolarAngle}
+          minAzimuthAngle={minAzimuthAngle}
+          maxAzimuthAngle={maxAzimuthAngle}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
+        <Turtle
+          scale={0.08}
+          position={[positionX, positionY, positionZ]}
+          rotation={[rotationX, rotationY, rotationZ]}
+        />
         <Bunny
-          position={[-1.4, -1, -0.8]}
+          position={[-1.0, -1, -0.8]}
           scale={0.4}
-          rotation={[0, 0.5, 0]}
+          rotation={[0, 0.2, 0]}
           currentAnimation={currentDialog.animation}
         />
         <Common />

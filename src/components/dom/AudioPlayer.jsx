@@ -3,8 +3,6 @@ import { useState, useRef, useEffect } from 'react'
 import { Play, CirclePause } from 'lucide-react'
 
 export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDelay = 0 }) {
-  // eslint-disable-next-line no-console
-  console.log(`File to play: ${audioFilePath}`)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const initialPlayTimeoutRef = useRef(null)
@@ -92,8 +90,6 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
   useEffect(() => {
     if (!audioRef.current) return
     const handleEndAudio = () => {
-      // eslint-disable-next-line no-console
-      console.log('track ended')
       setIsPlaying(false)
     }
     audioRef.current.addEventListener('ended', handleEndAudio)

@@ -9,6 +9,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { Dolphin } from '@/components/canvas/Dolphin'
 import AudioPlayer from '@/components/dom/AudioPlayer'
+import { useControls } from 'leva'
 
 const Boat = dynamic(() => import('@/components/canvas/Boat').then((mod) => mod.Boat), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -102,17 +103,65 @@ export default function Tuvalu() {
       setHasEnded(true)
     }
   }
+
+  const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
+    useControls('orbit', {
+      enablePan: true,
+      // Polar angle
+      minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      // Azimuth
+      minAzimuthAngle: { value: -Math.PI * 0.4, min: 0, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: 0.54, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minDistance: { value: 3, min: 1, max: 10, step: 0.01 },
+      maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
+    })
+
+  const { boatRotationX, boatRotationY, boatRotationZ, boatScale, boatPositionX, boatPositionY, boatPositionZ } =
+    useControls('boat', {
+      boatRotationX: { value: 0, min: -5, max: 5, step: 0.01 },
+      boatRotationY: { value: -0.5, min: -5, max: 5, step: 0.01 },
+      boatRotationZ: { value: 0, min: -5, max: 5, step: 0.01 },
+      boatScale: { value: 0.002, min: -0.15, max: 1, step: 0.01 },
+      boatPositionX: { value: 0, min: -2, max: 5, step: 0.01 },
+      boatPositionY: { value: -0.2, min: -5, max: 5, step: 0.01 },
+      boatPositionZ: { value: 0, min: -3, max: 4, step: 0.01 },
+    })
+
+  const { bunnyRotationX, bunnyRotationY, bunnyRotationZ, bunnyScale, bunnyPositionX, bunnyPositionY, bunnyPositionZ } =
+    useControls('bunny', {
+      bunnyRotationX: { value: 0.2, min: -5, max: 10, step: 0.01 },
+      bunnyRotationY: { value: 0, min: -5, max: 10, step: 0.01 },
+      bunnyRotationZ: { value: 0, min: -5, max: 10, step: 0.01 },
+      bunnyScale: { value: 0.12, min: 0.05, max: 1, step: 0.01 },
+      bunnyPositionX: { value: 0.18, min: -5, max: 10, step: 0.01 },
+      bunnyPositionY: { value: 0, min: -5, max: 10, step: 0.01 },
+      bunnyPositionZ: { value: 0.25, min: -5, max: 10, step: 0.01 },
+    })
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
-        <OrbitControls />
+        <OrbitControls
+          enablePan={enablePan}
+          minPolarAngle={minPolarAngle}
+          maxPolarAngle={maxPolarAngle}
+          minAzimuthAngle={minAzimuthAngle}
+          maxAzimuthAngle={maxAzimuthAngle}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
         <ambientLight intensity={1.5} />
-        <Boat position={[0, -0.2, 0]} scale={0.002} rotation={[0, -0.5, 0]} />
+        <Boat
+          position={[boatPositionX, boatPositionY, boatPositionZ]}
+          scale={boatScale}
+          rotation={[boatRotationX, boatRotationY, boatRotationZ]}
+        />
         <Bunny
-          position={[0.18, 0, 0.25]}
-          scale={0.12}
-          rotation={[0.2, 0, 0]}
+          position={[bunnyPositionX, bunnyPositionY, bunnyPositionZ]}
+          scale={bunnyScale}
+          rotation={[bunnyRotationX, bunnyRotationY, bunnyRotationZ]}
           currentAnimation={currentDialog.animation}
         />
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />

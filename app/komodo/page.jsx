@@ -8,6 +8,7 @@ import SpeechBubble from '@/components/dom/SpeechBubble'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
+import { useControls } from 'leva'
 
 const Dragon = dynamic(() => import('@/components/canvas/Dragon').then((mod) => mod.Dragon), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -40,8 +41,8 @@ export default function Komodo() {
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
       center: [119.50020430619357, -8.567272437718218],
-      zoom: 13,
-      pitch: 60,
+      zoom: 12,
+      pitch: 55,
       antialias: true,
     })
     mapRef.current = map
@@ -87,14 +88,49 @@ export default function Komodo() {
     }
   }
 
+  const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
+    useControls('orbit', {
+      enablePan: true,
+      // Polar angle
+      minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      // Azimuth
+      minAzimuthAngle: { value: -Math.PI * 0.4, min: 0, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: Math.PI * 0.3, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minDistance: { value: 10, min: 1, max: 20, step: 0.01 },
+      maxDistance: { value: 15, min: 1, max: 50, step: 0.01 },
+    })
+  const { rotationX, rotationY, rotationZ, scaleDragon, positionX, positionY, positionZ } = useControls('volcano', {
+    positionX: { value: 0.3, min: -5, max: 5, step: 0.01 },
+    positionY: { value: -1, min: -5, max: 5, step: 0.01 },
+    positionZ: { value: 0, min: -5, max: 5, step: 0.01 },
+    scale: { value: 0.5, min: -0.5, max: 1, step: 0.01 },
+    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+    rotationY: { value: -0.3, min: -5, max: 5, step: 0.01 },
+    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+  })
+
   return (
     <>
       {/* <Suspense fallback={null}> */}
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
-        <OrbitControls />
-        <Dragon scale={0.5} position={[0.3, -1, 0]} rotation={[0, -0.3, 0]} currentAnimation={currentanimation} />
+        <OrbitControls
+          enablePan={enablePan}
+          minPolarAngle={minPolarAngle}
+          maxPolarAngle={maxPolarAngle}
+          minAzimuthAngle={minAzimuthAngle}
+          maxAzimuthAngle={maxAzimuthAngle}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
+        <Dragon
+          scale={scaleDragon}
+          position={[positionX, positionY, positionZ]}
+          rotation={[rotationX, -rotationY, rotationZ]}
+          currentAnimation={currentanimation}
+        />
         <Common />
       </View>
       {/* </Suspense> */}
