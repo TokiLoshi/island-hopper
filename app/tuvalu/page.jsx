@@ -77,11 +77,11 @@ export default function Tuvalu() {
       animation: 'duck',
       audioSrc: `${rootDirectory}4${fileType}`,
     },
-    {
-      text: `You might have seen Tuvalu's foreign minister knee-deep in the ocean, presenting for COP26, calling for climate action.`,
-      animation: 'sittingEnd',
-      audioSrc: `${rootDirectory}5${fileType}`,
-    },
+    // {
+    //   text: `You might have seen Tuvalu's foreign minister knee-deep in the ocean, presenting for COP26, calling for climate action.`,
+    //   animation: 'sittingEnd',
+    //   audioSrc: `${rootDirectory}5${fileType}`,
+    // },
     {
       text: ` Please keep an eye out for the pantropical spotted dolphin; it is the national animal here.`,
       animation: 'sword',
@@ -108,13 +108,13 @@ export default function Tuvalu() {
     useControls('orbit', {
       enablePan: true,
       // Polar angle
-      minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
+      minPolarAngle: { value: 1.13, min: 0, max: Math.PI / 2, step: 0.01 },
       maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
       // Azimuth
-      minAzimuthAngle: { value: -Math.PI * 0.4, min: 0, max: Math.PI / 4, step: 0.05 },
+      minAzimuthAngle: { value: -0.8, min: -1, max: Math.PI / 4, step: 0.05 },
       maxAzimuthAngle: { value: 0.54, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
       minDistance: { value: 3, min: 1, max: 10, step: 0.01 },
-      maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
+      maxDistance: { value: 8, min: 1, max: 50, step: 0.01 },
     })
 
   const { boatRotationX, boatRotationY, boatRotationZ, boatScale, boatPositionX, boatPositionY, boatPositionZ } =
@@ -122,22 +122,40 @@ export default function Tuvalu() {
       boatRotationX: { value: 0, min: -5, max: 5, step: 0.01 },
       boatRotationY: { value: -0.5, min: -5, max: 5, step: 0.01 },
       boatRotationZ: { value: 0, min: -5, max: 5, step: 0.01 },
-      boatScale: { value: 0.002, min: -0.15, max: 1, step: 0.01 },
-      boatPositionX: { value: 0, min: -2, max: 5, step: 0.01 },
-      boatPositionY: { value: -0.2, min: -5, max: 5, step: 0.01 },
+      boatScale: { value: 0.002, min: -0.0005, max: 1, step: 0.01 },
+      boatPositionX: { value: 0.21, min: -2, max: 5, step: 0.01 },
+      boatPositionY: { value: -0.1, min: -5, max: 5, step: 0.01 },
       boatPositionZ: { value: 0, min: -3, max: 4, step: 0.01 },
     })
 
   const { bunnyRotationX, bunnyRotationY, bunnyRotationZ, bunnyScale, bunnyPositionX, bunnyPositionY, bunnyPositionZ } =
     useControls('bunny', {
-      bunnyRotationX: { value: 0.2, min: -5, max: 10, step: 0.01 },
+      bunnyRotationX: { value: 0, min: -5, max: 10, step: 0.01 },
       bunnyRotationY: { value: 0, min: -5, max: 10, step: 0.01 },
       bunnyRotationZ: { value: 0, min: -5, max: 10, step: 0.01 },
       bunnyScale: { value: 0.12, min: 0.05, max: 1, step: 0.01 },
-      bunnyPositionX: { value: 0.18, min: -5, max: 10, step: 0.01 },
-      bunnyPositionY: { value: 0, min: -5, max: 10, step: 0.01 },
-      bunnyPositionZ: { value: 0.25, min: -5, max: 10, step: 0.01 },
+      bunnyPositionX: { value: 0.6, min: -5, max: 10, step: 0.01 },
+      bunnyPositionY: { value: 0.17, min: -5, max: 10, step: 0.01 },
+      bunnyPositionZ: { value: 0.3, min: -5, max: 10, step: 0.01 },
     })
+
+  const {
+    dolphinRotationX,
+    dolphinRotationY,
+    dolphinRotationZ,
+    dolphinScale,
+    dolphinPositionX,
+    dolphinPositionY,
+    dolphinPositionZ,
+  } = useControls('dolphin', {
+    dolphinRotationX: { value: 0.27, min: -5, max: 10, step: 0.01 },
+    dolphinRotationY: { value: 0.61, min: -5, max: 10, step: 0.01 },
+    dolphinRotationZ: { value: -0.2, min: -5, max: 10, step: 0.01 },
+    dolhinScale: { value: 0.001, min: 0.00001, max: 1, step: 0.00001 },
+    dolphinPositionX: { value: 8, min: -5, max: 10, step: 0.01 },
+    dolphinPositionY: { value: -11, min: -15, max: 10, step: 0.01 },
+    dolphinPositionZ: { value: -50, min: -100, max: 10, step: 0.01 },
+  })
 
   return (
     <>
@@ -167,7 +185,16 @@ export default function Tuvalu() {
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <Common />
         {currentIndex === dialogSteps.length - 1 && (
-          <Dolphin position={[8, -4, -40]} rotation={[0, -0.1, -0.1]} scale={0.1} />
+          // <Dolphin
+          //   position={[dolphinPositionX, dolphinPositionY, dolphinPositionZ]}
+          //   rotation={[dolphinRotationX, dolphinRotationY, dolphinRotationZ]}
+          //   scale={dolphinScale}
+          // />
+          <Dolphin
+            position={[dolphinPositionX, dolphinPositionY, dolphinPositionZ]}
+            rotation={[dolphinRotationX, dolphinRotationY, dolphinRotationZ]}
+            scale={0.08}
+          />
         )}
       </View>
       <BackButton />
