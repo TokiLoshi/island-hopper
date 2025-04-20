@@ -9,6 +9,7 @@ import BackButton from '@/components/dom/BackButton'
 import SpeechBubble from '@/components/dom/SpeechBubble'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
+import useStore from '@/store/globalStore'
 
 const Volcano = dynamic(() => import('@/components/canvas/Volcano').then((mod) => mod.Volcano), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -115,6 +116,13 @@ export default function Kilauea() {
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
+  const userAdventureMode = useStore((state) => state.adventureMode)
+  const markDestinationVisted = useStore((state) => state.markDestinationVisited)
+
+  useEffect(() => {
+    markDestinationVisted('kilauea')
+  }, [markDestinationVisted])
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -141,7 +149,7 @@ export default function Kilauea() {
         />
         <Common />
       </View>
-      <BackButton />
+      <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
       <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>

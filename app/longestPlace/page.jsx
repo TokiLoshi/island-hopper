@@ -9,6 +9,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import BackButton from '@/components/dom/BackButton'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
+import useStore from '@/store/globalStore'
 
 const Sign = dynamic(() => import('@/components/canvas/Sign').then((mod) => mod.Sign), { ssr: false })
 const Boombox = dynamic(() => import('@/components/canvas/Boombox').then((mod) => mod.Boombox), { ssr: false })
@@ -186,6 +187,13 @@ export default function LongestPlace() {
     thirdTextPositionZ: { value: 0.02, min: -5, max: 10, step: 0.01 },
   })
 
+  const userAdventureMode = useStore((state) => state.adventureMode)
+  const markDestinationVisted = useStore((state) => state.markDestinationVisited)
+
+  useEffect(() => {
+    markDestinationVisted('longestPlace')
+  }, [markDestinationVisted])
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -246,7 +254,7 @@ export default function LongestPlace() {
           <Common />
         </Suspense>
       </View>
-      <BackButton />
+      <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
       {/* <audio ref={audioRef} preload='auto' /> */}
       <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />

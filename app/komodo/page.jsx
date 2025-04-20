@@ -9,6 +9,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
+import useStore from '@/store/globalStore'
 
 const Dragon = dynamic(() => import('@/components/canvas/Dragon').then((mod) => mod.Dragon), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -110,6 +111,13 @@ export default function Komodo() {
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
+  const userAdventureMode = useStore((state) => state.adventureMode)
+  const markDestinationVisted = useStore((state) => state.markDestinationVisited)
+
+  useEffect(() => {
+    markDestinationVisted('komodo')
+  }, [markDestinationVisted])
+
   return (
     <>
       {/* <Suspense fallback={null}> */}
@@ -134,7 +142,7 @@ export default function Komodo() {
         <Common />
       </View>
       {/* </Suspense> */}
-      <BackButton />
+      <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
       <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>

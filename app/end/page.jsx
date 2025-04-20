@@ -1,6 +1,5 @@
 'use client'
-
-import StarterSpeech from '@/components/dom/StarterSpeech'
+import SpeechBubble from '@/components/dom/SpeechBubble'
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
@@ -27,20 +26,15 @@ const View = dynamic(() =>
   }),
 )
 
-export default function Page() {
+export default function End() {
   const dialogSteps = [
-    { text: `Welcome to Island Hopper! I'm, Nardina, and I'll be your guide today!`, animation: 'wave' },
-    { text: `Together we'll explore some interesting, and some less traveled places`, animation: 'duck' },
-    {
-      text: `Do you want to choose the locations yourself, or do you want a guided tour?`,
-      animation: 'idleHolding',
-    },
+    { text: `Thank you for joining on an adventure today! I hope you had fun`, animation: 'idleHold' },
+    { text: `See you next time`, animation: 'wave' },
   ]
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const currentDialog = dialogSteps[currentStepIndex]
   const [hasEnded, setHasEnded] = useState(false)
-  const [adventure, setAdventer] = useState('')
 
   const handleNextDialogue = () => {
     const nextIndex = currentStepIndex + 1
@@ -68,7 +62,7 @@ export default function Page() {
             <Common />
           </Suspense>
         </View>
-        <StarterSpeech text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
+        <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
       </div>
     </>
   )

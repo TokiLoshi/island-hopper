@@ -52,39 +52,43 @@ Voiceovers generated with eleven labs
 - [x] Add back Dialog to Kilauea
 - [x] Add Dialog to Tuvalu
 - [ ] Add animations to Tuvalu
+- [x] Install Zustand
+- [x] Add all maps
+- [x] Grammarly all the dialogs
+- [x] Generate voice overs with eleven labs
+- [x] Edit the voice over into clips with the dialog
+- [x] Get audio button to show next to the dialogs
+- [x] Add a play button next to each dialog
+- [x] Change dragon's colour in Komodo
+- [x] Add dialog and back button to Komodo
+- [x] Add Leva
+- [x] Add Bunny to home screen
+- [x] Fix orbit controls and positioning of maps
+- [x] Fix colour space
 
 ## Still to do
 
-- [ ] Add maps to Tuvalu
-- [ ] Add Maps to Komodo
-- [ ] Grammarly all the dialogs
-- [ ] Generate voice overs with eleven labs
-- [ ] Edit the voice over into clips with the dialog
-- [ ] Install Zustand
-- [ ] Set global state to whether user wants audio or not
-- [ ] Get audio button to show next to the dialogs
-- [ ] Toggle audio state
-- [ ] Add a play button next to each dialog
+- [ ] Finish rigging up the guided tour
+- [ ] Draw between the locations
+- [ ]
+- [ ] Add endscreen with bunny for when experience is done
+- [ ] Add custom items
+- [ ] Starting page - dialog, narration, add leva, make smaller (smaller and moved to text)
+- [ ] Set global state to whether user wants audio or not - needs to play
 - [ ] Generate play component to play the dialog passed in as props
+- [ ] Clean up animations
 - [ ] Animate the sprite for the Turtle so that it looks like it walks back and forth
+- [ ] Dolphin animation swim
+- [ ] Speed up animation on map
 - [ ] Add animations to onClicks for all models
-- [ ] Add dolphin
-
 - [ ] Add physics and make volcano explode in Kilauea
-- [ ] Change dragon's colour in Komodo
-- [ ] Add dialog and back button to Komodo
-- [ ] Fix animations on Komodo
-
-- [ ] Add other icons to world
-- [ ] Fix colour space
 - [ ] Fix design of buttons and dialogs
-- [ ] Add Leva
+- [ ] Add stinky breath to Komodo and add narration and animation [Komodos have infamously horrible, acrid, eye-wateringly bad breath, and for a good reason. Shreds of meat and viscera from previous meals tend to get stuck in those serrated teeth, making them prime breeding grounds for deadly bacteria.Jul 6, 2023](https://www.discovermagazine.com/planet-earth/what-is-so-interesting-about-the-komodo-dragon)
 - [ ] Add music and music interface
-- [ ] Add Bunny to home screen
+- [ ] Fix Galapagos positioning
+- [ ] Home page globe should spin faster
 - [ ] Fix for mobile
-- [ ] Fix orbit controls and positioning of maps
 - [ ] Add Perf
-- [ ] Add more interactivity
 - [ ] Improve Load Page
 - [ ] Fix Icons on scroll around the horizon
 - [ ] Dispose of items on fly to (they get in the way), shorten the animation

@@ -9,6 +9,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
+import useStore from '@/store/globalStore'
 
 const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -114,6 +115,13 @@ export default function Farralon() {
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
+  const userAdventureMode = useStore((state) => state.adventureMode)
+  const markDestinationVisted = useStore((state) => state.markDestinationVisited)
+
+  useEffect(() => {
+    markDestinationVisted('farallon')
+  }, [markDestinationVisted])
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -135,7 +143,7 @@ export default function Farralon() {
         />
         <Common />
       </View>
-      <BackButton />
+      <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
       <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>

@@ -9,6 +9,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
+import useStore from '@/store/globalStore'
 
 const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -109,14 +110,21 @@ export default function Gallapagos() {
       maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
     })
   const { rotationX, rotationY, rotationZ, scaleTurtle, positionX, positionY, positionZ } = useControls('turtle', {
-    positionX: { value: 0.74, min: -5, max: 5, step: 0.01 },
-    positionY: { value: 0, min: -5, max: 5, step: 0.01 },
+    positionX: { value: 1.12, min: -5, max: 5, step: 0.01 },
+    positionY: { value: -0.5, min: -5, max: 5, step: 0.01 },
     positionZ: { value: 0.0, min: -5, max: 5, step: 0.01 },
     scaleTurtle: { value: 0.08, min: -0.15, max: 1, step: 0.01 },
     rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
-    rotationY: { value: 0.5, min: -5, max: 5, step: 0.01 },
+    rotationY: { value: -1.1, min: -5, max: 5, step: 0.01 },
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
+
+  const userAdventureMode = useStore((state) => state.adventureMode)
+  const markDestinationVisted = useStore((state) => state.markDestinationVisited)
+
+  useEffect(() => {
+    markDestinationVisted('galapagos')
+  }, [markDestinationVisted])
 
   return (
     <>
@@ -144,7 +152,7 @@ export default function Gallapagos() {
         />
         <Common />
       </View>
-      <BackButton />
+      <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
       <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
     </>
