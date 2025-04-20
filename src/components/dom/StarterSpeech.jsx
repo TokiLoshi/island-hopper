@@ -17,6 +17,7 @@ export default function StarterSpeech({ text, onNext, hasEnded }) {
     // eslint-disable-next-line no-console
     console.log('User wants to be guided')
     setAdventureMode('guided')
+    router.push('/guided')
   }
 
   if (!text) return null
@@ -60,7 +61,7 @@ export default function StarterSpeech({ text, onNext, hasEnded }) {
             }}
             onClick={handleSolo}
           >
-            Choose my own adventure
+            I will choose!
           </button>
         </div>
       )}

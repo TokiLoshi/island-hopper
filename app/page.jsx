@@ -1,22 +1,3 @@
-// 'use client'
-
-// import dynamic from 'next/dynamic'
-
-// // const MapboxGlobe = dynamic(() => import('@/components/canvas/MapboxExample'), { ssr: false })
-// const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
-
-// const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-
-// export default function Page() {
-//   return (
-//     <>
-//       <div className='absolute left-0 top-0 size-full'>
-//         <MapboxGlobe />
-//       </div>
-//     </>
-//   )
-// }
-
 'use client'
 
 import StarterSpeech from '@/components/dom/StarterSpeech'
@@ -48,11 +29,11 @@ const View = dynamic(() =>
 
 export default function Page() {
   const dialogSteps = [
-    { text: `Welcome to Island Hopper! I'm your guide, Nardina!`, animation: 'wave' },
-    { text: `I'm here to show you around some interesting, and perhaps less traveled places`, animation: 'jump' },
+    { text: `Welcome to Island Hopper! I'm, Nardina, and I'll be your guide today!`, animation: 'wave' },
+    { text: `Together we'll explore some interesting, and some less traveled places`, animation: 'duck' },
     {
-      text: `To get started would you like to explore the map yourself, or would you like me to choose the locations for you?`,
-      animation: 'duck',
+      text: `Do you want to choose the locations yourself, or do you want a guided tour?`,
+      animation: 'idleHolding',
     },
   ]
 

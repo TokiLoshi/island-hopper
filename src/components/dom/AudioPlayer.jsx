@@ -110,8 +110,8 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
     <>
       <div
         onClick={togglePlayPause}
-        className='fixed bottom-4 md:bottom-8 lg:bottom-20 right-4 md:right-8 lg:right-20 z-50 m-2 rounded-full bg-black p-2 text-white cursor-pointer'
-        // className='fixed z-50 m-2 cursor-pointer rounded-full bg-black p-2 text-white bottom-4 right-4 md:bottom-8 md:right-8 lg:bottom-20 lg:right-20'
+        // className='fixed bottom-4 md:bottom-8 lg:bottom-20 right-4 md:right-8 lg:right-20 z-50 m-2 rounded-full bg-black p-2 text-white cursor-pointer'
+        className='fixed z-50 m-2 cursor-pointer rounded-full bg-black p-2 text-white bottom-4 right-4 md:bottom-8 md:right-8 lg:bottom-20 lg:right-20'
         style={{
           width: '50px',
           height: '50px',
