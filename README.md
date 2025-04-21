@@ -66,12 +66,12 @@ Voiceovers generated with eleven labs
 - [x] Fix orbit controls and positioning of maps
 - [x] Fix colour space
 - [x] Add endscreen with bunny for when experience is done
+- [x] Finish rigging up the guided tour
+- [x] Add custom items
 
 ## Still to do
 
-- [ ] Finish rigging up the guided tour
 - [ ] Draw between the locations
-- [ ] Add custom items
 - [ ] Starting page - dialog, narration, add leva, make smaller (smaller and moved to text)
 - [ ] Set global state to whether user wants audio or not - needs to play
 - [ ] Generate play component to play the dialog passed in as props

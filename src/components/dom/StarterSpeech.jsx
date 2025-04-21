@@ -49,7 +49,7 @@ export default function StarterSpeech({ text, onNext, hasEnded }) {
             }}
             onClick={handleGuided}
           >
-            Show me!
+            Show me
           </button>
           <button
             style={{
@@ -61,7 +61,7 @@ export default function StarterSpeech({ text, onNext, hasEnded }) {
             }}
             onClick={handleSolo}
           >
-            I will choose!
+            I will choose
           </button>
         </div>
       )}

@@ -4,6 +4,8 @@ import StarterSpeech from '@/components/dom/StarterSpeech'
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
+import { useControls } from 'leva'
+import AudioPlayer from '@/components/dom/AudioPlayer'
 
 const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -27,23 +29,31 @@ const View = dynamic(() =>
   }),
 )
 
+const rootDirectory = './voiceover/split/StartSpeech/Starter'
+const fileType = '.mp3'
+
 export default function Page() {
   const dialogSteps = [
-    { text: `Welcome to Island Hopper! I'm, Nardina, and I'll be your guide today!`, animation: 'wave' },
     {
-      text: `Together we'll explore some interesting, and some less traveled places and you'll meet some other interesting characters.`,
-      animation: 'duck',
+      text: `Welcome to Island Hopper! I'm Nardina, and I'll be your guide today!`,
+      animation: 'wave',
+      audioSrc: `${rootDirectory}1${fileType}`,
     },
     {
-      text: `Do you want to choose the locations yourself, or do you want a guided tour?`,
+      text: `Together, we'll explore interesting places and meet unique characters.`,
+      animation: 'yes',
+      audioSrc: `${rootDirectory}2${fileType}`,
+    },
+    {
+      text: `Would you like to choose your path or follow me on a guided tour?`,
       animation: 'idleHolding',
+      audioSrc: `${rootDirectory}3${fileType}`,
     },
   ]
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const currentDialog = dialogSteps[currentStepIndex]
   const [hasEnded, setHasEnded] = useState(false)
-  const [adventure, setAdventer] = useState('')
 
   const handleNextDialogue = () => {
     const nextIndex = currentStepIndex + 1
@@ -54,24 +64,56 @@ export default function Page() {
     }
   }
 
+  const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
+    useControls('orbit', {
+      enablePan: true,
+      // Polar angle
+      minPolarAngle: { value: 0.91, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      // Azimuth
+      minAzimuthAngle: { value: -1, min: -1, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: 0.94, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minDistance: { value: 7, min: 1, max: 10, step: 0.01 },
+      maxDistance: { value: 17, min: 1, max: 50, step: 0.01 },
+    })
+
+  const { rotationX, rotationY, rotationZ, scale, positionX, positionY, positionZ } = useControls('volcano', {
+    positionX: { value: -1.1, min: -5, max: 5, step: 0.01 },
+    positionY: { value: -1, min: -5, max: 5, step: 0.01 },
+    positionZ: { value: 0.8, min: -5, max: 5, step: 0.01 },
+    scale: { value: 0.4, min: -0.5, max: 1, step: 0.01 },
+    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+    rotationY: { value: 0.1, min: -5, max: 5, step: 0.01 },
+    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+  })
+
   return (
     <>
       <div className='absolute left-0 top-0 size-full'>
         <MapboxGlobe />
         <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
           <Suspense fallback={null}>
-            <OrbitControls />
+            <OrbitControls
+              enablePan={enablePan}
+              minPolarAngle={minPolarAngle}
+              maxPolarAngle={maxPolarAngle}
+              minAzimuthAngle={minAzimuthAngle}
+              maxAzimuthAngle={maxAzimuthAngle}
+              minDistance={minDistance}
+              maxDistance={maxDistance}
+            />
 
             <Bunny
-              position={[-0.6, -1, 0.8]}
-              scale={0.4}
-              rotation={[0, 0.1, 0]}
+              position={[positionX, positionY, positionZ]}
+              scale={scale}
+              rotation={[rotationX, rotationY, rotationZ]}
               currentAnimation={currentDialog.animation}
             />
             <Common />
           </Suspense>
         </View>
         <StarterSpeech text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
+        <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
       </div>
     </>
   )

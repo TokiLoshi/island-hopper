@@ -107,12 +107,12 @@ export default function Kilauea() {
       maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
     })
   const { rotationX, rotationY, rotationZ, scaleVolcano, positionX, positionY, positionZ } = useControls('volcano', {
-    positionX: { value: 0.2, min: -5, max: 5, step: 0.01 },
-    positionY: { value: 0.08, min: -5, max: 5, step: 0.01 },
-    positionZ: { value: 0.1, min: -5, max: 5, step: 0.01 },
-    scale: { value: 0.4, min: -0.5, max: 1, step: 0.01 },
+    positionX: { value: 0.62, min: -5, max: 5, step: 0.01 },
+    positionY: { value: 0.28, min: -5, max: 5, step: 0.01 },
+    positionZ: { value: 0.8, min: -5, max: 5, step: 0.01 },
+    scale: { value: 0.6, min: -0.5, max: 1, step: 0.01 },
     rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
-    rotationY: { value: 0.8, min: -5, max: 5, step: 0.01 },
+    rotationY: { value: 0.62, min: -5, max: 5, step: 0.01 },
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 

@@ -105,7 +105,7 @@ export default function Farralon() {
       minDistance: { value: 7, min: 1, max: 10, step: 0.01 },
       maxDistance: { value: 17, min: 1, max: 50, step: 0.01 },
     })
-  const { rotationX, rotationY, rotationZ, scaleShark, positionX, positionY, positionZ } = useControls('volcano', {
+  const { rotationX, rotationY, rotationZ, scaleShark, positionX, positionY, positionZ } = useControls('shark', {
     positionX: { value: 0.0, min: -5, max: 5, step: 0.01 },
     positionY: { value: 0.78, min: -5, max: 5, step: 0.01 },
     positionZ: { value: 0, min: -5, max: 5, step: 0.01 },

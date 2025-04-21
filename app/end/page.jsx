@@ -3,6 +3,8 @@ import SpeechBubble from '@/components/dom/SpeechBubble'
 import { OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
+import AudioPlayer from '@/components/dom/AudioPlayer'
+import { useControls } from 'leva'
 
 const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -27,9 +29,25 @@ const View = dynamic(() =>
 )
 
 export default function End() {
+  const rootDirectory = './voiceover/split/EndSpeech/End'
+  const fileType = '.mp3'
+
   const dialogSteps = [
-    { text: `Thank you for joining on an adventure today! I hope you had fun`, animation: 'idleHolding' },
-    { text: `See you next time`, animation: 'wave' },
+    {
+      text: `What an incredible journey we've had! From the volcanic Kilauea to the wild Dragons of Komodo to the sinking shores of Tuvalu.`,
+      animation: 'yes',
+      audioSrc: `${rootDirectory}1${fileType}`,
+    },
+    {
+      text: `We've faced the sharky seas of the Farallon Islands with Nelly and learned about the longest place name in the world.`,
+      animation: 'idleHolding',
+      audioSrc: `${rootDirectory}2${fileType}`,
+    },
+    {
+      text: `Thank you for island hopping with me today! I hope these adventures inspire you to learn more about our amazing world.`,
+      animation: 'wave',
+      audioSrc: `${rootDirectory}3${fileType}`,
+    },
   ]
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
@@ -45,24 +63,56 @@ export default function End() {
     }
   }
 
+  const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
+    useControls('orbit', {
+      enablePan: true,
+      // Polar angle
+      minPolarAngle: { value: 0.91, min: 0, max: Math.PI / 2, step: 0.01 },
+      maxPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: 2, step: 0.01 },
+      // Azimuth
+      minAzimuthAngle: { value: -1, min: -1, max: Math.PI / 4, step: 0.05 },
+      maxAzimuthAngle: { value: 0.94, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
+      minDistance: { value: 7, min: 1, max: 10, step: 0.01 },
+      maxDistance: { value: 17, min: 1, max: 50, step: 0.01 },
+    })
+
+  const { rotationX, rotationY, rotationZ, scale, positionX, positionY, positionZ } = useControls('volcano', {
+    positionX: { value: -1.1, min: -5, max: 5, step: 0.01 },
+    positionY: { value: -1, min: -5, max: 5, step: 0.01 },
+    positionZ: { value: 0.8, min: -5, max: 5, step: 0.01 },
+    scale: { value: 0.4, min: -0.5, max: 1, step: 0.01 },
+    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+    rotationY: { value: 0.1, min: -5, max: 5, step: 0.01 },
+    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+  })
+
   return (
     <>
       <div className='absolute left-0 top-0 size-full'>
         <MapboxGlobe />
         <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
           <Suspense fallback={null}>
-            <OrbitControls />
+            <OrbitControls
+              enablePan={enablePan}
+              minPolarAngle={minPolarAngle}
+              maxPolarAngle={maxPolarAngle}
+              minAzimuthAngle={minAzimuthAngle}
+              maxAzimuthAngle={maxAzimuthAngle}
+              minDistance={minDistance}
+              maxDistance={maxDistance}
+            />
 
             <Bunny
-              position={[-0.6, -1, 0.8]}
-              scale={0.4}
-              rotation={[0, 0.1, 0]}
+              position={[positionX, positionY, positionZ]}
+              scale={scale}
+              rotation={[rotationX, rotationY, rotationZ]}
               currentAnimation={currentDialog.animation}
             />
             <Common />
           </Suspense>
         </View>
         <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
+        <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
       </div>
     </>
   )
