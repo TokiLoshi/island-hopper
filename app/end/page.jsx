@@ -28,7 +28,7 @@ const View = dynamic(() =>
 
 export default function End() {
   const dialogSteps = [
-    { text: `Thank you for joining on an adventure today! I hope you had fun`, animation: 'idleHold' },
+    { text: `Thank you for joining on an adventure today! I hope you had fun`, animation: 'idleHolding' },
     { text: `See you next time`, animation: 'wave' },
   ]
 

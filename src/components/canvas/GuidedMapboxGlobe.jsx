@@ -27,7 +27,7 @@ export default function GuidedMapboxGlobe() {
   const nextDestination = getNextDestination()
   const nextLocationName = nextDestination ? nextDestination.name : null
   // eslint-disable-next-line no-console
-  console.log('next destination name: ', nextDestination)
+  // console.log('next destination name: ', nextDestination)
 
   const flyToLocation = (map, coordinates, locationName) => {
     spinEnabled.current = false
@@ -36,7 +36,7 @@ export default function GuidedMapboxGlobe() {
       zoom: 10,
       pitch: 60,
       bearing: 30,
-      duration: 5000,
+      duration: 3000,
       essential: true,
     }
     map.flyTo(flyToOptions)
@@ -67,12 +67,29 @@ export default function GuidedMapboxGlobe() {
         return
       }
 
+      let initialCenter = [-90, 40]
+
+      if (nextDestination) {
+        const nextLocationFeature = GEOJSON.features.find((feature) => {
+          let simpleName = feature.properties.name.toLowerCase()
+          if (feature.properties.name === 'Kīlauea') {
+            simpleName = 'kilauea'
+          } else if (feature.properties.name.startsWith('Taumata')) {
+            simpleName = 'longestPlace'
+          }
+          return simpleName === nextDestination.name
+        })
+        if (nextLocationFeature && nextLocationFeature.geometry.coordinates) {
+          initialCenter = nextLocationFeature.geometry.coordinates
+        }
+      }
+
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: 'mapbox://styles/mapbox/satellite-v9',
         projection: { name: 'globe' },
         zoom: 1.5,
-        center: [-90, 40],
+        center: initialCenter,
       })
 
       mapRef.current = map
@@ -155,19 +172,29 @@ export default function GuidedMapboxGlobe() {
 
           if (simpleMarkerName === nextLocationName) {
             const popUpContent = `
-            <div style="padding: 15px; text-align: center;">
-            <h2 style="margin-bottom: 10px;">Next Stop: ${marker.properties.name}</h2>
-            <button id="visit-${markerName.toLowerCase()}" style="background-color: #ff5733; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;" >Lets go!</button>
+            <div style="padding: 10px 20px; text-align: center; border-radius: 8px; background-color: rgba(255, 255, 255, 0); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); font-family: sans-serif;">
+              <h2 style="margin-bottom: 15px; margin-top: 5px; color: #333; ">Your next stop: ${marker.properties.name}</h2>
+              <button
+                id="visit-${markerName.toLowerCase()}"
+                style="background-color: #663399; color: white; solid 1px purple; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;"
+              >
+                Lets go!
+              </button>
             </div>`
 
-            const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true })
+            const popup = new mapboxgl.Popup({
+              offset: 25,
+              closeButton: true,
+              closeOnClick: true,
+              className: 'custom-mapbox-popup',
+            })
             popup.setHTML(popUpContent)
 
             const markerObj = new mapboxgl.Marker({
               element: el,
               anchor: 'bottom',
               rotationAlignment: 'horizon',
-              offset: [0, offsetY],
+              offset: [25, offsetY],
             })
               .setLngLat(marker.geometry.coordinates)
               .setPopup(popup)
@@ -185,8 +212,8 @@ export default function GuidedMapboxGlobe() {
             new mapboxgl.Marker({
               element: el,
               rotationAlignment: 'horizon',
-              anchor: 'bottom',
-              offset: [0, offsetY],
+              anchor: 'center',
+              offset: [25, offsetY],
             })
               .setLngLat(marker.geometry.coordinates)
               .addTo(mapRef.current)
@@ -222,7 +249,6 @@ export default function GuidedMapboxGlobe() {
         }
       }
     }
-    // eslint-disable-next-line
   }, [router, destinations, nextLocationName])
 
   return (

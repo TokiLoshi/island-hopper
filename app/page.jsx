@@ -30,7 +30,10 @@ const View = dynamic(() =>
 export default function Page() {
   const dialogSteps = [
     { text: `Welcome to Island Hopper! I'm, Nardina, and I'll be your guide today!`, animation: 'wave' },
-    { text: `Together we'll explore some interesting, and some less traveled places`, animation: 'duck' },
+    {
+      text: `Together we'll explore some interesting, and some less traveled places and you'll meet some other interesting characters.`,
+      animation: 'duck',
+    },
     {
       text: `Do you want to choose the locations yourself, or do you want a guided tour?`,
       animation: 'idleHolding',

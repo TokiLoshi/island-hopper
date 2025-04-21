@@ -5,6 +5,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { GEOJSON } from '@/data/islands'
 import { useRouter } from 'next/navigation'
+import useStore from '@/store/globalStore'
 
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
@@ -20,6 +21,8 @@ export default function MapboxExample() {
   const secondsPerRevolution = useRef(240)
   const maxSpinZoom = useRef(5)
   const slowSpinZoom = useRef(3)
+
+  const destinations = useStore((state) => state.destinations)
 
   const flyToLocation = (map, coordinates, locationName) => {
     spinEnabled.current = false
@@ -117,15 +120,20 @@ export default function MapboxExample() {
           el.style.cursor = 'pointer'
 
           const popUpContent = `
-          <div style="padding: 15px; text-align: center;>
-          <h2 style="margin-bottom: 10px;">${marker.properties.name}</h2>
+          <div style="padding: 10px 20px; text-align: center; border-radius: 8px; background-color: rgba(255, 255, 255, 0); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); font-family: sans-serif;">
+          <h2 style="margin-bottom: 15px; color: #333;">${marker.properties.name}</h2>
           <button id="visit-${marker.properties.name.toLowerCase()}"
-          style="background-color: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold;">
-          Visit
+          style="background-color: #663399; color: white; border: solid 1px mediumpurple; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;">
+          Lets visit!
           </button>
           <div>`
 
-          const popup = new mapboxgl.Popup({ offset: 25, closeButton: true, closeOnClick: true })
+          const popup = new mapboxgl.Popup({
+            offset: 25,
+            closeButton: true,
+            closeOnClick: true,
+            className: 'custom-mapbox-popup',
+          })
 
           popup.setHTML(popUpContent)
 
