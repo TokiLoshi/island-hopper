@@ -110,14 +110,31 @@ export default function MapboxExample() {
         })
 
         for (const marker of GEOJSON.features) {
+          const markerName = marker.properties.name
+          let simpleMarkerName = markerName.toLowerCase().replace(/\s+/g, '')
+          if (markerName === 'Kīlauea') {
+            simpleMarkerName = 'kilauea'
+          } else if (markerName.startsWith('Taumata')) {
+            simpleMarkerName = 'longestPlace'
+          }
+
+          const destination = destinations.find((dest) => dest.name === simpleMarkerName)
+
           const el = document.createElement('div')
           el.className = 'marker'
           const size = 50
           el.style.width = `${size}px`
           el.style.height = `${size}px`
-          el.style.backgroundImage = "url('https://docs.mapbox.com/mapbox-gl-js/assets/pin.svg')"
           el.style.backgroundSize = 'cover'
           el.style.cursor = 'pointer'
+          el.style.borderRadius = '50%'
+
+          if (destination && destination.visited) {
+            el.style.backgroundImage = `url(${marker.properties.markerImageVisited})`
+            el.style.opacity = '0.7'
+          } else {
+            el.style.backgroundImage = `url(${marker.properties.markerImageUnVisited})`
+          }
 
           const popUpContent = `
           <div style="padding: 10px 20px; text-align: center; border-radius: 8px; background-color: rgba(255, 255, 255, 0); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); font-family: sans-serif;">
