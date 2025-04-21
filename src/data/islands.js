@@ -5,6 +5,10 @@ export const GEOJSON = {
       type: 'Feature',
       properties: {
         name: 'Kīlauea',
+        markerImageVisited: '/markers/kilauea-visited.png',
+        markerImageUnVisited: '/markers/kilauea-unvisited.png',
+        markerImageNext: '/markers/kilauea-next.png',
+        iconSize: [50, 50],
       },
       geometry: {
         type: 'Point',
@@ -15,6 +19,10 @@ export const GEOJSON = {
       type: 'Feature',
       properties: {
         name: 'Komodo',
+        markerImageVisited: '/markers/komodo-visited.png',
+        markerImageUnVisited: '/markers/komodo-unvisited.png',
+        markerImageNext: '/markers/komodo-next.png',
+        iconSize: [50, 50],
       },
       geometry: {
         type: 'Point',
@@ -25,6 +33,10 @@ export const GEOJSON = {
       type: 'Feature',
       properties: {
         name: 'Farallon',
+        markerImageVisited: '/markers/farallon-visited.png',
+        markerImageUnVisited: '/markers/farallon-unvisited.png',
+        markerImageNext: '/markers/farallon-next.png',
+        iconSize: [50, 50],
       },
       geometry: {
         type: 'Point',
@@ -35,6 +47,10 @@ export const GEOJSON = {
       type: 'Feature',
       properties: {
         name: 'Galapagos',
+        markerImageVisited: '/markers/galapagos-visited.png',
+        markerImageUnVisited: '/markers/galapagos-unvisited.png',
+        markerImageNext: '/markers/galapagos-next.png',
+        iconSize: [50, 50],
       },
       geometry: {
         type: 'Point',
@@ -46,6 +62,10 @@ export const GEOJSON = {
       type: 'Feature',
       properties: {
         name: 'Tuvalu',
+        markerImageVisited: '/markers/tuvalu-visited.png',
+        markerImageUnVisited: '/markers/tuvalu-unvisited.png',
+        markerImageNext: '/markers/tuvalu-next.png',
+        iconSize: [50, 50],
       },
       geometry: {
         type: 'Point',
@@ -56,6 +76,9 @@ export const GEOJSON = {
       type: 'Feature',
       properties: {
         name: 'Taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu',
+        markerImageVisited: '/markers/longestPlace-visited.png',
+        markerImageUnVisited: '/markers/longestPlace-unvisited.png',
+        markerImageNext: '/markers/longestPlace-next.png',
       },
       geometry: {
         type: 'Point',

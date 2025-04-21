@@ -134,17 +134,23 @@ export default function GuidedMapboxGlobe() {
 
           const el = document.createElement('div')
           el.className = 'marker'
-          const size = 50
-          el.style.width = `${size}px`
-          el.style.height = `${size}px`
+          const size = marker.properties.iconSize || [50, 50]
+          el.style.width = `${size[0]}px`
+          el.style.height = `${size[0]}px`
           el.style.backgroundSize = 'cover'
           el.style.cursor = 'pointer'
+          el.style.borderRadius = '50%'
+
+          const offsetY = -size[1] / 2
 
           if (destination && destination.visited) {
-            el.style.backgroundImage = "url('https://docs.mapbox.com/mapbox-gl-js/assets/pin.svg')"
+            el.style.backgroundImage = `url(${marker.properties.markerImageVisited})`
             el.style.opacity = '0.7'
           } else if (simpleMarkerName === nextLocationName) {
-            el.style.backgroundImage = "url('https://docs.mapbox.com/mapbox-gl-js/assets/pin.svg')"
+            el.style.backgroundImage = `url(${marker.properties.markerImageNext})`
+            el.style.filter = 'hue-rotate(0deg)'
+          } else {
+            el.style.backgroundImage = `url(${marker.properties.markerImageUnVisited})`
           }
 
           if (simpleMarkerName === nextLocationName) {
@@ -159,8 +165,9 @@ export default function GuidedMapboxGlobe() {
 
             const markerObj = new mapboxgl.Marker({
               element: el,
+              anchor: 'bottom',
               rotationAlignment: 'horizon',
-              offset: [25, -size / 2],
+              offset: [0, offsetY],
             })
               .setLngLat(marker.geometry.coordinates)
               .setPopup(popup)
@@ -178,7 +185,8 @@ export default function GuidedMapboxGlobe() {
             new mapboxgl.Marker({
               element: el,
               rotationAlignment: 'horizon',
-              offset: [25, -size / 2],
+              anchor: 'bottom',
+              offset: [0, offsetY],
             })
               .setLngLat(marker.geometry.coordinates)
               .addTo(mapRef.current)
