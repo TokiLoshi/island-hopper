@@ -12,6 +12,8 @@ import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 
+const Dolphin2 = dynamic(() => import('@/components/canvas/Dolphin2').then((mod) => mod.Dolphin2), { ssr: false })
+console.log(`Dolphin2: `, Dolphin2)
 const Boat = dynamic(() => import('@/components/canvas/Boat').then((mod) => mod.Boat), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -140,22 +142,40 @@ export default function Tuvalu() {
       bunnyPositionZ: { value: 0.3, min: -5, max: 10, step: 0.01 },
     })
 
+  // const {
+  //   dolphinRotationX,
+  //   dolphinRotationY,
+  //   dolphinRotationZ,
+  //   dolphinScale,
+  //   dolphinPositionX,
+  //   dolphinPositionY,
+  //   dolphinPositionZ,
+  // } = useControls('dolphin', {
+  //   dolphinRotationX: { value: 0.27, min: -50, max: 50, step: 0.01 },
+  //   dolphinRotationY: { value: 0.61, min: -50, max: 50, step: 0.01 },
+  //   dolphinRotationZ: { value: -0.2, min: -50, max: 50, step: 0.01 },
+  //   dolhinScale: { value: 0.008, min: 0.00001, max: 1, step: 0.00001 },
+  //   dolphinPositionX: { value: 150, min: -850, max: 50, step: 0.01 },
+  //   dolphinPositionY: { value: -11, min: -850, max: 50, step: 0.01 },
+  //   dolphinPositionZ: { value: -450, min: -800, max: 50, step: 0.01 },
+  // })
+
   const {
-    dolphinRotationX,
-    dolphinRotationY,
-    dolphinRotationZ,
-    dolphinScale,
-    dolphinPositionX,
-    dolphinPositionY,
-    dolphinPositionZ,
-  } = useControls('dolphin', {
-    dolphinRotationX: { value: 0.27, min: -5, max: 10, step: 0.01 },
-    dolphinRotationY: { value: 0.61, min: -5, max: 10, step: 0.01 },
-    dolphinRotationZ: { value: -0.2, min: -5, max: 10, step: 0.01 },
-    dolhinScale: { value: 0.001, min: 0.00001, max: 1, step: 0.00001 },
-    dolphinPositionX: { value: 8, min: -5, max: 10, step: 0.01 },
-    dolphinPositionY: { value: -11, min: -15, max: 10, step: 0.01 },
-    dolphinPositionZ: { value: -50, min: -100, max: 10, step: 0.01 },
+    secondDolphinPositionX,
+    secondDolphinPositionY,
+    secondDolphinPositionZ,
+    secondDolphinRotationX,
+    secondDolphinRotationY,
+    secondDolphinRotationZ,
+    secondDolphinScale,
+  } = useControls('secondDolphin', {
+    secondDolphinPositionX: { value: 0, min: -20, max: 20, step: 0.01 },
+    secondDolphinPositionY: { value: -0.7, min: -20, max: 20, step: 0.01 },
+    secondDolphinPositionZ: { value: 0.7, min: -20, max: 20, step: 0.01 },
+    secondDolphinRotationX: { value: 0.9, min: -20, max: 20, step: 0.01 },
+    secondDolphinRotationY: { value: 0, min: -20, max: 20, step: 0.01 },
+    secondDolphinRotationZ: { value: 1.8, min: -20, max: 20, step: 0.01 },
+    secondDolphinScale: { value: 0.25, min: 0.01, max: 1, step: 0.01 },
   })
 
   const userAdventureMode = useStore((state) => state.adventureMode)
@@ -190,6 +210,7 @@ export default function Tuvalu() {
           rotation={[bunnyRotationX, bunnyRotationY, bunnyRotationZ]}
           currentAnimation={currentDialog.animation}
         />
+
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <Common />
         {currentIndex === dialogSteps.length - 1 && (
@@ -198,10 +219,15 @@ export default function Tuvalu() {
           //   rotation={[dolphinRotationX, dolphinRotationY, dolphinRotationZ]}
           //   scale={dolphinScale}
           // />
-          <Dolphin
-            position={[dolphinPositionX, dolphinPositionY, dolphinPositionZ]}
-            rotation={[dolphinRotationX, dolphinRotationY, dolphinRotationZ]}
-            scale={0.08}
+          // <Dolphin
+          //   initialPosition={[dolphinPositionX, dolphinPositionY, dolphinPositionZ]}
+          //   initialRotation={[dolphinRotationX, dolphinRotationY, dolphinRotationZ]}
+          //   scale={0.01}
+          // />
+          <Dolphin2
+            position={[secondDolphinPositionX, secondDolphinPositionY, secondDolphinPositionZ]}
+            rotation={[secondDolphinRotationX, secondDolphinRotationY, secondDolphinRotationZ]}
+            scale={secondDolphinScale}
           />
         )}
       </View>

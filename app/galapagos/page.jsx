@@ -138,32 +138,6 @@ export default function Gallapagos() {
     markDestinationVisted('galapagos')
   }, [markDestinationVisted])
 
-  // const { x, y } = useSpring({
-  //   from: {
-  //     x: turtlePositionX,
-  //     y: turtlePositionY,
-  //   },
-  //   to: [
-  //     {
-  //       x: 2,
-  //       y: -1,
-  //       delay: 500,
-  //     },
-  //     {
-  //       x: -2,
-  //       y: 0,
-  //       delay: 1500,
-  //     },
-  //   ],
-  //   config: {
-  //     mass: 4,
-  //     tension: 600,
-  //     friction: 80,
-  //   },
-  //   loop: true,
-  //   immediate: true,
-  // })
-
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -177,6 +151,7 @@ export default function Gallapagos() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
+
         <Turtle
           scale={0.07}
           initialPosition={[turtlePositionX, turtlePositionY, turtlePositionZ]}

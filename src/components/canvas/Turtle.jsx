@@ -9,28 +9,34 @@ import { animated, useSpring } from '@react-spring/three'
 export function Turtle({ initialPosition = [1.12, -0.5, 0], initialRotation = [0, -1.1, 0], ...props }) {
   const { nodes, materials } = useGLTF('/models/Turtle.glb')
 
-  const { x, y, z } = useSpring({
+  const { x, y } = useSpring({
     from: {
-      x: initialPosition[0],
-      y: initialPosition[1],
-      z: initialPosition[2],
+      x: initialRotation[0],
+      y: initialRotation[1],
+      z: initialRotation[2],
     },
     to: [
       {
-        x: Math.cos(initialPosition[0] * 0.01),
+        x: Math.sin(initialPosition[0] * 0.001),
         y: Math.sin(initialPosition[1] * 0.008),
-        z: Math.sin(initialPosition[2] * 0.05),
-        delay: 500,
+
+        delay: 200,
       },
       {
-        x: Math.cos(initialPosition[0] * 0.05),
-        y: Math.sin(initialPosition[1] * 0.001),
-        z: Math.sin(initialPosition[2] * 0.03),
+        x: -Math.sin(initialPosition[0] * 0.005),
+        y: -Math.sin(initialPosition[1] * 0.001),
+
+        delay: 200,
+      },
+      {
+        x: initialRotation[0],
+        y: initialRotation[1],
+        z: initialRotation[2],
         delay: 200,
       },
     ],
     config: {
-      mass: 400,
+      mass: 100,
       tension: 300,
       friction: 180,
     },
@@ -39,14 +45,19 @@ export function Turtle({ initialPosition = [1.12, -0.5, 0], initialRotation = [0
   })
 
   return (
-    <animated.group {...props} dispose={null} position-x={x} position-y={y}>
-      <mesh castShadow receiveShadow geometry={nodes['Node-Mesh'].geometry} material={materials.lambert5SG} />
-      <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_1'].geometry} material={materials.lambert3SG} />
-      <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_2'].geometry} material={materials.lambert4SG} />
-      <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_3'].geometry} material={materials.lambert6SG} />
-      <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_4'].geometry} material={materials.lambert2SG} />
-      <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_5'].geometry} material={materials.lambert7SG} />
-    </animated.group>
+    <>
+      <animated.group {...props} dispose={null} position={initialPosition} rotation-x={x} rotation-y={y}>
+        <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_1'].geometry} material={materials.lambert3SG} />
+
+        <mesh castShadow receiveShadow geometry={nodes['Node-Mesh'].geometry} material={materials.lambert5SG} />
+        <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_2'].geometry} material={materials.lambert4SG} />
+
+        <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_3'].geometry} material={materials.lambert6SG} />
+        <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_4'].geometry} material={materials.lambert2SG} />
+
+        <mesh castShadow receiveShadow geometry={nodes['Node-Mesh_5'].geometry} material={materials.lambert7SG} />
+      </animated.group>
+    </>
   )
 }
 
