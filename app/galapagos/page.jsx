@@ -10,6 +10,9 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
+import { animated, useSpring } from '@react-spring/three'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 
 const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -28,6 +31,7 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
     </div>
   ),
 })
+
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
@@ -109,14 +113,22 @@ export default function Gallapagos() {
       minDistance: { value: 3, min: 1, max: 10, step: 0.01 },
       maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
     })
-  const { rotationX, rotationY, rotationZ, scaleTurtle, positionX, positionY, positionZ } = useControls('turtle', {
-    positionX: { value: 1.12, min: -5, max: 5, step: 0.01 },
-    positionY: { value: -0.5, min: -5, max: 5, step: 0.01 },
-    positionZ: { value: 0.0, min: -5, max: 5, step: 0.01 },
-    scaleTurtle: { value: 0.08, min: -0.15, max: 1, step: 0.01 },
-    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
-    rotationY: { value: -1.1, min: -5, max: 5, step: 0.01 },
-    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+  const {
+    turtleRotationX,
+    turtleRotationY,
+    turtleRotationZ,
+    scaleTurtle,
+    turtlePositionX,
+    turtlePositionY,
+    turtlePositionZ,
+  } = useControls('turtle', {
+    turtlePositionX: { value: 1.12, min: -5, max: 5, step: 0.01 },
+    turtlePositionY: { value: -0.5, min: -5, max: 5, step: 0.01 },
+    turtlePositionZ: { value: 0.0, min: -5, max: 5, step: 0.01 },
+    scaleTurtle: { value: 0.07, min: -0.15, max: 1, step: 0.01 },
+    turtleRotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+    turtleRotationY: { value: -1.1, min: -5, max: 5, step: 0.01 },
+    turtleRotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
   const userAdventureMode = useStore((state) => state.adventureMode)
@@ -125,6 +137,32 @@ export default function Gallapagos() {
   useEffect(() => {
     markDestinationVisted('galapagos')
   }, [markDestinationVisted])
+
+  // const { x, y } = useSpring({
+  //   from: {
+  //     x: turtlePositionX,
+  //     y: turtlePositionY,
+  //   },
+  //   to: [
+  //     {
+  //       x: 2,
+  //       y: -1,
+  //       delay: 500,
+  //     },
+  //     {
+  //       x: -2,
+  //       y: 0,
+  //       delay: 1500,
+  //     },
+  //   ],
+  //   config: {
+  //     mass: 4,
+  //     tension: 600,
+  //     friction: 80,
+  //   },
+  //   loop: true,
+  //   immediate: true,
+  // })
 
   return (
     <>
@@ -140,10 +178,15 @@ export default function Gallapagos() {
           maxDistance={maxDistance}
         />
         <Turtle
-          scale={0.08}
-          position={[positionX, positionY, positionZ]}
-          rotation={[rotationX, rotationY, rotationZ]}
+          scale={0.07}
+          initialPosition={[turtlePositionX, turtlePositionY, turtlePositionZ]}
+          initialRotation={[turtleRotationX, turtleRotationY, turtleRotationZ]}
         />
+        {/* <animated.group position-x={x} position-y={y}>
+          <Turtle
+            scale={scaleTurtle}
+          />
+        </animated.group> */}
         <Bunny
           position={[-1.0, -1, -0.8]}
           scale={0.4}
