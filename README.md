@@ -68,29 +68,45 @@ Voiceovers generated with eleven labs
 - [x] Add endscreen with bunny for when experience is done
 - [x] Finish rigging up the guided tour
 - [x] Add custom items
+- [x] Starting page - dialog, narration, add leva, make smaller (smaller and moved to text)
+- [x] Speed up animation on map
 
 ## Still to do
 
-- [ ] Draw between the locations
-- [ ] Starting page - dialog, narration, add leva, make smaller (smaller and moved to text)
-- [ ] Set global state to whether user wants audio or not - needs to play
-- [ ] Generate play component to play the dialog passed in as props
-- [ ] Clean up animations
+#### Monday
+
 - [ ] Animate the sprite for the Turtle so that it looks like it walks back and forth
 - [ ] Dolphin animation swim
-- [ ] Speed up animation on map
-- [ ] Add animations to onClicks for all models
 - [ ] Add physics and make volcano explode in Kilauea
+- [ ] Add animations to onClicks for all models
+
+#### Tuesday
+
+- [ ] Draw between the locations
+
+#### Wednesday
+
+- [ ] Set global state to whether user wants audio or not - needs to play
+- [ ] Generate play component to play the dialog passed in as props
+
+#### Thursday
+
+- [ ] Clean up animations
+
+#### Friday / Saturday / Sunday
+
 - [ ] Fix design of buttons and dialogs
-- [ ] Add stinky breath to Komodo and add narration and animation [Komodos have infamously horrible, acrid, eye-wateringly bad breath, and for a good reason. Shreds of meat and viscera from previous meals tend to get stuck in those serrated teeth, making them prime breeding grounds for deadly bacteria.Jul 6, 2023](https://www.discovermagazine.com/planet-earth/what-is-so-interesting-about-the-komodo-dragon)
-- [ ] Add music and music interface
-- [ ] Fix Galapagos positioning
-- [ ] Home page globe should spin faster
+
+#### Monday
+
 - [ ] Fix for mobile
 - [ ] Add Perf
 - [ ] Improve Load Page
-- [ ] Fix Icons on scroll around the horizon
-- [ ] Dispose of items on fly to (they get in the way), shorten the animation
+- [ ] Add stinky breath to Komodo and add narration and animation [Komodos have infamously horrible, acrid, eye-wateringly bad breath, and for a good reason. Shreds of meat and viscera from previous meals tend to get stuck in those serrated teeth, making them prime breeding grounds for deadly bacteria.Jul 6, 2023](https://www.discovermagazine.com/planet-earth/what-is-so-interesting-about-the-komodo-dragon)
+
+#### Tuesday
+
+- [ ] Add more interactivity / shaders
 
 ## Islands
 
