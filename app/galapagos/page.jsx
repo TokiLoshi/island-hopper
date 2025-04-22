@@ -52,8 +52,33 @@ export default function Gallapagos() {
       zoom: 11,
       pitch: 60,
       antialias: true,
+      projection: 'globe',
     })
     mapRef.current = map
+    mapRef.current.on('style.load', () => {
+      const map = mapRef.current
+
+      map.setConfigProperty('basemap', 'lightPreset', 'dawn')
+
+      // use an expression to transition some properties between zoom levels 11 and 13, preventing visibility when zoomed out
+      const zoomBasedReveal = (value) => {
+        return ['interpolate', ['linear'], ['zoom'], 10, 0.0, 13, value]
+      }
+
+      map.setRain({
+        density: zoomBasedReveal(2.5),
+        intensity: 1.0,
+        color: '#a8adbc',
+        opacity: 0.7,
+        vignette: zoomBasedReveal(1.0),
+        'vignette-color': '#464646',
+        direction: [0, 80],
+        'droplet-size': [2.6, 18.2],
+        'distortion-strength': 0.7,
+        'center-thinning': 0, // Rain to be displayed on the whole screen area
+      })
+    })
+
     return () => {
       mapRef.current?.remove()
       mapRef.current = null
