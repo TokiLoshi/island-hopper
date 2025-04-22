@@ -45,11 +45,51 @@ export default function Tuvalu() {
       container: mapContainerRef.current,
       style: 'mapbox://sstyles/mapbox/satellite-streets-v12',
       center: [179.1059710111884, -8.529159314585927],
-      zoom: 12,
-      pitch: 50,
+      zoom: 13,
+      pitch: 55,
       antialias: true,
     })
+
     mapRef.current = map
+
+    map.on('load', () => {
+      map.setFog({
+        range: [-1, 2],
+        'horizon-blend': 0.3,
+        color: '#242B4B',
+        'high-color': '#161B36',
+        'space-color': '#0B1026',
+        'star-intensity': 0.8,
+      })
+
+      map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.terrain-rgb',
+        tileSize: 512,
+        maxzoom: 14,
+      })
+
+      map.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: 1.5,
+      })
+
+      let lastTime = 0.0
+      let animationTime = 0.0
+      const initialBearing = map.getBearing()
+      const ROTATION_SPEED = 2
+
+      function frame(time) {
+        const elapsedTime = (time - lastTime) / 1000.0
+        animationTime += elapsedTime
+        const rotation = initialBearing + animationTime * ROTATION_SPEED
+        map.setBearing(rotation % 360)
+        lastTime = time
+        window.requestAnimationFrame(frame)
+      }
+      window.requestAnimationFrame(frame)
+    })
+
     return () => {
       mapRef.current?.remove()
       mapRef.current = null
@@ -117,7 +157,7 @@ export default function Tuvalu() {
       minAzimuthAngle: { value: -0.8, min: -1, max: Math.PI / 4, step: 0.05 },
       maxAzimuthAngle: { value: 0.54, min: -Math.PI / 2, max: Math.PI / 2, step: 0.05 },
       minDistance: { value: 3, min: 1, max: 10, step: 0.01 },
-      maxDistance: { value: 8, min: 1, max: 50, step: 0.01 },
+      maxDistance: { value: 5, min: 1, max: 50, step: 0.01 },
     })
 
   const { boatRotationX, boatRotationY, boatRotationZ, boatScale, boatPositionX, boatPositionY, boatPositionZ } =
@@ -172,8 +212,8 @@ export default function Tuvalu() {
     secondDolphinPositionX: { value: 0, min: -20, max: 20, step: 0.01 },
     secondDolphinPositionY: { value: -0.7, min: -20, max: 20, step: 0.01 },
     secondDolphinPositionZ: { value: 0.7, min: -20, max: 20, step: 0.01 },
-    secondDolphinRotationX: { value: 0.9, min: -20, max: 20, step: 0.01 },
-    secondDolphinRotationY: { value: 0, min: -20, max: 20, step: 0.01 },
+    secondDolphinRotationX: { value: -4.7, min: -20, max: 20, step: 0.01 },
+    secondDolphinRotationY: { value: -1.4, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationZ: { value: 1.8, min: -20, max: 20, step: 0.01 },
     secondDolphinScale: { value: 0.25, min: 0.01, max: 1, step: 0.01 },
   })

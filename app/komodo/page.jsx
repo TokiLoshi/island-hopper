@@ -73,7 +73,7 @@ export default function Komodo() {
       let lastTime = 0.0
       let animationTime = 0.0
       const initialBearing = map.getBearing()
-      const ROTATION_SPEED = 0.5
+      const ROTATION_SPEED = 2
 
       function frame(time) {
         const elapsedTime = (time - lastTime) / 1000.0

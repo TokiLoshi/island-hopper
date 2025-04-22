@@ -115,7 +115,7 @@ Voiceovers generated with eleven labs
 
 #### Monday 28 April
 
-- [ ] Fireworks shader for the end
+- [ ] Fireworks shader for the end- colours with all the country flags
 - [ ] Performances
 - [ ] Work on mobile
 

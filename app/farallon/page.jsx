@@ -41,11 +41,51 @@ export default function Farralon() {
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
       center: [-123.00324509041576, 37.69792596395471],
-      zoom: 13,
-      pitch: 50,
+      zoom: 11.5,
+      pitch: 55,
       antialias: true,
     })
     mapRef.current = map
+
+    map.on('load', () => {
+      map.setFog({
+        range: [-1, 2],
+        'horizon-blend': 0.3,
+        color: '#242B4B',
+        'high-color': '#161B36',
+        'space-color': '#0B1026',
+        'star-intensity': 0.8,
+      })
+
+      map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.terrain-rgb',
+        tileSize: 512,
+        maxzoom: 14,
+      })
+
+      map.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: 0.5,
+      })
+
+      let lastTime = 0.0
+      let animationTime = 0.0
+      const initialBearing = map.getBearing()
+      const ROTATION_SPEED = 1.25
+
+      function frame(time) {
+        const elapsedTime = (time - lastTime) / 1000.0
+        animationTime += elapsedTime
+        const rotation = initialBearing + animationTime * ROTATION_SPEED
+        map.setBearing(rotation % 360)
+        lastTime = time
+        window.requestAnimationFrame(frame)
+      }
+      window.requestAnimationFrame(frame)
+      // })
+    })
+
     return () => {
       mapRef.current?.remove()
       mapRef.current = null
