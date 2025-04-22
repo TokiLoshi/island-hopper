@@ -1,6 +1,6 @@
 'use client'
 
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Plane } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useRef, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
@@ -10,8 +10,25 @@ import SpeechBubble from '@/components/dom/SpeechBubble'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
+import { RigidBody, Physics, CuboidCollider } from '@react-three/rapier'
 
-const Volcano = dynamic(() => import('@/components/canvas/Volcano').then((mod) => mod.Volcano), { ssr: false })
+import { useGLTF } from '@react-three/drei'
+import { Suspense } from 'react'
+
+function Volcano(props) {
+  const { nodes, materials } = useGLTF('/models/Volcano.glb')
+  return (
+    <Suspense fallback='null'>
+      <group {...props} dispose={null}>
+        <mesh castShadow receiveShadow geometry={nodes.volcano.geometry} material={materials.None} />
+      </group>
+    </Suspense>
+  )
+}
+
+useGLTF.preload('/models/Volcano.glb')
+
+// const Volcano = dynamic(() => import('@/components/canvas/Volcano').then((mod) => mod.Volcano), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -116,6 +133,16 @@ export default function Kilauea() {
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
+  const { floorPositionX, floorPositionY, floorPositionZ, floorRotationX, floorRotationY, floorRotationZ } =
+    useControls('floor', {
+      floorPositionX: { value: 0.53, min: -5, max: 5, step: 0.01 },
+      floorPositionY: { value: -0.1, min: -5, max: 5, step: 0.01 },
+      floorPositionZ: { value: 0.66, min: -5, max: 5, step: 0.01 },
+      floorRotationX: { value: 0, min: -5, max: 5, step: 0.01 },
+      floorRotationY: { value: -Math.PI, min: -5, max: 5, step: 0.01 },
+      floorRotationZ: { value: 0, min: -5, max: 5, step: 0.01 },
+    })
+
   const userAdventureMode = useStore((state) => state.adventureMode)
   const markDestinationVisted = useStore((state) => state.markDestinationVisited)
 
@@ -136,11 +163,44 @@ export default function Kilauea() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
-        <Volcano
-          position={[positionX, positionY, positionZ]}
-          rotation={[rotationX, rotationY, rotationZ]}
-          scale={scaleVolcano}
-        />
+        <Physics debug gravity={[0, -9.81, 0]}>
+          <RigidBody colliders='ball' position={[0.5, 2, 1]} restitution={0.7} mass={1}>
+            <mesh>
+              <sphereGeometry args={[0.3]} />
+              <meshStandardMaterial color='orange' />
+            </mesh>
+          </RigidBody>
+
+          <RigidBody type='fixed' colliders='trimesh'>
+            <Volcano
+              position={[positionX, positionY, positionZ]}
+              rotation={[rotationX, rotationY, rotationZ]}
+              scale={scaleVolcano}
+            />
+          </RigidBody>
+
+          <RigidBody type='fixed'>
+            <CuboidCollider
+              args={[0.1, 0.5, 1.1]}
+              rotation={[-Math.PI, 0, 0]}
+              position={[floorPositionX - 1.2, floorPositionY, floorPositionZ]}
+            />
+            <CuboidCollider
+              args={[0.1, 0.5, 1.1]}
+              rotation={[Math.PI, 0, 0]}
+              position={[floorPositionX + 1.2, floorPositionY, floorPositionZ]}
+            />
+            <CuboidCollider args={[1.1, 0.5, 0.1]} position={[floorPositionX, floorPositionY, floorPositionZ + 1.2]} />
+            <CuboidCollider args={[1.1, 0.5, 0.1]} position={[floorPositionX, floorPositionY, floorPositionZ - 1.2]} />
+            <mesh
+              position={[floorPositionX, floorPositionY, floorPositionZ]}
+              rotation={[floorRotationX, floorRotationY, floorRotationZ]}
+            >
+              <boxGeometry args={[2.2, 0.1, 2.2]} />
+              <meshStandardMaterial color='mediumpurple' />
+            </mesh>
+          </RigidBody>
+        </Physics>
         <Bunny
           position={[-1.4, -1, -0.8]}
           scale={0.4}

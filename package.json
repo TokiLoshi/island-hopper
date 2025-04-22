@@ -21,6 +21,7 @@
     "@react-spring/three": "~9.7.5",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.12",
+    "@react-three/rapier": "1.5",
     "glsl-random": "^0.0.5",
     "leva": "^0.10.0",
     "lucide-react": "^0.488.0",
