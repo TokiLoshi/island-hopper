@@ -67,6 +67,45 @@ export default function Kilauea() {
     // map.addControl(new mapboxgl.NavigationControl(), 'top-right')
     mapRef.current = map
 
+    map.on('load', () => {
+      map.setFog({
+        range: [-1, 2],
+        'horizon-blend': 0.3,
+        color: '#242B4B',
+        'high-color': '#161B36',
+        'space-color': '#0B1026',
+        'star-intensity': 0.8,
+      })
+
+      map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.terrain-rgb',
+        tileSize: 512,
+        maxzoom: 14,
+      })
+
+      map.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: 1.5,
+      })
+
+      let lastTime = 0.0
+      let animationTime = 0.0
+      const initialBearing = map.getBearing()
+      const ROTATION_SPEED = 0.75
+
+      function frame(time) {
+        const elapsedTime = (time - lastTime) / 1000.0
+        animationTime += elapsedTime
+        const rotation = initialBearing + animationTime * ROTATION_SPEED
+        map.setBearing(rotation % 360)
+        lastTime = time
+        window.requestAnimationFrame(frame)
+      }
+      window.requestAnimationFrame(frame)
+      // })
+    })
+
     return () => {
       mapRef.current?.remove()
       mapRef.current = null

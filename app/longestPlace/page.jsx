@@ -58,18 +58,65 @@ export default function LongestPlace() {
       zoom: 12,
       pitch: 55,
       antialias: true,
+      globe: true,
     })
 
     mapRef.current = map
+
+    mapRef.current.on('style.load', () => {
+      const map = mapRef.current
+
+      map.setConfigProperty('basemap', 'lightPreset', 'dawn')
+
+      // use an expression to transition some properties between zoom levels 11 and 13, preventing visibility when zoomed out
+      const zoomBasedReveal = (value) => {
+        return ['interpolate', ['linear'], ['zoom'], 10, 0.0, 14, value]
+      }
+
+      map.setSnow({
+        density: zoomBasedReveal(0.85),
+        intensity: 1.0,
+        'center-thinning': 0.1,
+        direction: [0, 50],
+        opacity: 1.0,
+        color: '#ffffff',
+        'flake-size': 0.71,
+        vignette: zoomBasedReveal(0.3),
+        'vignette-color': '#ffffff',
+      })
+      map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.terrain-rgb',
+        tileSize: 512,
+        maxzoom: 14,
+      })
+
+      map.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: 0.5,
+      })
+
+      let lastTime = 0.0
+      let animationTime = 0.0
+      const initialBearing = map.getBearing()
+      const ROTATION_SPEED = 1.0
+
+      function frame(time) {
+        const elapsedTime = (time - lastTime) / 1000.0
+        animationTime += elapsedTime
+        const rotation = initialBearing + animationTime * ROTATION_SPEED
+        map.setBearing(rotation % 360)
+        lastTime = time
+        window.requestAnimationFrame(frame)
+      }
+      window.requestAnimationFrame(frame)
+    })
+
     return () => {
       mapRef.current?.remove()
       mapRef.current = null
     }
   }, [])
-
-  // ,
-  // ."
-  //
 
   const rootDirectory = './voiceover/split/NardinaLongestPlace/NardinaLongestPlace'
   const fileType = '.mp3'
