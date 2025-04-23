@@ -42,7 +42,7 @@ export default function Farralon() {
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
       center: [-123.00324509041576, 37.69792596395471],
       zoom: 11.5,
-      pitch: 55,
+      pitch: 50,
       antialias: true,
     })
     mapRef.current = map
@@ -177,7 +177,7 @@ export default function Farralon() {
         />
         <Shark
           currentAnimation={currentDialog.animation}
-          scale={scaleShark}
+          scale={0.8}
           position={[positionX, positionY, positionZ]}
           rotation={[rotationX, rotationY, rotationZ]}
         />

@@ -111,7 +111,7 @@ Voiceovers generated with eleven labs
 - [ ] Add bloom to BoomBox and Noise on Play
 - [ ] Fix UI
 - [ ] Water Shader to galapagos, tuvalu
-- [ ] Bubbles shader to Farallon
+- [ ] Bubbles shader to Farallon or [caustics](https://drei.docs.pmnd.rs/staging/caustics)
 
 #### Monday 28 April
 
