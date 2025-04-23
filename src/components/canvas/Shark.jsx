@@ -94,8 +94,8 @@ export function Shark({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {
   }, [currentAnimation, actions, isClicked])
 
   const handleClick = (event) => {
-    // eslint-disable-next-line no-console
     event.stopPropagation()
+    // eslint-disable-next-line no-console
     console.log('Clicked')
 
     setIsClicked(true)
