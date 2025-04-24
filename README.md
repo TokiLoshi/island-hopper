@@ -72,25 +72,24 @@ Voiceovers generated with eleven labs
 - [x] Speed up animation on map
 - [x] Animate the sprite for the Turtle so that it looks like it walks back and forth
 - [x] Dolphin animation swim
+- [x] Add Rain to the Galapagos [mapbox](https://docs.mapbox.com/mapbox-gl-js/example/rain/)
+- [x] Experiment with different Pitches from this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/switch-symbol-style-pitch/)
 
 ## Still to do
 
-#### Tuesday 22 April
-
-- [x] Add Rain to the Galapagos [mapbox](https://docs.mapbox.com/mapbox-gl-js/example/rain/)
-- [ ] Add physics and make volcano explode in Kilauea
-- [ ] Experiment with different Pitches from this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/switch-symbol-style-pitch/)
-
 #### Wednesday 23 April
 
-- [ ] Add animations to onClicks for all models
+- [x] Add animations to onClicks for all models
+- [x] Add bloom to BoomBox
+- [ ] Add starter overlay and work on volume controls
+
+#### Thursday 24 April
+
+- [ ] Add physics and make volcano explode in Kilauea
 - [ ] Draw between the locations (free to explore - store the route in Zustand)
 - [ ] Use this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/line-pattern/) for drawing lines or an ant path [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/animate-ant-path/) or through [line animation](https://docs.mapbox.com/mapbox-gl-js/example/animate-a-line/)
 - [ ] Measure distances and add total km to end voiceover
 - [ ] Review the different satellite [options](https://docs.mapbox.com/api/maps/styles/)
-
-#### Thursday 24 April
-
 - [ ] Loading screen for starter - fix volume across app pages global volume
 - [ ] Smoke Shader for Kilauea
 
@@ -98,8 +97,6 @@ Voiceovers generated with eleven labs
 
 - [ ] Add part about stinky breath to Komodo [Komodos have infamously horrible, acrid, eye-wateringly bad breath, and for a good reason. Shreds of meat and viscera from previous meals tend to get stuck in those serrated teeth, making them prime breeding grounds for deadly bacteria.Jul 6, 2023](https://www.discovermagazine.com/planet-earth/what-is-so-interesting-about-the-komodo-dragon)
 - [ ] Last frame add a lizard model and shader to represent the stinky breath
-- [ ] Explore adding video to some of the overlays [mapbox](https://docs.mapbox.com/mapbox-gl-js/example/video-on-a-map/)
-- [ ] Explore improving map with animation on map is that even possible? [mapbox](https://docs.mapbox.com/mapbox-gl-js/example/add-fog/)
 
 #### Saturday 26 April
 
@@ -108,7 +105,6 @@ Voiceovers generated with eleven labs
 #### Sunday 27 April
 
 - [ ] Water shader for Tuvalu to rise when Dolphin arrives
-- [ ] Add bloom to BoomBox and Noise on Play
 - [ ] Fix UI
 - [ ] Water Shader to galapagos, tuvalu
 - [ ] Bubbles shader to Farallon or [caustics](https://drei.docs.pmnd.rs/staging/caustics)
