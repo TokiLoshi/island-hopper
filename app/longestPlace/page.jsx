@@ -10,6 +10,9 @@ import BackButton from '@/components/dom/BackButton'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
+import { Bloom, EffectComposer, ToneMapping, Vignette } from '@react-three/postprocessing'
+import { ToneMappingMode } from 'postprocessing'
+import { DirectionalLight } from 'three'
 
 const Sign = dynamic(() => import('@/components/canvas/Sign').then((mod) => mod.Sign), { ssr: false })
 const Boombox = dynamic(() => import('@/components/canvas/Boombox').then((mod) => mod.Boombox), { ssr: false })
@@ -230,7 +233,7 @@ export default function LongestPlace() {
 
   const { thirdTextPositionX, thirdTextPositionY, thirdTextPositionZ } = useControls('third text', {
     thirdTextPositionX: { value: 0, min: -5, max: 10, step: 0.01 },
-    thirdTextPositionY: { value: 0.8, min: -5, max: 10, step: 0.01 },
+    thirdTextPositionY: { value: 0.83, min: -5, max: 10, step: 0.01 },
     thirdTextPositionZ: { value: 0.02, min: -5, max: 10, step: 0.01 },
   })
 
@@ -284,7 +287,9 @@ export default function LongestPlace() {
               {cleanedThird}
             </Text>
           </group>
+
           <Sign position={[signPositionX, signPositionY, signPositionZ]} scale={signScale} />
+
           <Boombox
             scale={boomboxScale}
             position={[boomboxPositionX, boomboxPositionY, boomboxPositionZ]}
@@ -292,12 +297,17 @@ export default function LongestPlace() {
             onPointerEnter={() => (document.body.style.cursor = 'pointer')}
             onPointerLeave={() => (document.body.style.cursor = 'default')}
           />
+
           <Bunny
             position={[bunnyPositionX, bunnyPositionY, bunnyPositionZ]}
             scale={bunnyScale}
             rotation={[bunnyRotationX, bunnyRotationY, bunnyRotationZ]}
             currentAnimation={currentDialog.animation}
           />
+          <EffectComposer>
+            <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+            <Bloom luminanceThreshold={0.7} luminanceSmoothing={0.9} intensity={1.5} mipmapBlur />
+          </EffectComposer>
           <Common />
         </Suspense>
       </View>
