@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
 import { useControls } from 'leva'
 import AudioPlayer from '@/components/dom/AudioPlayer'
+import AudioConsent from '@/components/dom/AudioConsent'
+import useStore from '@/store/globalStore'
 
 const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -87,6 +89,8 @@ export default function Page() {
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
+  const { audioEnabled, userInteracted } = useStore()
+
   return (
     <>
       <div className='absolute left-0 top-0 size-full'>
@@ -113,7 +117,8 @@ export default function Page() {
           </Suspense>
         </View>
         <StarterSpeech text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
-        <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
+        {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
+        {!userInteracted && <AudioConsent />}
       </div>
     </>
   )

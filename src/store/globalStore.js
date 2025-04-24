@@ -10,7 +10,11 @@ const useStore = create((set, get) => ({
     { name: 'tuvalu', visited: false },
   ],
   adventureMode: 'solo',
+  audioEnabled: false,
+  backgroundMusicEnabled: false,
+  userInteracted: false,
 
+  // Destinations
   setAdventureState: (adventureChoice) => set({ adventureMode: adventureChoice }),
   markDestinationVisited: (visitedName) =>
     set((state) => {
@@ -33,6 +37,11 @@ const useStore = create((set, get) => ({
     const { destinations } = get()
     return destinations.filter((dest) => dest.visited)
   },
+
+  // Audio
+  setAudioEnabled: (enabled) => set({ audioEnabled: enabled }),
+  setBackgroundMusicEnabled: (enabled) => set({ backgroundMusicEnabled: enabled }),
+  setUserInteracted: () => set({ userInteracted: true }),
 }))
 
 export default useStore
