@@ -201,7 +201,7 @@ export default function LongestPlace() {
     boomboxRotationX: { value: 0, min: -5, max: 10, step: 0.01 },
     boomboxRotationY: { value: -0.3, min: -5, max: 10, step: 0.01 },
     boomboxRotationZ: { value: 0, min: -5, max: 10, step: 0.01 },
-    boomboxScale: { value: 0.35, min: -5, max: 2, step: 0.01 },
+    boomboxScale: { value: 0.6, min: -5, max: 2, step: 0.01 },
     boomboxPositionX: { value: 1, min: -5, max: 10, step: 0.01 },
     boomboxPositionY: { value: -0.8, min: -5, max: 10, step: 0.01 },
     boomboxPositionZ: { value: 0.5, min: -5, max: 10, step: 0.01 },
