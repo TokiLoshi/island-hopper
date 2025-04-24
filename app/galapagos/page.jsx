@@ -52,6 +52,7 @@ export default function Gallapagos() {
       projection: 'globe',
     })
     mapRef.current = map
+
     mapRef.current.on('style.load', () => {
       const map = mapRef.current
 
@@ -74,6 +75,32 @@ export default function Gallapagos() {
         'distortion-strength': 0.7,
         'center-thinning': 0, // Rain to be displayed on the whole screen area
       })
+
+      map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.terrain-rgb',
+        tileSize: 512,
+        maxzoom: 14,
+      })
+      map.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: 1.5,
+      })
+
+      let lastTime = 0.0
+      let animationTime = 0.0
+      const initialBearing = map.getBearing()
+      const ROTATION_SPEED = 1.75
+
+      function frame(time) {
+        const elapsedTime = (time - lastTime) / 1000.0
+        animationTime += elapsedTime
+        const rotation = initialBearing + animationTime * ROTATION_SPEED
+        map.setBearing(rotation % 360)
+        lastTime = time
+        window.requestAnimationFrame(frame)
+      }
+      window.requestAnimationFrame(frame)
     })
 
     return () => {
