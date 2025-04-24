@@ -8,6 +8,7 @@ import { useControls } from 'leva'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import AudioConsent from '@/components/dom/AudioConsent'
 import useStore from '@/store/globalStore'
+import BackgroundAudio from '@/components/dom/BackgroundAudio'
 
 const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -89,7 +90,8 @@ export default function Page() {
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
-  const { audioEnabled, userInteracted } = useStore()
+  const { audioEnabled, userInteracted, backgroundMusicEnabled } = useStore()
+  const musicPath = '/backgroundMusic/vibing-chill-lofi-royalty-free-music-318954.mp3'
 
   return (
     <>
@@ -118,6 +120,7 @@ export default function Page() {
         </View>
         <StarterSpeech text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
         {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
+        {audioEnabled && <BackgroundAudio audioFilePath={musicPath} />}
         {!userInteracted && <AudioConsent />}
       </div>
     </>

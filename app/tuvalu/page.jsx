@@ -13,7 +13,7 @@ import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 
 const Dolphin2 = dynamic(() => import('@/components/canvas/Dolphin2').then((mod) => mod.Dolphin2), { ssr: false })
-console.log(`Dolphin2: `, Dolphin2)
+
 const Boat = dynamic(() => import('@/components/canvas/Boat').then((mod) => mod.Boat), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
