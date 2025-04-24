@@ -6,6 +6,7 @@ import { Suspense, useState } from 'react'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
+import BackgroundAudio from '@/components/dom/BackgroundAudio'
 
 const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -88,6 +89,7 @@ export default function End() {
   })
 
   const { audioEnabled } = useStore()
+  const musicPath = '/backgroundMusic/whip-afro-dancehall-music-110235.mp3'
 
   return (
     <>
@@ -116,6 +118,7 @@ export default function End() {
         </View>
         <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
         {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
+        {audioEnabled && <BackgroundAudio audioFilePath={musicPath} />}
       </div>
     </>
   )

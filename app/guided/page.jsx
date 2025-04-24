@@ -7,7 +7,7 @@ import BackgroundAudio from '@/components/dom/BackgroundAudio'
 const GuidedMapboxGlobe = dynamic(() => import('@/components/canvas/GuidedMapboxGlobe'), { ssr: false })
 
 export default function GuidedPage() {
-  const { audioEnabled, userInteracted, backgroundMusicEnabled } = useStore()
+  const { audioEnabled } = useStore()
   const musicPath = '/backgroundMusic/vibing-chill-lofi-royalty-free-music-318954.mp3'
 
   return (
