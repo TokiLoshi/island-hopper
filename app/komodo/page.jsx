@@ -158,6 +158,8 @@ export default function Komodo() {
     markDestinationVisted('komodo')
   }, [markDestinationVisted])
 
+  const { audioEnabled } = useStore()
+
   return (
     <>
       {/* <Suspense fallback={null}> */}
@@ -184,7 +186,7 @@ export default function Komodo() {
       {/* </Suspense> */}
       <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} hasEnded={hasEnded} onNext={handleNextDialog} />
-      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
+      {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
     </>
   )
 }

@@ -244,6 +244,8 @@ export default function LongestPlace() {
     markDestinationVisted('longestPlace')
   }, [markDestinationVisted])
 
+  const { audioEnabled } = useStore()
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -314,7 +316,7 @@ export default function LongestPlace() {
       <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
       {/* <audio ref={audioRef} preload='auto' /> */}
-      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
+      {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
     </>
   )
 }

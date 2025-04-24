@@ -187,6 +187,8 @@ export default function Gallapagos() {
     markDestinationVisted('galapagos')
   }, [markDestinationVisted])
 
+  const { audioEnabled } = useStore()
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -221,7 +223,7 @@ export default function Gallapagos() {
       </View>
       <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
-      <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />
+      {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
     </>
   )
 }
