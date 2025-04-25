@@ -134,7 +134,6 @@ export default function GuidedMapboxGlobe() {
 
         for (const marker of GEOJSON.features) {
           const markerName = marker.properties.name
-
           let simpleMarkerName = markerName.toLowerCase().replace(/\s+/g, '')
 
           if (markerName === 'Kīlauea') {
@@ -174,13 +173,15 @@ export default function GuidedMapboxGlobe() {
 
           if (simpleMarkerName === nextLocationName) {
             const popUpContent = `
-            <div style="padding: 10px 20px; text-align: center; border-radius: 8px; background-color: rgba(255, 255, 255, 0); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); font-family: sans-serif;">
-              <h2 style="margin-bottom: 15px; margin-top: 5px; color: #333; ">Your next stop: ${marker.properties.name}</h2>
+            <div >
+              <h2>Your next stop:</h2>
+              <h2>${marker.properties.name}</h2>
               <button
                 id="visit-${markerName.toLowerCase()}"
-                style="background-color: #663399; color: white; solid 1px purple; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;"
+                class="fly-button"
               >
-                Lets go!
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plane-icon lucide-plane"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                Let's fly!
               </button>
             </div>`
 

@@ -56,62 +56,106 @@
 
 .back-button {
   position: absolute;
-  top: 10%;
-  right: 20%;
-  background-color: rgb(49, 82, 57);
-  color: ghostwhite;
-  padding: 8px 15px;
+  top: 80px;
+  right: 20px;
+  background-color: rgb(15, 23, 42, 0.8);
+  color: white;
+  padding: 10px 16px;
   border-radius: 8px;
-  border: 1px solid rgb(177, 246, 194);
+  border: 1px solid rgb(134, 239, 172, 0.5);
   text-align: center;
-  box-shadow: 0px 2px 2px rgba(1, 40, 5, 0.2);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   z-index: 10;
   font-size: 0.9rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: rgb(15, 23, 42, 0.9);
+  border-color: rgba(134, 239, 172, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.25);
 }
 
 .custom-mapbox-popup .mapboxgl-popup-content {
-  padding: 20px;
+  padding: 16px 24px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  font-family: sans-serig;
+  background-color: rgba(15, 23, 42, 0.95);
+  text-align: center;
+  color: rgb(266, 232, 240);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: sans-serif;
 }
 
 .custom-mapbox-popup .mapboxgl-popup-content h2 {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   margin-top: 5px;
-  color: #333;
+  color: rgb(226, 232, 240);
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.custom-mapbox-popup .mapboxgl-popup-content button {
-  background-color: #222324;
-  margin: 5px;
-  color: white;
+.custom-mapbox-popup .fly-button {
+  background-color: rgb(245, 245, 245);
+  color: rgb(15, 23, 42);
   border: none;
-  padding: 10px 10px;
-  border-radius: 5px;
+  padding: 8px 24px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: background-color 0.3s;
 }
 
-.custom-mapbox-popup .mapboxgl-popup-content button:hover {
-  background-color: #2a333d;
-  color: white;
+.custom-mapbox-popup .fly-button:hover {
+  background-color: rgb(234, 231, 248);
 }
 
 .custom-mapbox-popup .mapboxgl-popup-close-button {
-  font-size: 1.2rem;
-  color: #555;
+  font-size: 1.5rem;
+  color: rgb(226, 232, 240);
   opacity: 0.8;
+  background: none;
+  right: 7px;
+  top: 7px;
 }
 
 .custom-mapbox-popup .mapboxgl-popup-close-button:hover {
   opacity: 1;
-  color: #333;
+  background: none;
+}
+
+.custom-mapbox-popup .mapboxgl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.95);
+}
+
+.custom-mapbox-popup.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.95);
+}
+
+.custom-mapbox-popup.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.95);
+}
+
+.custom-mapbox-popup.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.95);
+}
+
+.custom-mapbox-popup.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.95);
+}
+
+.custom-mapbox-popup.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.95);
 }
 
 @keyframes pulse {

@@ -74,29 +74,22 @@ Voiceovers generated with eleven labs
 - [x] Dolphin animation swim
 - [x] Add Rain to the Galapagos [mapbox](https://docs.mapbox.com/mapbox-gl-js/example/rain/)
 - [x] Experiment with different Pitches from this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/switch-symbol-style-pitch/)
+- [x] Add animations to onClicks for all models
+- [x] Add bloom to BoomBox
+- [x] Review the different satellite [options](https://docs.mapbox.com/api/maps/styles/)
+- [x] Add starter overlay and work on volume controls
 
 ## Still to do
 
-#### Wednesday 23 April
-
-- [x] Add animations to onClicks for all models
-- [x] Add bloom to BoomBox
-- [ ] Add starter overlay and work on volume controls
-
 #### Thursday 24 April
+
+#### Friday 25 April
 
 - [ ] Add physics and make volcano explode in Kilauea
 - [ ] Draw between the locations (free to explore - store the route in Zustand)
 - [ ] Use this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/line-pattern/) for drawing lines or an ant path [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/animate-ant-path/) or through [line animation](https://docs.mapbox.com/mapbox-gl-js/example/animate-a-line/)
 - [ ] Measure distances and add total km to end voiceover
-- [ ] Review the different satellite [options](https://docs.mapbox.com/api/maps/styles/)
-- [ ] Loading screen for starter - fix volume across app pages global volume
 - [ ] Smoke Shader for Kilauea
-
-#### Friday 25 April
-
-- [ ] Add part about stinky breath to Komodo [Komodos have infamously horrible, acrid, eye-wateringly bad breath, and for a good reason. Shreds of meat and viscera from previous meals tend to get stuck in those serrated teeth, making them prime breeding grounds for deadly bacteria.Jul 6, 2023](https://www.discovermagazine.com/planet-earth/what-is-so-interesting-about-the-komodo-dragon)
-- [ ] Last frame add a lizard model and shader to represent the stinky breath
 
 #### Saturday 26 April
 
@@ -113,6 +106,8 @@ Voiceovers generated with eleven labs
 #### Monday 28 April
 
 - [ ] Fireworks shader for the end- colours with all the country flags
+- [ ] Add part about stinky breath to Komodo [Komodos have infamously horrible, acrid, eye-wateringly bad breath, and for a good reason. Shreds of meat and viscera from previous meals tend to get stuck in those serrated teeth, making them prime breeding grounds for deadly bacteria.Jul 6, 2023](https://www.discovermagazine.com/planet-earth/what-is-so-interesting-about-the-komodo-dragon)
+- [ ] Last frame add a lizard model and shader to represent the stinky breath
 - [ ] Performances
 - [ ] Work on mobile
 
