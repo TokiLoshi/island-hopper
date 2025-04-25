@@ -128,7 +128,9 @@ export default function MapboxExample() {
           el.style.backgroundSize = 'cover'
           el.style.cursor = 'pointer'
           el.style.borderRadius = '50%'
-
+          el.backgroundColor = 'transparent'
+          el.style.backgroundPosition = 'center'
+          // el.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)'
           if (destination && destination.visited) {
             el.style.backgroundImage = `url(${marker.properties.markerImageVisited})`
             el.style.opacity = '0.7'

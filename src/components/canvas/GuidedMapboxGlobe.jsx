@@ -157,6 +157,8 @@ export default function GuidedMapboxGlobe() {
           el.style.backgroundSize = 'cover'
           el.style.cursor = 'pointer'
           el.style.borderRadius = '50%'
+          el.backgroundColor = 'transparent'
+          el.style.backgroundPosition = 'center'
 
           const offsetY = -size[1] / 2
 

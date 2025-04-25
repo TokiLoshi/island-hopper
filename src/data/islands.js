@@ -8,7 +8,7 @@ export const GEOJSON = {
         markerImageVisited: '/markers/kilauea-visited.png',
         markerImageUnVisited: '/markers/kilauea-unvisited.png',
         markerImageNext: '/markers/kilauea-next.png',
-        iconSize: [50, 50],
+        iconSize: [100, 100],
       },
       geometry: {
         type: 'Point',
