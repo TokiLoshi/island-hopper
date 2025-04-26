@@ -1,6 +1,6 @@
 'use client'
 
-import { OrbitControls } from '@react-three/drei'
+import { Caustics, OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useRef, useState } from 'react'
 import SpeechBubble from '@/components/dom/SpeechBubble'
@@ -12,6 +12,7 @@ import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 
 const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
+const Bubble = dynamic(() => import('@/components/canvas/Bubble').then((mod) => mod.Bubble), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -155,6 +156,29 @@ export default function Farralon() {
     rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
   })
 
+  const {
+    distort,
+    transmission,
+    thickness,
+    roughness,
+    iridescence,
+    iridescenceIOR,
+    iridescenceThicknessRangeX,
+    iridescenceThicknessRangeY,
+    clearcoat,
+    clearcoatRoughness,
+  } = useControls('bubble', {
+    distort: { value: 0.25, min: 0, max: 1, step: 0.01 },
+    transmission: { value: 1.05, min: 0, max: 5, step: 0.01 },
+    roughness: { value: 0, min: -2, max: 5, step: 0.01 },
+    iridescence: { value: 1, min: 0, max: 5, step: 0.01 },
+    iridescenceIOR: { value: 1, min: -2, max: 5, step: 0.01 },
+    iridescenceThicknessRangeX: { value: 0, min: -2, max: 5000, step: 0.01 },
+    iridescenceThicknessRangeY: { value: 1200, min: -2, max: 5000, step: 0.01 },
+    clearcoat: { value: 1, min: -2, max: 5, step: 0.01 },
+    clearcoatRoughness: { value: 0, min: -2, max: 5, step: 0.01 },
+  })
+
   const userAdventureMode = useStore((state) => state.adventureMode)
   const markDestinationVisted = useStore((state) => state.markDestinationVisited)
 
@@ -177,12 +201,25 @@ export default function Farralon() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
+
         <Shark
           currentAnimation={currentDialog.animation}
           scale={0.8}
           position={[positionX, positionY, positionZ]}
           rotation={[rotationX, rotationY, rotationZ]}
         />
+        <Bubble
+          distort={distort}
+          transmission={transmission}
+          thickness={thickness}
+          roughness={roughness}
+          iridescence={iridescence}
+          iridescenceIOR={iridescenceIOR}
+          iridescenceThicknessRange={[iridescenceThicknessRangeX, iridescenceThicknessRangeY]}
+          clearcoat={clearcoat}
+          clearcoatRoughness={clearcoatRoughness}
+        />
+
         <Common />
       </View>
       <BackButton userAdventureMode={userAdventureMode} />

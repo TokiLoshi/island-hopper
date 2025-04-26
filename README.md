@@ -81,15 +81,15 @@ Voiceovers generated with eleven labs
 
 ## Still to do
 
-#### Thursday 24 April
-
 #### Friday 25 April
 
+- [ ] Add bubbles to shark
 - [ ] Add physics and make volcano explode in Kilauea
 - [ ] Draw between the locations (free to explore - store the route in Zustand)
 - [ ] Use this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/line-pattern/) for drawing lines or an ant path [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/animate-ant-path/) or through [line animation](https://docs.mapbox.com/mapbox-gl-js/example/animate-a-line/)
 - [ ] Measure distances and add total km to end voiceover
 - [ ] Smoke Shader for Kilauea
+- [ ] Bubble inspiration ()[https://codesandbox.io/p/sandbox/focused-kirch-9dyrgh?file=%2Fsrc%2FApp.js]
 
 #### Saturday 26 April
 
