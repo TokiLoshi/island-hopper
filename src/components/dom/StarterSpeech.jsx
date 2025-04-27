@@ -7,15 +7,11 @@ export default function StarterSpeech({ text, onNext, hasEnded }) {
   const router = useRouter()
 
   const handleSolo = () => {
-    // eslint-disable-next-line no-console
-    console.log('User wants to go solo')
     setAdventureMode('solo')
     router.push('/map')
   }
 
   const handleGuided = () => {
-    // eslint-disable-next-line no-console
-    console.log('User wants to be guided')
     setAdventureMode('guided')
     router.push('/guided')
   }

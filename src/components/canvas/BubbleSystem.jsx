@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState } from 'react'
+import React, { useRef, useMemo, useState, useEffect, forwardRef, useImpertiveHandle } from 'react'
 import * as THREE from 'three'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { Instances, Instance } from '@react-three/drei'
@@ -32,13 +32,12 @@ class Sparkle {
   }
 }
 
-export function BubbleSystem() {
+export function BubbleSystem({ audioEnabled }) {
   const bubbles = useRef(makeBubbles()).current
   const instanceRef = useRef()
   const sparkles = useRef([])
   const dummy = useMemo(() => new THREE.Object3D(), [])
   const sparkleTexture = useLoader(TextureLoader, './kenney_particle-pack/transparent/circle_02.png')
-  console.log('SparkleTexture: ', sparkleTexture)
 
   const [geoPoints] = useState(() => new THREE.BufferGeometry())
   const positionsArray = useMemo(() => new Float32Array(1000 * 3), [])
@@ -108,7 +107,19 @@ export function BubbleSystem() {
     geoPoints.setDrawRange(0, particleCount)
   })
 
+  const audioRef = useRef()
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      audioRef.current = new Audio('./soundEffects/bubblePopping.mp3')
+      audioRef.current.preload = 'auto'
+    }
+  }, [])
+
   const handlePop = (index) => {
+    if (audioRef.current && audioEnabled) {
+      audioRef.currentTime = 0
+      audioRef.current.play()
+    }
     const bubble = bubbles[index]
     if (bubble.popped) return
     bubble.popped = true

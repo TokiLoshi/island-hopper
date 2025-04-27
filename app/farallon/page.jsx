@@ -37,6 +37,9 @@ const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 export default function Farralon() {
   const mapContainerRef = useRef(null)
   const mapRef = useRef(null)
+  const sharkRef = useRef()
+  const bubbleRef = useRef()
+
   mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
 
   useEffect(() => {
@@ -217,12 +220,13 @@ export default function Farralon() {
           maxDistance={maxDistance}
         />
         <Shark
+          ref={sharkRef}
           currentAnimation={currentDialog.animation}
           scale={0.8}
           position={[positionX, positionY, positionZ]}
           rotation={[rotationX, rotationY, rotationZ]}
         />
-        <BubbleSystem />
+        <BubbleSystem ref={bubbleRef} sharkRef={sharkRef} audioEnabled={audioEnabled} />
 
         <Common />
       </View>
