@@ -12,6 +12,9 @@ import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 
 const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
+const BubbleSystem = dynamic(() => import('@/components/canvas/BubbleSystem').then((mod) => mod.BubbleSystem), {
+  ssr: false,
+})
 const Bubble = dynamic(() => import('@/components/canvas/Bubble').then((mod) => mod.Bubble), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
@@ -157,6 +160,10 @@ export default function Farralon() {
   })
 
   const {
+    bubblePositionX,
+    bubblePositionY,
+    bubblePositionZ,
+    bubbleScale,
     distort,
     transmission,
     thickness,
@@ -167,16 +174,22 @@ export default function Farralon() {
     iridescenceThicknessRangeY,
     clearcoat,
     clearcoatRoughness,
+    envMapIntensity,
   } = useControls('bubble', {
-    distort: { value: 0.25, min: 0, max: 1, step: 0.01 },
+    bubblePositionX: { value: 0.42, min: -10, max: 10, step: 0.01 },
+    bubblePositionY: { value: -0.7, min: -10, max: 10, step: 0.01 },
+    bubblePositionZ: { value: 2.58, min: -10, max: 10, step: 0.01 },
+    bubbleScale: { value: 0.5, min: 0, max: 2, step: 0.02 },
+    distort: { value: 0.3, min: 0, max: 1, step: 0.01 },
     transmission: { value: 1.05, min: 0, max: 5, step: 0.01 },
     roughness: { value: 0, min: -2, max: 5, step: 0.01 },
-    iridescence: { value: 1, min: 0, max: 5, step: 0.01 },
+    iridescence: { value: 0.86, min: 0, max: 5, step: 0.01 },
     iridescenceIOR: { value: 1, min: -2, max: 5, step: 0.01 },
     iridescenceThicknessRangeX: { value: 0, min: -2, max: 5000, step: 0.01 },
     iridescenceThicknessRangeY: { value: 1200, min: -2, max: 5000, step: 0.01 },
-    clearcoat: { value: 1, min: -2, max: 5, step: 0.01 },
+    clearcoat: { value: 0.5, min: -2, max: 5, step: 0.01 },
     clearcoatRoughness: { value: 0, min: -2, max: 5, step: 0.01 },
+    envMapIntensity: { value: 1, min: -2, max: 5, step: 0.01 },
   })
 
   const userAdventureMode = useStore((state) => state.adventureMode)
@@ -192,6 +205,8 @@ export default function Farralon() {
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
+        {/* <ambientLight intensity={0.5} /> */}
+        {/* <directionalLight position={[5, 10, 5]} intensity={0.5} /> */}
         <OrbitControls
           enablePan={enablePan}
           minPolarAngle={minPolarAngle}
@@ -201,14 +216,18 @@ export default function Farralon() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
-
         <Shark
           currentAnimation={currentDialog.animation}
           scale={0.8}
           position={[positionX, positionY, positionZ]}
           rotation={[rotationX, rotationY, rotationZ]}
         />
-        <Bubble
+        {/* <BubbleSystem /> */}
+        {/* <Bubble
+          bubblePositionX={bubblePositionX}
+          bubblePositionY={bubblePositionY}
+          bubblePositionZ={bubblePositionZ}
+          bubbleScale={bubbleScale}
           distort={distort}
           transmission={transmission}
           thickness={thickness}
@@ -218,8 +237,9 @@ export default function Farralon() {
           iridescenceThicknessRange={[iridescenceThicknessRangeX, iridescenceThicknessRangeY]}
           clearcoat={clearcoat}
           clearcoatRoughness={clearcoatRoughness}
-        />
-
+          envMapIntensity={envMapIntensity}
+        /> */}
+        {/* <Bubble count={25} bounds={10} /> */}
         <Common />
       </View>
       <BackButton userAdventureMode={userAdventureMode} />

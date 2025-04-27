@@ -2,7 +2,7 @@
 
 import { OrbitControls, Plane } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import BackButton from '@/components/dom/BackButton'
@@ -11,12 +11,11 @@ import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 import { RigidBody, Physics, CuboidCollider } from '@react-three/rapier'
-
 import { useGLTF } from '@react-three/drei'
-import { Suspense } from 'react'
 
 function Volcano(props) {
   const { nodes, materials } = useGLTF('/models/Volcano.glb')
+
   return (
     <Suspense fallback='null'>
       <group {...props} dispose={null}>
@@ -51,6 +50,8 @@ const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 export default function Kilauea() {
   const mapContainerRef = useRef(null)
   const mapRef = useRef(null)
+  const volcanoRef = useRef()
+  const sphereRef = useRef()
 
   mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
 
@@ -191,6 +192,18 @@ export default function Kilauea() {
 
   const { audioEnabled } = useStore()
 
+  const handleVolcanoClick = () => {
+    // eslint-disable-next-line no-console
+    console.log('Volcano clicked')
+  }
+
+  const handleSphereClick = () => {
+    // eslint-disable-next-line no-console
+    console.log('Sphere clicked', sphereRef)
+
+    sphereRef.current.applyTorqueImpulse({ x: 0, y: 2, z: 0 })
+  }
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -205,9 +218,9 @@ export default function Kilauea() {
           maxDistance={maxDistance}
         />
         <Physics debug gravity={[0, -9.81, 0]}>
-          <RigidBody colliders='ball' position={[0.5, 2, 1]} restitution={0.7} mass={1}>
-            <mesh>
-              <sphereGeometry args={[0.3]} />
+          <RigidBody ref={sphereRef} colliders='ball' position={[0.5, 2, 1]} restitution={0.7} mass={1}>
+            <mesh onClick={handleSphereClick}>
+              <sphereGeometry args={[0.1]} />
               <meshStandardMaterial color='orange' />
             </mesh>
           </RigidBody>
@@ -217,10 +230,11 @@ export default function Kilauea() {
               position={[positionX, positionY, positionZ]}
               rotation={[rotationX, rotationY, rotationZ]}
               scale={scaleVolcano}
+              onClick={handleVolcanoClick}
             />
           </RigidBody>
 
-          <RigidBody type='fixed'>
+          <RigidBody type='fixed' restitution={1}>
             <CuboidCollider
               args={[0.1, 0.5, 1.1]}
               rotation={[-Math.PI, 0, 0]}
