@@ -222,24 +222,8 @@ export default function Farralon() {
           position={[positionX, positionY, positionZ]}
           rotation={[rotationX, rotationY, rotationZ]}
         />
-        {/* <BubbleSystem /> */}
-        {/* <Bubble
-          bubblePositionX={bubblePositionX}
-          bubblePositionY={bubblePositionY}
-          bubblePositionZ={bubblePositionZ}
-          bubbleScale={bubbleScale}
-          distort={distort}
-          transmission={transmission}
-          thickness={thickness}
-          roughness={roughness}
-          iridescence={iridescence}
-          iridescenceIOR={iridescenceIOR}
-          iridescenceThicknessRange={[iridescenceThicknessRangeX, iridescenceThicknessRangeY]}
-          clearcoat={clearcoat}
-          clearcoatRoughness={clearcoatRoughness}
-          envMapIntensity={envMapIntensity}
-        /> */}
-        {/* <Bubble count={25} bounds={10} /> */}
+        <BubbleSystem />
+
         <Common />
       </View>
       <BackButton userAdventureMode={userAdventureMode} />
