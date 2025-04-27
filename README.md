@@ -144,6 +144,8 @@ Also known as "The Devil's Teeth". It is inhabited by researchers, and is not op
 Shark by Quaternius via [Low Poly Pizza](https://poly.pizza/m/YYsK3gRCBZ)
 Voice generated using Dan on 11Labs
 
+Particle Pack by [Kenny](https://www.kenney.nl/assets/particle-pack) License [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
 ### Gallapagos
 
 Turtle by Poly by Google [CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/2LCcq8vhqJ3)
