@@ -138,7 +138,7 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
   const audioRef = useRef()
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      audioRef.current = new Audio('./soundEffects/bubblePopping.mp3')
+      audioRef.current = new Audio('./soundEffects/bubblePoppingLouder.mp3')
       audioRef.current.preload = 'auto'
     }
   }, [])
