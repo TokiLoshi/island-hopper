@@ -148,7 +148,7 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
       audioRef.current.currentTime = 0
       audioRef.current.play().catch((error) => {
         // eslint-disable-next-line no-console
-        // console.log('error playing audio: ', error)
+        console.log('error playing audio: ', error)
       })
     }
     const bubble = bubbles[index]
@@ -187,9 +187,9 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
           map={sparkleTexture}
           // alphaTest={0.5}
           sizeAttenuation={true}
-          size={0.06}
+          size={0.08}
           transparent
-          opacity={0.8}
+          opacity={1}
           blending={THREE.AdditiveBlending}
         />
       </points>

@@ -180,6 +180,7 @@ export default function Komodo() {
           position={[positionX, positionY, positionZ]}
           rotation={[rotationX, -rotationY, rotationZ]}
           currentAnimation={currentanimation}
+          audioEnabled={audioEnabled}
         />
         <Common />
       </View>
