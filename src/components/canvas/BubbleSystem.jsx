@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import * as THREE from 'three'
 import { useFrame, useLoader } from '@react-three/fiber'
-import { Instances, Instance } from '@react-three/drei'
+import { Instances, Instance, useCursor } from '@react-three/drei'
 import { TextureLoader } from 'three'
 
 const BUBBLE_COUNT = 10
@@ -48,6 +48,8 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
 
   const sharkBox = useRef(new THREE.Box3())
   const bubbleSphere = useRef(new THREE.Sphere())
+  const [hovered, setHovered] = useState(false)
+  useCursor(hovered /*'pointer', 'auto', document.body*/)
 
   // useImperativeHandle(ref, () => ({
   //   instanceRef: instanceRef.current,
@@ -179,7 +181,12 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
           envMapIntensity={1.2}
         />
         {Array.from({ length: BUBBLE_COUNT }).map((_, index) => (
-          <Instance key={index} onClick={() => handlePop(index)} />
+          <Instance
+            key={index}
+            onClick={() => handlePop(index)}
+            onPointerOver={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)}
+          />
         ))}
       </Instances>
       <points geometry={geoPoints}>

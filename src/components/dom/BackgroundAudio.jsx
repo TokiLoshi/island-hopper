@@ -100,14 +100,13 @@ export default function BackgroundAudio({ audioFilePath }) {
   return (
     <div
       onClick={togglePlayPause}
-      className='fixed z-50 top-4 left-4 m-2 rounded-full bg-slate-800 text-white cursor-pointer md:top-8 md:left-8 lg:top-20 lg:left-20'
-      // className='fixed z-50 m-2 cursor-pointer rounded-full bg-black p-2 text-white bottom-4 right-4 md:bottom-8 md:right-8 lg:bottom-20 lg:right-20'
+      className='fixed z-50 top-4 left-4 m-2 rounded-full bg-slate-800 text-white cursor-pointer flex items-center justify-center size-12 transition-transform ease-in-out duration-200 hover:-translate-y-1 hover:shadow-lg md:top-8 md:left-8 lg:top-20 lg:left-20'
       style={{
-        width: '50px',
-        height: '50px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        //   width: '50px',
+        //   height: '50px',
+        //   display: 'flex',
+        //   alignItems: 'center',
+        //   justifyContent: 'center',
         touchAction: 'manipulation',
       }}
     >

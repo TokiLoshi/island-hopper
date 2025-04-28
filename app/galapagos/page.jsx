@@ -10,6 +10,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
+import BackgroundAudio from '@/components/dom/BackgroundAudio'
 
 const Turtle = dynamic(() => import('@/components/canvas/Turtle').then((mod) => mod.Turtle), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -189,6 +190,8 @@ export default function Gallapagos() {
 
   const { audioEnabled } = useStore()
 
+  const rainSoundPath = '/soundEffects/softRainBoosted.mp3'
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -225,6 +228,7 @@ export default function Gallapagos() {
       <BackButton userAdventureMode={userAdventureMode} />
       <SpeechBubble text={currentDialog.text} onNext={handleNextDialog} hasEnded={hasEnded} />
       {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
+      {audioEnabled && <BackgroundAudio audioFilePath={rainSoundPath} />}
     </>
   )
 }

@@ -174,7 +174,7 @@ export default function GuidedMapboxGlobe() {
           if (simpleMarkerName === nextLocationName) {
             const popUpContent = `
             <div >
-              <h2>Your next stop:</h2>
+              <h1>Your next stop:</h1>
               <h2>${marker.properties.name}</h2>
               <button
                 id="visit-${markerName.toLowerCase()}"
@@ -252,7 +252,7 @@ export default function GuidedMapboxGlobe() {
         }
       }
     }
-  })
+  }, [router, destinations, nextLocationName])
   // }, [router, destinations, nextLocationName])
 
   return (
