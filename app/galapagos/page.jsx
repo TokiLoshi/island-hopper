@@ -65,14 +65,14 @@ export default function Gallapagos() {
 
       map.setRain({
         density: zoomBasedReveal(2.5),
-        intensity: 1.0,
+        intensity: 1,
         color: '#a8adbc',
-        opacity: 0.7,
+        opacity: 0.6,
         vignette: zoomBasedReveal(1.0),
         'vignette-color': '#464646',
         direction: [0, 80],
-        'droplet-size': [2.6, 18.2],
-        'distortion-strength': 0.7,
+        'droplet-size': [2.6, 12.2],
+        'distortion-strength': 0.5,
         'center-thinning': 0, // Rain to be displayed on the whole screen area
       })
 
@@ -204,6 +204,7 @@ export default function Gallapagos() {
         />
 
         <Turtle
+          audioEnabled={audioEnabled}
           scale={0.07}
           initialPosition={[turtlePositionX, turtlePositionY, turtlePositionZ]}
           initialRotation={[turtleRotationX, turtleRotationY, turtleRotationZ]}

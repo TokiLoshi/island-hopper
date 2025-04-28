@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { animated, useSpring } from '@react-spring/three'
 
-export function Turtle({ initialPosition = [1.12, -0.5, 0], initialRotation = [0, -1.1, 0], ...props }) {
+export function Turtle({ audioEnabled, initialPosition = [1.12, -0.5, 0], initialRotation = [0, -1.1, 0], ...props }) {
   const { nodes, materials } = useGLTF('/models/Turtle.glb')
   const [isJumping, setIsJumping] = useState(false)
 
@@ -55,11 +55,23 @@ export function Turtle({ initialPosition = [1.12, -0.5, 0], initialRotation = [0
       if (isJumping) setIsJumping(false)
     },
   })
+  const audioRef = useRef()
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      audioRef.current = new Audio('./soundEffects/boing.mp3')
+      audioRef.current.preload = 'auto'
+    }
+  }, [])
 
   const handleClick = (event) => {
     event.stopPropagation()
-    // eslint-disable-next-line no-console
-    console.log('Clicked')
+    if (audioRef.current && audioEnabled) {
+      audioRef.current.currentTime = 0
+      audioRef.current.play().catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('error playing turtle audio: ', error)
+      })
+    }
     setIsJumping(true)
   }
 
