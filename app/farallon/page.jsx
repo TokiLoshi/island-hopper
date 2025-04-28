@@ -11,9 +11,22 @@ import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 
-const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), { ssr: false })
-const BubbleSystem = dynamic(() => import('@/components/canvas/BubbleSystem').then((mod) => mod.BubbleSystem), {
+// const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), {
+//   ssr: false,
+//   forwardRef: true,
+// })
+// const BubbleSystem = dynamic(() => import('@/components/canvas/BubbleSystem').then((mod) => mod.BubbleSystem), {
+//   ssr: false,
+//   forwardRef: true,
+// })
+const Shark = dynamic(() => import('@/components/canvas/Shark'), {
   ssr: false,
+  forwardRef: true,
+})
+
+const BubbleSystem = dynamic(() => import('@/components/canvas/BubbleSystem'), {
+  ssr: false,
+  forwardRef: true,
 })
 const Bubble = dynamic(() => import('@/components/canvas/Bubble').then((mod) => mod.Bubble), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -38,7 +51,6 @@ export default function Farralon() {
   const mapContainerRef = useRef(null)
   const mapRef = useRef(null)
   const sharkRef = useRef()
-  const bubbleRef = useRef()
 
   mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
 
@@ -204,6 +216,8 @@ export default function Farralon() {
 
   const { audioEnabled } = useStore()
 
+  console.log('shark reff in the farallon: ', sharkRef)
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -226,7 +240,7 @@ export default function Farralon() {
           position={[positionX, positionY, positionZ]}
           rotation={[rotationX, rotationY, rotationZ]}
         />
-        <BubbleSystem ref={bubbleRef} sharkRef={sharkRef} audioEnabled={audioEnabled} />
+        <BubbleSystem sharkRef={sharkRef} audioEnabled={audioEnabled} />
 
         <Common />
       </View>

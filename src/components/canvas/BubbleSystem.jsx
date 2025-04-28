@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState, useEffect, forwardRef, useImpertiveHandle } from 'react'
+import React, { useRef, useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import * as THREE from 'three'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { Instances, Instance } from '@react-three/drei'
@@ -32,7 +32,10 @@ class Sparkle {
   }
 }
 
-export function BubbleSystem({ audioEnabled }) {
+export const BubbleSystem = forwardRef(function BubbleSystem({ sharkRef, audioEnabled }, ref) {
+  // eslint-disable-next-line no-console:
+  console.log('What we got from props: ', sharkRef)
+
   const bubbles = useRef(makeBubbles()).current
   const instanceRef = useRef()
   const sparkles = useRef([])
@@ -41,10 +44,24 @@ export function BubbleSystem({ audioEnabled }) {
 
   const [geoPoints] = useState(() => new THREE.BufferGeometry())
   const positionsArray = useMemo(() => new Float32Array(1000 * 3), [])
-
   geoPoints.setAttribute('position', new THREE.BufferAttribute(positionsArray, 3))
 
+  const sharkBox = useRef(new THREE.Box3())
+  const bubbleSphere = useRef(new THREE.Sphere())
+
+  useImperativeHandle(ref, () => ({
+    instanceRef: instanceRef.current,
+  }))
+
   useFrame((state, deltaTime) => {
+    if (sharkRef?.current) {
+      // eslint-disable-next-line no-console:
+      console.log('Shark ref exists? ', sharkRef.current)
+      sharkBox.current.setFromObject(sharkRef.current)
+      // eslint-disable-next-line no-console:
+      console.log('SharkBox size', sharkBox.current)
+    }
+
     bubbles.forEach((bubble, index) => {
       const bubbleTime = bubble.factor + state.clock.elapsedTime * bubble.speed
 
@@ -78,6 +95,21 @@ export function BubbleSystem({ audioEnabled }) {
       dummy.scale.setScalar(bubble.scale)
       dummy.updateMatrix()
       instanceRef.current.setMatrixAt(index, dummy.matrix)
+
+      bubbleSphere.current.center.copy(dummy.position)
+      bubbleSphere.current.radius = 0.4
+
+      if (!bubble.popped && sharkBox.current.intersectsSphere(bubbleSphere.current)) {
+        // eslint-disable-next-line no-console
+        console.log('INTERSECTION DETECTED! ', bubble)
+        bubble.popped = true
+        bubble.popTimer = 0
+        for (let k = 0; k < 20; k++) {
+          sparkles.current.push(new Sparkle(dummy.position))
+        }
+
+        handlePop(index)
+      }
     })
     instanceRef.current.instanceMatrix.needsUpdate = true
 
@@ -117,8 +149,11 @@ export function BubbleSystem({ audioEnabled }) {
 
   const handlePop = (index) => {
     if (audioRef.current && audioEnabled) {
-      audioRef.currentTime = 0
-      audioRef.current.play()
+      audioRef.current.currentTime = 0
+      audioRef.current.play().catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('error playing audio: ', error)
+      })
     }
     const bubble = bubbles[index]
     if (bubble.popped) return
@@ -164,4 +199,6 @@ export function BubbleSystem({ audioEnabled }) {
       </points>
     </>
   )
-}
+})
+
+export default BubbleSystem
