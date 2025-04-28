@@ -36,9 +36,6 @@ class Sparkle {
 //   function BubbleSystem({ sharkRef, audioEnabled }, ref) {
 
 export default function BubbleSystem({ sharkRef, audioEnabled }) {
-  // eslint-disable-next-line no-console:
-  // console.log('What we got from props: ', sharkRef)
-
   const bubbles = useRef(makeBubbles()).current
   const instanceRef = useRef()
   const sparkles = useRef([])
@@ -58,11 +55,7 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
 
   useFrame((state, deltaTime) => {
     if (sharkRef?.current) {
-      // eslint-disable-next-line no-console:
-      // console.log('Shark ref exists? ', sharkRef.current)
       sharkBox.current.setFromObject(sharkRef.current)
-      // eslint-disable-next-line no-console:
-      // console.log('SharkBox size', sharkBox.current)
     }
 
     bubbles.forEach((bubble, index) => {

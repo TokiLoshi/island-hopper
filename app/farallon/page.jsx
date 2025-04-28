@@ -204,8 +204,6 @@ export default function Farralon() {
 
   const { audioEnabled } = useStore()
 
-  console.log('shark reff in the farallon: ', sharkRef)
-
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
