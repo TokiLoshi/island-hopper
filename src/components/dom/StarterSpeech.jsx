@@ -1,6 +1,7 @@
 import React from 'react'
 import useStore from '@/store/globalStore'
 import { useRouter } from 'next/navigation'
+import { ArrowRight, MapPin, Navigation } from 'lucide-react'
 
 export default function StarterSpeech({ text, onNext, hasEnded }) {
   const setAdventureMode = useStore((state) => state.setAdventureState)
@@ -19,45 +20,34 @@ export default function StarterSpeech({ text, onNext, hasEnded }) {
   if (!text) return null
 
   return (
-    <div className='speech-bubble'>
-      <p>{text}</p>
-      {!hasEnded && (
-        <button
-          style={{
-            borderRadius: '5px',
-            border: '1 solid white',
-            backgroundColor: 'black',
-            color: 'whitesmoke',
-          }}
-          onClick={onNext}
-        >
-          Next
-        </button>
-      )}
-      {hasEnded && (
-        <div>
+    <div className='speech-bubble bg-white text-black '>
+      <p className='text-lg'>{text}</p>
+      <div className='flex justify-center mt-4'>
+        {!hasEnded && (
           <button
-            style={{
-              borderRadius: '5px',
-              border: '1 solid white',
-              backgroundColor: 'dodgerblue',
-              color: 'whitesmoke',
-            }}
+            className='flex items-center justify-center bg-black hover:bg-gray-800 text-white py-8 px-6 rounded transition duration-200'
+            onClick={onNext}
+          >
+            <span className='mr-2'>Next</span>
+            <ArrowRight size={20} className='ml-2' />
+          </button>
+        )}
+      </div>
+      {hasEnded && (
+        <div className='flex flex-col sm:flex-row gap-3 justify-center '>
+          <button
+            className='flex items-center justify-center bg-violet-900 hover:bg-violet-800 text-white py-4 px-6 rounded transition duration-200'
             onClick={handleGuided}
           >
-            Show me
+            <Navigation size={20} className='mr-2' />
+            <span>Show me</span>
           </button>
           <button
-            style={{
-              borderRadius: '5px',
-              border: '1 solid white',
-              backgroundColor: 'mediumpurple',
-              color: 'whitesmoke',
-              marginLeft: '5px',
-            }}
+            className='flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white py-4 px-6 rounded transition duration-200'
             onClick={handleSolo}
           >
-            I will choose
+            <MapPin size={20} className='mr-2' />
+            <span>I&apos;ll explore</span>
           </button>
         </div>
       )}

@@ -29,13 +29,13 @@ export default function AudioConsent() {
         <div className='flex justify-center space-x-4'>
           <button
             onClick={handleAccept}
-            className='rounded-lg px-6 py-2 bg-neutral-100 text-slate-900 transition-colors hover:bg-green-300 '
+            className='rounded-lg px-6 py-2 bg-neutral-100 text-slate-900 transition-colors hover:bg-lime-200 '
           >
             <Volume2 />
           </button>
           <button
             onClick={handleDecline}
-            className='rounded-lg px-6 py-2 bg-gray-300 text-gray-800 transition-colors hover:bg-rose-300 '
+            className='rounded-lg px-6 py-2 bg-gray-300 text-gray-800 transition-colors hover:bg-gray-500 '
           >
             <VolumeOff />
           </button>
