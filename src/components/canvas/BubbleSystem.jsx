@@ -32,9 +32,12 @@ class Sparkle {
   }
 }
 
-export const BubbleSystem = forwardRef(function BubbleSystem({ sharkRef, audioEnabled }, ref) {
+// export const BubbleSystem = forwardRef(
+//   function BubbleSystem({ sharkRef, audioEnabled }, ref) {
+
+export default function BubbleSystem({ sharkRef, audioEnabled }) {
   // eslint-disable-next-line no-console:
-  console.log('What we got from props: ', sharkRef)
+  // console.log('What we got from props: ', sharkRef)
 
   const bubbles = useRef(makeBubbles()).current
   const instanceRef = useRef()
@@ -49,17 +52,17 @@ export const BubbleSystem = forwardRef(function BubbleSystem({ sharkRef, audioEn
   const sharkBox = useRef(new THREE.Box3())
   const bubbleSphere = useRef(new THREE.Sphere())
 
-  useImperativeHandle(ref, () => ({
-    instanceRef: instanceRef.current,
-  }))
+  // useImperativeHandle(ref, () => ({
+  //   instanceRef: instanceRef.current,
+  // }))
 
   useFrame((state, deltaTime) => {
     if (sharkRef?.current) {
       // eslint-disable-next-line no-console:
-      console.log('Shark ref exists? ', sharkRef.current)
+      // console.log('Shark ref exists? ', sharkRef.current)
       sharkBox.current.setFromObject(sharkRef.current)
       // eslint-disable-next-line no-console:
-      console.log('SharkBox size', sharkBox.current)
+      // console.log('SharkBox size', sharkBox.current)
     }
 
     bubbles.forEach((bubble, index) => {
@@ -101,7 +104,7 @@ export const BubbleSystem = forwardRef(function BubbleSystem({ sharkRef, audioEn
 
       if (!bubble.popped && sharkBox.current.intersectsSphere(bubbleSphere.current)) {
         // eslint-disable-next-line no-console
-        console.log('INTERSECTION DETECTED! ', bubble)
+        // console.log('INTERSECTION DETECTED! ', bubble)
         bubble.popped = true
         bubble.popTimer = 0
         for (let k = 0; k < 20; k++) {
@@ -152,7 +155,7 @@ export const BubbleSystem = forwardRef(function BubbleSystem({ sharkRef, audioEn
       audioRef.current.currentTime = 0
       audioRef.current.play().catch((error) => {
         // eslint-disable-next-line no-console
-        console.log('error playing audio: ', error)
+        // console.log('error playing audio: ', error)
       })
     }
     const bubble = bubbles[index]
@@ -199,6 +202,8 @@ export const BubbleSystem = forwardRef(function BubbleSystem({ sharkRef, audioEn
       </points>
     </>
   )
-})
+}
 
-export default BubbleSystem
+// )
+
+// export default BubbleSystem

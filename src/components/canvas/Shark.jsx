@@ -39,7 +39,7 @@ export const Shark = forwardRef(function Shark({ currentAnimation = IDLE_ANIMATI
       const idleAnimationName = ACTION_MAP[IDLE_ANIMATION_KEY]
       if (!idleAnimationName || !actions[idleAnimationName]) {
         // eslint-disable-next-line no-console
-        console.warn(`No animation foound for ${idleAnimationName}`)
+        console.warn(`No animation found for ${idleAnimationName}`)
         return
       }
 

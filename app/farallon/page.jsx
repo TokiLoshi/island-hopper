@@ -2,7 +2,7 @@
 
 import { Caustics, OrbitControls } from '@react-three/drei'
 import dynamic from 'next/dynamic'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import SpeechBubble from '@/components/dom/SpeechBubble'
 import BackButton from '@/components/dom/BackButton'
 import mapboxgl from 'mapbox-gl'
@@ -10,25 +10,13 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
-
-// const Shark = dynamic(() => import('@/components/canvas/Shark').then((mod) => mod.Shark), {
-//   ssr: false,
-//   forwardRef: true,
-// })
-// const BubbleSystem = dynamic(() => import('@/components/canvas/BubbleSystem').then((mod) => mod.BubbleSystem), {
-//   ssr: false,
-//   forwardRef: true,
-// })
-const Shark = dynamic(() => import('@/components/canvas/Shark'), {
-  ssr: false,
-  forwardRef: true,
-})
+import Shark from '@/components/canvas/Shark'
+import { Perf } from 'r3f-perf'
 
 const BubbleSystem = dynamic(() => import('@/components/canvas/BubbleSystem'), {
   ssr: false,
-  forwardRef: true,
 })
-const Bubble = dynamic(() => import('@/components/canvas/Bubble').then((mod) => mod.Bubble), { ssr: false })
+// const Bubble = dynamic(() => import('@/components/canvas/Bubble').then((mod) => mod.Bubble), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -233,15 +221,16 @@ export default function Farralon() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
-        <Shark
-          ref={sharkRef}
-          currentAnimation={currentDialog.animation}
-          scale={0.8}
-          position={[positionX, positionY, positionZ]}
-          rotation={[rotationX, rotationY, rotationZ]}
-        />
-        <BubbleSystem sharkRef={sharkRef} audioEnabled={audioEnabled} />
-
+        <Suspense>
+          <Shark
+            ref={sharkRef}
+            currentAnimation={currentDialog.animation}
+            scale={0.8}
+            position={[positionX, positionY, positionZ]}
+            rotation={[rotationX, rotationY, rotationZ]}
+          />
+          <BubbleSystem sharkRef={sharkRef} audioEnabled={audioEnabled} />
+        </Suspense>
         <Common />
       </View>
       <BackButton userAdventureMode={userAdventureMode} />
