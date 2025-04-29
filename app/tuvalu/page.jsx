@@ -187,15 +187,10 @@ export default function Tuvalu() {
 
   const { y } = useSpring({
     from: {
-      y: -5,
+      y: -20,
     },
     to: [
-      {
-        y: -4,
-      },
-      {
-        y: -3,
-      },
+      { y: -3 },
       {
         y: -2,
       },
@@ -209,19 +204,24 @@ export default function Tuvalu() {
       tension: 180,
       friction: 26,
     },
-    loop: false,
-    pause: !hasEnded,
+    reset: false,
+    immediate: !hasEnded,
   })
 
-  // const { rock } = useSpring({
-  //   from: { rock: 0.5 },
-  //   to: [{ rock: 0.05 }],
-  //   config: {
-  //     duration: 3500,
-  //     easing: easings.easeInOutSine,
-  //   },
-  //   loop: { reverse: true },
-  // })
+  const { rockX, rockZ } = useSpring({
+    from: { rockX: 0, rockZ: 0 },
+    to: [
+      { rockX: 0.02, rockZ: 0.02 },
+      { rockX: -0.02, rockZ: -0.02 },
+      { rockX: 0, rockZ: 0 },
+    ],
+    config: {
+      immediate: false,
+      duration: 1500,
+      easing: easings.easeInOutSine,
+    },
+    loop: true,
+  })
 
   const {
     secondDolphinPositionX,
@@ -238,7 +238,7 @@ export default function Tuvalu() {
     secondDolphinRotationX: { value: -4.7, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationY: { value: -1.4, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationZ: { value: 1.8, min: -20, max: 20, step: 0.01 },
-    secondDolphinScale: { value: 0.25, min: 0.01, max: 1, step: 0.01 },
+    secondDolphinScale: { value: 0.18, min: 0.01, max: 1, step: 0.01 },
   })
 
   const userAdventureMode = useStore((state) => state.adventureMode)
@@ -251,10 +251,18 @@ export default function Tuvalu() {
   const { audioEnabled } = useStore()
 
   const wavesSoundPath = '/soundEffects/wavesEdited.mp3'
+  const [canPlay, setCanPlay] = useState(false)
+
+  useEffect(() => {
+    if (hasEnded && audioEnabled) {
+      setCanPlay(true)
+    }
+  }, [hasEnded, audioEnabled])
 
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
+      {canPlay && <BackgroundAudio audioFilePath={wavesSoundPath} />}
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls
           enablePan={enablePan}
@@ -265,22 +273,15 @@ export default function Tuvalu() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
-        {/* {hasEnded && audioEnabled && <BackgroundAudio audioFilePath={wavesSoundPath} />} */}
-        {hasEnded && (
-          <animated.mesh position-x={0} position-y={y} position-z={0} rotation={[-Math.PI / 2, 0, 0]} scale={[5, 5, 1]}>
-            <planeGeometry args={[5, 5, 32, 31]} />
-            <Shader transparent={true} />
-          </animated.mesh>
-        )}
-        {/* <animated.group rotation-z={rock}> */}
-        <Boat
-          position={[boatPositionX, boatPositionY, boatPositionZ]}
-          scale={boatScale}
-          // rotation-x={boatRotationX}
-          // rotation-y={boatRotationY}
-          rotation={[boatRotationX, boatRotationY, boatRotationZ]}
-        />
-        {/* </animated.group> */}
+        <animated.group rotation-z={rockZ} rotation-x={rockX}>
+          <Boat
+            position={[boatPositionX, boatPositionY, boatPositionZ]}
+            scale={boatScale}
+            // rotation-x={boatRotationX}
+            // rotation-y={boatRotationY}
+            rotation={[boatRotationX, boatRotationY, boatRotationZ]}
+          />
+        </animated.group>
         <Bunny
           position={[bunnyPositionX, bunnyPositionY, bunnyPositionZ]}
           scale={bunnyScale}
@@ -290,8 +291,19 @@ export default function Tuvalu() {
 
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <Common />
+
         {currentIndex === dialogSteps.length - 1 && (
           <animated.group position-y={y}>
+            <animated.mesh
+              position-x={0}
+              // position-y={y}
+              position-z={0}
+              rotation={[-Math.PI / 2, 0, 0]}
+              scale={[5, 5, 1]}
+            >
+              <planeGeometry args={[5, 5, 32, 31]} />
+              <Shader transparent={true} />
+            </animated.mesh>
             <Dolphin2
               position-x={secondDolphinPositionX}
               position-y={secondDolphinPositionY}
