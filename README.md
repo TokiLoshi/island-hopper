@@ -78,47 +78,24 @@ Voiceovers generated with eleven labs
 - [x] Add bloom to BoomBox
 - [x] Review the different satellite [options](https://docs.mapbox.com/api/maps/styles/)
 - [x] Add starter overlay and work on volume controls
+- [x] Add bubbles to shark
+- [x] Bubble inspiration ()[https://codesandbox.io/p/sandbox/focused-kirch-9dyrgh?file=%2Fsrc%2FApp.js]
+- [x] Work on UI
+- [x] Water shader for Tuvalu to rise when Dolphin arrives
 
 ## Still to do
 
-#### Friday 25 April
-
-- [ ] Add bubbles to shark
 - [ ] Add physics and make volcano explode in Kilauea
 - [ ] Draw between the locations (free to explore - store the route in Zustand)
 - [ ] Use this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/line-pattern/) for drawing lines or an ant path [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/animate-ant-path/) or through [line animation](https://docs.mapbox.com/mapbox-gl-js/example/animate-a-line/)
 - [ ] Measure distances and add total km to end voiceover
 - [ ] Smoke Shader for Kilauea
-- [ ] Bubble inspiration ()[https://codesandbox.io/p/sandbox/focused-kirch-9dyrgh?file=%2Fsrc%2FApp.js]
-
-#### Saturday 26 April
-
-- [ ] Work on UI
-
-#### Sunday 27 April
-
-- [ ] Investigate whether to add Zustand persist
-- [ ] Water shader for Tuvalu to rise when Dolphin arrives
-- [ ] Fix UI
-- [ ] Water Shader to galapagos, tuvalu
-- [ ] Bubbles shader to Farallon or [caustics](https://drei.docs.pmnd.rs/staging/caustics)
-
-#### Monday 28 April
-
 - [ ] Fireworks shader for the end- colours with all the country flags
-- [ ] Add part about stinky breath to Komodo [Komodos have infamously horrible, acrid, eye-wateringly bad breath, and for a good reason. Shreds of meat and viscera from previous meals tend to get stuck in those serrated teeth, making them prime breeding grounds for deadly bacteria.Jul 6, 2023](https://www.discovermagazine.com/planet-earth/what-is-so-interesting-about-the-komodo-dragon)
-- [ ] Last frame add a lizard model and shader to represent the stinky breath
 - [ ] Performances
 - [ ] Work on mobile
-
-#### Tuesday 29 April
-
 - [ ] Performances and smooth animations
-
-#### Wednesday 30 April
-
-- [ ] Design and Performances
-- [ ] Clean up README, and gifs and info, tweet and submit
+- [ ] Remove Leva, Perf and put behind debug
+- [ ] Clean up README, create submission post with and gifs and info, tweet and submit
 
 ## Islands
 
