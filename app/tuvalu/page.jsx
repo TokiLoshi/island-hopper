@@ -12,7 +12,8 @@ import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 import Shader from '@/templates/Shader/OceanShader/OceanShader'
-import { animated, useSpring } from '@react-spring/three'
+import { animated, easings, useSpring } from '@react-spring/three'
+import BackgroundAudio from '@/components/dom/BackgroundAudio'
 
 const Dolphin2 = dynamic(() => import('@/components/canvas/Dolphin2').then((mod) => mod.Dolphin2), { ssr: false })
 
@@ -184,24 +185,6 @@ export default function Tuvalu() {
       bunnyPositionZ: { value: 0.3, min: -5, max: 10, step: 0.01 },
     })
 
-  // const {
-  //   dolphinRotationX,
-  //   dolphinRotationY,
-  //   dolphinRotationZ,
-  //   dolphinScale,
-  //   dolphinPositionX,
-  //   dolphinPositionY,
-  //   dolphinPositionZ,
-  // } = useControls('dolphin', {
-  //   dolphinRotationX: { value: 0.27, min: -50, max: 50, step: 0.01 },
-  //   dolphinRotationY: { value: 0.61, min: -50, max: 50, step: 0.01 },
-  //   dolphinRotationZ: { value: -0.2, min: -50, max: 50, step: 0.01 },
-  //   dolhinScale: { value: 0.008, min: 0.00001, max: 1, step: 0.00001 },
-  //   dolphinPositionX: { value: 150, min: -850, max: 50, step: 0.01 },
-  //   dolphinPositionY: { value: -11, min: -850, max: 50, step: 0.01 },
-  //   dolphinPositionZ: { value: -450, min: -800, max: 50, step: 0.01 },
-  // })
-
   const { y } = useSpring({
     from: {
       y: -5,
@@ -216,6 +199,7 @@ export default function Tuvalu() {
       {
         y: -2,
       },
+      { y: -1 },
       {
         y: 0,
       },
@@ -223,10 +207,21 @@ export default function Tuvalu() {
     config: {
       mass: 1,
       tension: 180,
-      friction: 18,
+      friction: 26,
     },
     loop: false,
+    pause: !hasEnded,
   })
+
+  // const { rock } = useSpring({
+  //   from: { rock: 0.5 },
+  //   to: [{ rock: 0.05 }],
+  //   config: {
+  //     duration: 3500,
+  //     easing: easings.easeInOutSine,
+  //   },
+  //   loop: { reverse: true },
+  // })
 
   const {
     secondDolphinPositionX,
@@ -238,8 +233,8 @@ export default function Tuvalu() {
     secondDolphinScale,
   } = useControls('secondDolphin', {
     secondDolphinPositionX: { value: 0, min: -20, max: 20, step: 0.01 },
-    secondDolphinPositionY: { value: -1.7, min: -20, max: 20, step: 0.01 },
-    secondDolphinPositionZ: { value: 0.7, min: -20, max: 20, step: 0.01 },
+    secondDolphinPositionY: { value: -0.8, min: -20, max: 20, step: 0.01 },
+    secondDolphinPositionZ: { value: 0.8, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationX: { value: -4.7, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationY: { value: -1.4, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationZ: { value: 1.8, min: -20, max: 20, step: 0.01 },
@@ -255,6 +250,8 @@ export default function Tuvalu() {
 
   const { audioEnabled } = useStore()
 
+  const wavesSoundPath = '/soundEffects/wavesEdited.mp3'
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
@@ -268,17 +265,22 @@ export default function Tuvalu() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
+        {/* {hasEnded && audioEnabled && <BackgroundAudio audioFilePath={wavesSoundPath} />} */}
         {hasEnded && (
           <animated.mesh position-x={0} position-y={y} position-z={0} rotation={[-Math.PI / 2, 0, 0]} scale={[5, 5, 1]}>
             <planeGeometry args={[5, 5, 32, 31]} />
             <Shader transparent={true} />
           </animated.mesh>
         )}
+        {/* <animated.group rotation-z={rock}> */}
         <Boat
           position={[boatPositionX, boatPositionY, boatPositionZ]}
           scale={boatScale}
+          // rotation-x={boatRotationX}
+          // rotation-y={boatRotationY}
           rotation={[boatRotationX, boatRotationY, boatRotationZ]}
         />
+        {/* </animated.group> */}
         <Bunny
           position={[bunnyPositionX, bunnyPositionY, bunnyPositionZ]}
           scale={bunnyScale}
