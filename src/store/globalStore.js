@@ -13,6 +13,7 @@ const useStore = create((set, get) => ({
   audioEnabled: false,
   backgroundMusicEnabled: false,
   userInteracted: false,
+  dialogAudioPlaying: false,
 
   // Destinations
   setAdventureState: (adventureChoice) => set({ adventureMode: adventureChoice }),
@@ -42,6 +43,7 @@ const useStore = create((set, get) => ({
   setAudioEnabled: (enabled) => set({ audioEnabled: enabled }),
   setBackgroundMusicEnabled: (enabled) => set({ backgroundMusicEnabled: enabled }),
   setUserInteracted: () => set({ userInteracted: true }),
+  setDialogAudioPlaying: (isPlaying) => set({ dialogAudioPlaying: isPlaying }),
 }))
 
 export default useStore

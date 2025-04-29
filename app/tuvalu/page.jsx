@@ -222,7 +222,7 @@ export default function Tuvalu() {
     ],
     config: {
       mass: 1,
-      tension: 300,
+      tension: 180,
       friction: 18,
     },
     loop: false,
@@ -238,7 +238,7 @@ export default function Tuvalu() {
     secondDolphinScale,
   } = useControls('secondDolphin', {
     secondDolphinPositionX: { value: 0, min: -20, max: 20, step: 0.01 },
-    secondDolphinPositionY: { value: -0.7, min: -20, max: 20, step: 0.01 },
+    secondDolphinPositionY: { value: -1.7, min: -20, max: 20, step: 0.01 },
     secondDolphinPositionZ: { value: 0.7, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationX: { value: -4.7, min: -20, max: 20, step: 0.01 },
     secondDolphinRotationY: { value: -1.4, min: -20, max: 20, step: 0.01 },
@@ -289,21 +289,18 @@ export default function Tuvalu() {
         <directionalLight position={[5, 5, 3.5]} intensity={1.5} castShadow />
         <Common />
         {currentIndex === dialogSteps.length - 1 && (
-          // <Dolphin
-          //   position={[dolphinPositionX, dolphinPositionY, dolphinPositionZ]}
-          //   rotation={[dolphinRotationX, dolphinRotationY, dolphinRotationZ]}
-          //   scale={dolphinScale}
-          // />
-          // <Dolphin
-          //   initialPosition={[dolphinPositionX, dolphinPositionY, dolphinPositionZ]}
-          //   initialRotation={[dolphinRotationX, dolphinRotationY, dolphinRotationZ]}
-          //   scale={0.01}
-          // />
-          <Dolphin2
-            position={[secondDolphinPositionX, secondDolphinPositionY, secondDolphinPositionZ]}
-            rotation={[secondDolphinRotationX, secondDolphinRotationY, secondDolphinRotationZ]}
-            scale={secondDolphinScale}
-          />
+          <animated.group position-y={y}>
+            <Dolphin2
+              position-x={secondDolphinPositionX}
+              position-y={secondDolphinPositionY}
+              position-z={secondDolphinPositionZ}
+              // position={[secondDolphinPositionX, secondDolphinPositionY, secondDolphinPositionZ]}
+              rotation-x={secondDolphinRotationX}
+              rotation-y={secondDolphinRotationY}
+              rotation-z={secondDolphinRotationZ}
+              scale={secondDolphinScale}
+            />
+          </animated.group>
         )}
       </View>
       <BackButton userAdventureMode={userAdventureMode} />
