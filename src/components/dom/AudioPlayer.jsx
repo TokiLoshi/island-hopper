@@ -68,7 +68,7 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
       audioRef.current.pause()
       setDialogAudioPlaying(false)
     }
-  }, [isPlaying, isReady])
+  }, [isPlaying, isReady, setDialogAudioPlaying])
 
   // Handle Delaying the audio
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function AudioPlayer({ audioFilePath, autoPlay = true, initialDel
       <div
         onClick={togglePlayPause}
         // className='fixed z-50 bottom-4 right-4 m-2 p-2 rounded-full bg-black text-white cursor-pointer md:bottom-8 md:right-8 lg:bottom-20 lg:right-20'
-        className='fixed z-50 m-2 cursor-pointer rounded-full bg-black p-2 text-white bottom-4 right-4 md:bottom-8 md:right-8 lg:bottom-20 lg:right-20'
+        className='fixed bottom-4 right-4 z-50 m-2 cursor-pointer rounded-full bg-black p-2 text-white md:bottom-8 md:right-8 lg:bottom-20 lg:right-20'
         style={{
           width: '50px',
           height: '50px',

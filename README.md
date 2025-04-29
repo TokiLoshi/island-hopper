@@ -119,7 +119,7 @@ Dragon by [Quaternius](https://poly.pizza/m/VBvzjFIYws)
 Also known as "The Devil's Teeth". It is inhabited by researchers, and is not open to the public. The islands have strong winds and swells and is often surrounded by dense fog. It's been attributed to 400 ship and aircraft wrecks. It is also famously home to large numbers of great white sharks. [Source](https://www.oceanicsociety.org/learn/farallon-islands-the-ultimate-guide/#:~:text=The%20Farallon%20Islands%20can%20only,readily%20seen%20from%20a%20boat.)
 
 Shark by Quaternius via [Low Poly Pizza](https://poly.pizza/m/YYsK3gRCBZ)
-Voice generated using Dan on 11Labs and bubble popping sound created on 11Labs with prompt: "Sound of a Single big bubble popping under water"
+Voice generated using Sam on 11Labs and bubble popping sound created on 11Labs with prompt: "Sound of a Single big bubble popping under water"
 
 Particle Pack by [Kenny](https://www.kenney.nl/assets/particle-pack) License [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 

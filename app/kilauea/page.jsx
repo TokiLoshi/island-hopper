@@ -12,6 +12,7 @@ import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 import { RigidBody, Physics, CuboidCollider } from '@react-three/rapier'
 import { useGLTF } from '@react-three/drei'
+import BackgroundAudio from '@/components/dom/BackgroundAudio'
 
 function Volcano(props) {
   const { nodes, materials } = useGLTF('/models/Volcano.glb')
@@ -192,6 +193,14 @@ export default function Kilauea() {
 
   const { audioEnabled } = useStore()
 
+  const audioRef = useRef()
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      audioRef.current = new Audio('./soundEffects/volcanoErupting')
+      audioRef.current.preload = 'auto'
+    }
+  }, [])
+
   const handleVolcanoClick = () => {
     // eslint-disable-next-line no-console
     console.log('Volcano clicked')
@@ -204,9 +213,19 @@ export default function Kilauea() {
     sphereRef.current.applyTorqueImpulse({ x: 0, y: 2, z: 0 })
   }
 
+  const wavesSoundPath = '/soundEffects/volcanoErupting.mp3'
+  const [canPlay, setCanPlay] = useState(false)
+
+  useEffect(() => {
+    if (hasEnded && audioEnabled) {
+      setCanPlay(true)
+    }
+  }, [hasEnded, audioEnabled])
+
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
+      {canPlay && <BackgroundAudio audioFilePath={wavesSoundPath} />}
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls
           enablePan={enablePan}

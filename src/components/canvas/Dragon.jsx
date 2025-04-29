@@ -102,8 +102,6 @@ export function Dragon({ currentAnimation = IDLE_ANIMATION_KEY, audioEnabled, ..
   useEffect(() => {
     if (typeof window !== 'undefined') {
       audioRef.current = new Audio('./soundEffects/dragonGrowl.mp3')
-      // eslint-disable-next-line no-console
-      console.log('Audio ref: ', audioRef)
       audioRef.current.preload = 'auto'
       audioRef.current.volume = 0.3
     }
