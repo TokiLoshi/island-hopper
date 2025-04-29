@@ -39,7 +39,7 @@ const ACTION_MAP = {
   sittingEnd: 'CharacterArmature|CharacterArmature|CharacterArmature|Sitting_End',
 }
 
-const IDLE_ANIMATION_KEY = 'idle'
+const IDLE_ANIMATION_KEY = 'sittingIdle'
 const TRANSITION_DURATION = 0.5
 
 export function Bunny({ currentAnimation = IDLE_ANIMATION_KEY, ...props }) {

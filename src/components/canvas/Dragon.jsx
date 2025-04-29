@@ -94,16 +94,16 @@ export function Dragon({ currentAnimation = IDLE_ANIMATION_KEY, audioEnabled, ..
     }
   }, [currentAnimation, actions])
 
-  // const audioRef = useRef()
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     audioRef.current = new Audio('./soundEffects/dragonGrowl.mp3')
-  //     // eslint-disable-next-line no-console
-  //     console.log('Audio ref: ', audioRef)
-  //     audioRef.current.preload = 'auto'
-  //     audioRef.current.volume = 0.3
-  //   }
-  // }, [])
+  const audioRef = useRef()
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      audioRef.current = new Audio('./soundEffects/dragonGrowl.mp3')
+      // eslint-disable-next-line no-console
+      console.log('Audio ref: ', audioRef)
+      audioRef.current.preload = 'auto'
+      audioRef.current.volume = 0.3
+    }
+  }, [])
 
   const handleClick = (event) => {
     event.stopPropagation()
@@ -111,13 +111,13 @@ export function Dragon({ currentAnimation = IDLE_ANIMATION_KEY, audioEnabled, ..
     setIsClicked(true)
     // if current animation fade out
 
-    // if (audioRef.current && audioEnabled) {
-    //   audioRef.current.currentTime = 0
-    //   audioRef.current.play().catch((error) => {
-    //     // eslint-disable-next-line no-console
-    //     console.log('error playing audio in dragon component: ', error)
-    //   })
-    // }
+    if (audioRef.current && audioEnabled) {
+      audioRef.current.currentTime = 0
+      audioRef.current.play().catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('error playing audio in dragon component: ', error)
+      })
+    }
 
     if (currentActionRef.current) {
       currentActionRef.current.fadeOut(TRANSITION_DURATION)

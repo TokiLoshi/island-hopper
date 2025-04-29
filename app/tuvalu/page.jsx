@@ -11,6 +11,8 @@ import { Dolphin } from '@/components/canvas/Dolphin'
 import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
+import Shader from '@/templates/Shader/OceanShader/OceanShader'
+import { animated, useSpring } from '@react-spring/three'
 
 const Dolphin2 = dynamic(() => import('@/components/canvas/Dolphin2').then((mod) => mod.Dolphin2), { ssr: false })
 
@@ -200,6 +202,32 @@ export default function Tuvalu() {
   //   dolphinPositionZ: { value: -450, min: -800, max: 50, step: 0.01 },
   // })
 
+  const { y } = useSpring({
+    from: {
+      y: -5,
+    },
+    to: [
+      {
+        y: -4,
+      },
+      {
+        y: -3,
+      },
+      {
+        y: -2,
+      },
+      {
+        y: 0,
+      },
+    ],
+    config: {
+      mass: 1,
+      tension: 300,
+      friction: 18,
+    },
+    loop: false,
+  })
+
   const {
     secondDolphinPositionX,
     secondDolphinPositionY,
@@ -240,7 +268,12 @@ export default function Tuvalu() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
-        <ambientLight intensity={1.5} />
+        {hasEnded && (
+          <animated.mesh position-x={0} position-y={y} position-z={0} rotation={[-Math.PI / 2, 0, 0]} scale={[5, 5, 1]}>
+            <planeGeometry args={[5, 5, 32, 31]} />
+            <Shader transparent={true} />
+          </animated.mesh>
+        )}
         <Boat
           position={[boatPositionX, boatPositionY, boatPositionZ]}
           scale={boatScale}
