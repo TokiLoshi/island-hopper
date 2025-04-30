@@ -151,7 +151,7 @@ export default function Tuvalu() {
   }
 
   const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
-    useControls('orbit', {
+    useControls('tuvalu-orbit', {
       enablePan: true,
       // Polar angle
       minPolarAngle: { value: 1.13, min: 0, max: Math.PI / 2, step: 0.01 },
@@ -164,7 +164,7 @@ export default function Tuvalu() {
     })
 
   const { boatRotationX, boatRotationY, boatRotationZ, boatScale, boatPositionX, boatPositionY, boatPositionZ } =
-    useControls('boat', {
+    useControls('tuvalu-boat', {
       boatRotationX: { value: 0, min: -5, max: 5, step: 0.01 },
       boatRotationY: { value: -0.5, min: -5, max: 5, step: 0.01 },
       boatRotationZ: { value: 0, min: -5, max: 5, step: 0.01 },
@@ -175,7 +175,7 @@ export default function Tuvalu() {
     })
 
   const { bunnyRotationX, bunnyRotationY, bunnyRotationZ, bunnyScale, bunnyPositionX, bunnyPositionY, bunnyPositionZ } =
-    useControls('bunny', {
+    useControls('tuvalu-bunny', {
       bunnyRotationX: { value: 0, min: -5, max: 10, step: 0.01 },
       bunnyRotationY: { value: 0, min: -5, max: 10, step: 0.01 },
       bunnyRotationZ: { value: 0, min: -5, max: 10, step: 0.01 },
@@ -231,7 +231,7 @@ export default function Tuvalu() {
     secondDolphinRotationY,
     secondDolphinRotationZ,
     secondDolphinScale,
-  } = useControls('secondDolphin', {
+  } = useControls('tuvalu-secondDolphin', {
     secondDolphinPositionX: { value: 0, min: -20, max: 20, step: 0.01 },
     secondDolphinPositionY: { value: -0.8, min: -20, max: 20, step: 0.01 },
     secondDolphinPositionZ: { value: 0.8, min: -20, max: 20, step: 0.01 },

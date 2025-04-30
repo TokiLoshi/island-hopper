@@ -141,7 +141,7 @@ export default function Farralon() {
   }
 
   const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
-    useControls('orbit', {
+    useControls('farallon-orbit', {
       enablePan: true,
       // Polar angle
       minPolarAngle: { value: 0.91, min: 0, max: Math.PI / 2, step: 0.01 },
@@ -152,15 +152,18 @@ export default function Farralon() {
       minDistance: { value: 7, min: 1, max: 10, step: 0.01 },
       maxDistance: { value: 17, min: 1, max: 50, step: 0.01 },
     })
-  const { rotationX, rotationY, rotationZ, scaleShark, positionX, positionY, positionZ } = useControls('shark', {
-    positionX: { value: 0.0, min: -5, max: 5, step: 0.01 },
-    positionY: { value: 0.78, min: -5, max: 5, step: 0.01 },
-    positionZ: { value: 0, min: -5, max: 5, step: 0.01 },
-    scale: { value: 0.8, min: -0.5, max: 1, step: 0.01 },
-    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
-    rotationY: { value: 0, min: -5, max: 5, step: 0.01 },
-    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
-  })
+  const { rotationX, rotationY, rotationZ, scaleShark, positionX, positionY, positionZ } = useControls(
+    'farallon-shark',
+    {
+      positionX: { value: 0.0, min: -5, max: 5, step: 0.01 },
+      positionY: { value: 0.78, min: -5, max: 5, step: 0.01 },
+      positionZ: { value: 0, min: -5, max: 5, step: 0.01 },
+      scale: { value: 0.8, min: -0.5, max: 1, step: 0.01 },
+      rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+      rotationY: { value: 0, min: -5, max: 5, step: 0.01 },
+      rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+    },
+  )
 
   const {
     bubblePositionX,

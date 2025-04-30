@@ -130,7 +130,7 @@ export default function Komodo() {
   }
 
   const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
-    useControls('orbit', {
+    useControls('komodo-orbit', {
       enablePan: true,
       // Polar angle
       minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
@@ -141,15 +141,18 @@ export default function Komodo() {
       minDistance: { value: 10, min: 1, max: 20, step: 0.01 },
       maxDistance: { value: 15, min: 1, max: 50, step: 0.01 },
     })
-  const { rotationX, rotationY, rotationZ, scaleDragon, positionX, positionY, positionZ } = useControls('dragon', {
-    positionX: { value: 0, min: -5, max: 5, step: 0.01 },
-    positionY: { value: -1.5, min: -5, max: 5, step: 0.01 },
-    positionZ: { value: 0, min: -5, max: 5, step: 0.01 },
-    scaleDragon: { value: 0.8, min: -0.5, max: 1, step: 0.01 },
-    rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
-    rotationY: { value: -0.3, min: -5, max: 5, step: 0.01 },
-    rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
-  })
+  const { rotationX, rotationY, rotationZ, scaleDragon, positionX, positionY, positionZ } = useControls(
+    'komodo-dragon',
+    {
+      positionX: { value: 0, min: -5, max: 5, step: 0.01 },
+      positionY: { value: -1.5, min: -5, max: 5, step: 0.01 },
+      positionZ: { value: 0, min: -5, max: 5, step: 0.01 },
+      scaleDragon: { value: 0.8, min: -0.5, max: 1, step: 0.01 },
+      rotationX: { value: 0, min: -2, max: 5, step: 0.01 },
+      rotationY: { value: -0.3, min: -5, max: 5, step: 0.01 },
+      rotationZ: { value: 0, min: -3, max: 4, step: 0.01 },
+    },
+  )
 
   const userAdventureMode = useStore((state) => state.adventureMode)
   const markDestinationVisted = useStore((state) => state.markDestinationVisited)

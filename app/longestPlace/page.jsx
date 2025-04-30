@@ -167,7 +167,7 @@ export default function LongestPlace() {
   }
 
   const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
-    useControls('orbit', {
+    useControls('longestPlace-orbit', {
       enablePan: true,
       // Polar angle
       minPolarAngle: { value: 1.57, min: 0, max: Math.PI / 2, step: 0.01 },
@@ -179,7 +179,7 @@ export default function LongestPlace() {
       maxDistance: { value: 9, min: 1, max: 50, step: 0.01 },
     })
   const { signRotationX, signRotationY, signRotationZ, signScale, signPositionX, signPositionY, signPositionZ } =
-    useControls('sign', {
+    useControls('longestPlace-sign', {
       signRotationX: { value: 0.2, min: -5, max: 5, step: 0.01 },
       signRotationY: { value: 0.08, min: -5, max: 5, step: 0.01 },
       signRotation: { value: 0.1, min: -5, max: 5, step: 0.01 },
@@ -197,7 +197,7 @@ export default function LongestPlace() {
     boomboxPositionX,
     boomboxPositionY,
     boomboxPositionZ,
-  } = useControls('boombox', {
+  } = useControls('longestPlace-boombox', {
     boomboxRotationX: { value: 0, min: -5, max: 10, step: 0.01 },
     boomboxRotationY: { value: -0.3, min: -5, max: 10, step: 0.01 },
     boomboxRotationZ: { value: 0, min: -5, max: 10, step: 0.01 },
@@ -208,7 +208,7 @@ export default function LongestPlace() {
   })
 
   const { bunnyPositionX, bunnyPositionY, bunnyPositionZ, bunnyScale, bunnyRotationX, bunnyRotationY, bunnyRotationZ } =
-    useControls('Bunny', {
+    useControls('longestPlace-Bunny', {
       bunnyPositionX: { value: -1.1, min: -5, max: 10, step: 0.01 },
       bunnyPositionY: { value: -1, min: -5, max: 10, step: 0.01 },
       bunnyPositionZ: { value: 2, min: -5, max: 10, step: 0.01 },
@@ -218,20 +218,23 @@ export default function LongestPlace() {
       bunnyRotationZ: { value: 0, min: -5, max: 10, step: 0.01 },
     })
 
-  const { firstTextPositionX, firstTextPositionY, firstTextPositionZ, firstFontSize } = useControls('firstText', {
-    firstTextPositionX: { value: 0, min: -5, max: 10, step: 0.01 },
-    firstTextPositionY: { value: 1.4, min: -5, max: 10, step: 0.01 },
-    firstTextPositionZ: { value: 0.02, min: -5, max: 10, step: 0.01 },
-    firstFontSize: { value: 0.15, min: 0.1, max: 5, step: 0.01 },
-  })
+  const { firstTextPositionX, firstTextPositionY, firstTextPositionZ, firstFontSize } = useControls(
+    'longestPlace-firstText',
+    {
+      firstTextPositionX: { value: 0, min: -5, max: 10, step: 0.01 },
+      firstTextPositionY: { value: 1.4, min: -5, max: 10, step: 0.01 },
+      firstTextPositionZ: { value: 0.02, min: -5, max: 10, step: 0.01 },
+      firstFontSize: { value: 0.15, min: 0.1, max: 5, step: 0.01 },
+    },
+  )
 
-  const { secondTextPositionX, secondTextPositionY, secondTextPositionZ } = useControls('secondText', {
+  const { secondTextPositionX, secondTextPositionY, secondTextPositionZ } = useControls('longestPlace-secondText', {
     secondTextPositionX: { value: 0, min: -5, max: 10, step: 0.01 },
     secondTextPositionY: { value: 1.11, min: -5, max: 10, step: 0.01 },
     secondTextPositionZ: { value: 0.02, min: -5, max: 10, step: 0.01 },
   })
 
-  const { thirdTextPositionX, thirdTextPositionY, thirdTextPositionZ } = useControls('third text', {
+  const { thirdTextPositionX, thirdTextPositionY, thirdTextPositionZ } = useControls('longestPlace-third text', {
     thirdTextPositionX: { value: 0, min: -5, max: 10, step: 0.01 },
     thirdTextPositionY: { value: 0.83, min: -5, max: 10, step: 0.01 },
     thirdTextPositionZ: { value: 0.02, min: -5, max: 10, step: 0.01 },

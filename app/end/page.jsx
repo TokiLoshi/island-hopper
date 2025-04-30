@@ -67,7 +67,7 @@ export default function End() {
   }
 
   const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
-    useControls('orbit', {
+    useControls('end-orbit', {
       enablePan: true,
       // Polar angle
       minPolarAngle: { value: 0.91, min: 0, max: Math.PI / 2, step: 0.01 },
@@ -79,7 +79,7 @@ export default function End() {
       maxDistance: { value: 17, min: 1, max: 50, step: 0.01 },
     })
 
-  const { rotationX, rotationY, rotationZ, scale, positionX, positionY, positionZ } = useControls('volcano', {
+  const { rotationX, rotationY, rotationZ, scale, positionX, positionY, positionZ } = useControls('end-bunny', {
     positionX: { value: -1.1, min: -5, max: 5, step: 0.01 },
     positionY: { value: -1, min: -5, max: 5, step: 0.01 },
     positionZ: { value: 0.8, min: -5, max: 5, step: 0.01 },

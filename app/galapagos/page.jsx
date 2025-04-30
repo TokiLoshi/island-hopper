@@ -152,7 +152,7 @@ export default function Gallapagos() {
     }
   }
   const { enablePan, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, minDistance, maxDistance } =
-    useControls('orbit', {
+    useControls('galapagos-orbit', {
       enablePan: true,
       // Polar angle
       minPolarAngle: { value: Math.PI / 2 - 0.1, min: 0, max: Math.PI / 2, step: 0.01 },
@@ -171,7 +171,7 @@ export default function Gallapagos() {
     turtlePositionX,
     turtlePositionY,
     turtlePositionZ,
-  } = useControls('turtle', {
+  } = useControls('galapagos-turtle', {
     turtlePositionX: { value: 1.12, min: -5, max: 5, step: 0.01 },
     turtlePositionY: { value: -0.5, min: -5, max: 5, step: 0.01 },
     turtlePositionZ: { value: 0.0, min: -5, max: 5, step: 0.01 },
