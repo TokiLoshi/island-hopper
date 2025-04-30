@@ -1,4 +1,4 @@
-import { ArrowBigDown, AtSign, Code, X } from 'lucide-react'
+import { ArrowBigDown, AtSign, CircleDot, Code, Palette, Search, X } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 
 export default function CreditOverlay() {
@@ -26,7 +26,7 @@ export default function CreditOverlay() {
     <>
       <button
         onClick={toggleCard}
-        className='z-50 fixed right-4 top-4 m-2 flex size-12 cursor-pointer items-center justify-center rounded-full bg-slate-800 text-white transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:right-8 md:top-8 lg:right-20 lg:top-20'
+        className='fixed right-4 top-4 z-50 m-2 flex size-12 cursor-pointer items-center justify-center rounded-full bg-slate-800 text-white transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:right-8 md:top-8 lg:right-20 lg:top-20'
         style={{
           touchAction: 'manipulation',
         }}
@@ -35,38 +35,54 @@ export default function CreditOverlay() {
       </button>
       <div
         ref={cardRef}
-        className={`duration-500 fixed right-4 z-40 w-full max-w-md rounded-lg bg-slate-800 text-white shadow-xl transition-all ease-in-out md:right-8 lg:right-20 ${isOpen ? 'top-20 opacity-100 md:top-24 lg:top-36' : '-top-96 opacity-0'}`}
+        className={`fixed right-4 z-40 w-full max-w-md rounded-lg bg-slate-800 text-white shadow-xl transition-all duration-500 ease-in-out md:right-8 lg:right-20 ${isOpen ? 'top-20 opacity-100 md:top-24 lg:top-36' : '-top-96 opacity-0'}`}
       >
-        <div className='p-6 max-h-[60vh] overflow-y-auto'>
-          <h2 className='mb-4 ms-2 text-center text-2xl font-bold text-gray-200'>Credits</h2>
+        <div className='max-h-[60vh] overflow-y-auto p-6'>
+          <h2 className='mb-4 ms-2 text-center text-2xl font-bold text-gray-200'>Thanks for visiting!</h2>
           <div className='space-y-4'>
-            <div className='rounded-md bg-slate-100 p-4'>
-              <h3 className='text-lg font-medium text-slate-600'>
+            <div className='rounded-md bg-slate-100 p-4 text-center'>
+              <h2 className='text-center text-lg font-medium text-slate-600'>
+                <Code className='mt-2 items-center' />
                 <a
                   href='https://github.com/TokiLoshi/island-hopper'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='mt-2 inline-block hover:text-blue-500 hover:underline'
+                  className='mt-2 inline-block text-lg hover:text-blue-500 hover:underline'
                 >
-                  <Code className='mt-2' />
-                </a>{' '}
-                by{' '}
+                  Island Hopper
+                </a>
+              </h2>
+
+              <h3 className='text-center font-semibold text-slate-600'>
+                made with 😁 by{' '}
                 <a
                   href='https://github.com/TokiLoshi'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='mt-2 inline-block hover:text-blue-500 hover:underline'
+                  className='mt-2 inline-block text-sm font-semibold hover:text-blue-500 hover:underline'
                 >
-                  TokiLoshi
+                  TokiLoshi (Bee🐝)
                 </a>
-              </h3>{' '}
-              <p className='text-slate-600'>Made for Three.js Journey Challenge</p>
+              </h3>
+              <p className='text-sm text-slate-600'>
+                <a
+                  href='https://github.com/pmndrs/react-three-next'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='mt-2 inline-block text-sm font-semibold hover:text-blue-500 hover:underline'
+                >
+                  Next.js (pmndrs starter kit),
+                </a>
+                Mapbox GL, Zustand, R3F, Rapier, React Spring, Leva, Perf. Made for Three.js Journey Challenge #17
+              </p>
             </div>
 
             <div className='rounded-md bg-slate-100 p-4'>
-              <h3 className='text-lg font-medium text-slate-700'>Assets</h3>
+              <h3 className='text-center text-lg font-medium text-slate-700'>
+                <Palette /> Assets
+              </h3>
               <ul className='mt-2 space-y-1 text-slate-600'>
-                <li>
+                <li className='inline-block'>
                   Shark, Rabbit with Pigtails, Dragon and Dolphin by{' '}
                   <a
                     href='https://poly.pizza/u/Quaternius'
@@ -158,7 +174,7 @@ export default function CreditOverlay() {
                   </a>
                 </li>
                 <li>
-                  Background music track for Starter May by{' '}
+                  Background music track for Starter Map by{' '}
                   <a
                     href='https://docs.mapbox.com/mapbox-gl-js/api/'
                     target='_blank'
@@ -177,33 +193,49 @@ export default function CreditOverlay() {
                     PixaBay{' '}
                   </a>
                 </li>
+                <li>
+                  Bubble Particles from
+                  <a
+                    href='https://www.kenney.nl/assets/particle-pack'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className=' text-blue-500 hover:underline'
+                  >
+                    Kenney&apos;s Particle Pack{' '}
+                  </a>
+                  via{' '}
+                  <a
+                    href='https://docs.mapbox.com/mapbox-gl-js/api/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className=' text-blue-500 hover:underline'
+                  >
+                    PixaBay{' '}
+                  </a>
+                </li>
+                <li>
+                  Pronunciation for longest named place by MecanautesRecorder via{' '}
+                  <a
+                    href='https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Mecanautes-taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu.wav'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className=' text-blue-500 hover:underline'
+                  >
+                    Wikimedia commons{' '}
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div className='rounded-md bg-slate-100 p-4'>
-              <h3 className='text-lg font-medium text-slate-700'>Sources</h3>
+              <h3 className='text-center text-lg font-medium text-slate-700'>
+                <Search />
+                Sources
+              </h3>
               <p className='text-slate-600'>
-                <span className='font-semibold'>Facts:</span> sources for each dialog available on
-                <a
-                  href='https://github.com/TokiLoshi'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='mt-2 inline-block text-slate-600 hover:text-blue-500 hover:underline'
-                >
-                  GitHub README
-                </a>
-              </p>
-              <p className='text-slate-600'>
-                <span className='font-semibold'>Sound Effects:</span> generated with AI on{' '}
-                <a
-                  href='https://github.com/TokiLoshi'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='mt-2 inline-block text-slate-600 hover:text-blue-500 hover:underline'
-                >
-                  11 Labs.
-                </a>
-                Text for the prompts are available on the GitHub READEME.
+                Corny dialog was written by the developer, with full recognition that it might have been more
+                interesting had AI written it but she hopes you had fun anyway. Everything was researched and sources
+                are referenced in full on the GitHub README.
               </p>
             </div>
           </div>
