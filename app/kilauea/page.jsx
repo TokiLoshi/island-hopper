@@ -13,6 +13,7 @@ import useStore from '@/store/globalStore'
 import { RigidBody, Physics, CuboidCollider } from '@react-three/rapier'
 import { useGLTF } from '@react-three/drei'
 import BackgroundAudio from '@/components/dom/BackgroundAudio'
+import SoundEffectAudio from '@/components/dom/SoundEffectAudio'
 
 function Volcano(props) {
   const { nodes, materials } = useGLTF('/models/Volcano.glb')
@@ -225,7 +226,7 @@ export default function Kilauea() {
   return (
     <>
       <div ref={mapContainerRef} className='absolute left-0 top-0 z-0 size-full'></div>
-      {canPlay && <BackgroundAudio audioFilePath={wavesSoundPath} />}
+      {canPlay && <SoundEffectAudio audioFilePath={wavesSoundPath} />}
       <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
         <OrbitControls
           enablePan={enablePan}

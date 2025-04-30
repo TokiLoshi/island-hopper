@@ -32,9 +32,6 @@ class Sparkle {
   }
 }
 
-// export const BubbleSystem = forwardRef(
-//   function BubbleSystem({ sharkRef, audioEnabled }, ref) {
-
 export default function BubbleSystem({ sharkRef, audioEnabled }) {
   const bubbles = useRef(makeBubbles()).current
   const instanceRef = useRef()

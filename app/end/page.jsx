@@ -7,6 +7,7 @@ import AudioPlayer from '@/components/dom/AudioPlayer'
 import { useControls } from 'leva'
 import useStore from '@/store/globalStore'
 import BackgroundAudio from '@/components/dom/BackgroundAudio'
+import CreditOverlay from '@/components/dom/CreditOverlay'
 
 const MapboxGlobe = dynamic(() => import('@/components/canvas/PlainMapboxGlobe'), { ssr: false })
 const Bunny = dynamic(() => import('@/components/canvas/Bunny').then((mod) => mod.Bunny), { ssr: false })
@@ -119,6 +120,7 @@ export default function End() {
         <SpeechBubble text={currentDialog.text} onNext={handleNextDialogue} hasEnded={hasEnded} />
         {audioEnabled && <AudioPlayer audioFilePath={currentDialog.audioSrc} autoPlay={true} initialDelay={500} />}
         {audioEnabled && <BackgroundAudio audioFilePath={musicPath} />}
+        <CreditOverlay />
       </div>
     </>
   )
