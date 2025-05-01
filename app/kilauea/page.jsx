@@ -1,6 +1,6 @@
 'use client'
 
-import { OrbitControls, Plane } from '@react-three/drei'
+import { OrbitControls, Plane, useCursor } from '@react-three/drei'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useRef, useState, Suspense } from 'react'
 import mapboxgl from 'mapbox-gl'
@@ -19,9 +19,11 @@ import * as THREE from 'three'
 
 function Volcano(props) {
   const { nodes, materials } = useGLTF('/models/Volcano.glb')
+  const [hovered, setHovered] = useState(false)
+  useCursor(hovered /*'pointer', 'auto', document.body*/)
 
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} onPointerOver={() => setHovered(true)} onPointerOut={() => setHovered(false)}>
       <mesh castShadow receiveShadow geometry={nodes.volcano.geometry} material={materials.None} />
     </group>
   )
@@ -49,18 +51,62 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
-function LavaBall({ position = [0, 0, 0], onReady }) {
+function LavaBall({ position = [0, 0, 0], id, onRemove }) {
   const body = useRef()
+  const [scale, setScale] = useState(1)
+  const size = useRef(0.05 + Math.random() * 0.08).current
+
   useEffect(() => {
     if (!body.current) return
-    body.current.applyImpulse({ x: 0, y: 10, z: 0 }, true)
-    onReady?.(body.current)
-  }, [onReady])
+
+    // eslint-disable-next-line no-console
+    console.log(`Ball created with id: ${id}`)
+
+    const powerY = 8 + Math.random() * 10
+    const angleRad = Math.random() * Math.PI * 2
+    const powerXZ = 2 + Math.random() * 3
+
+    const impulseX = Math.cos(angleRad) * powerXZ
+    const impulseZ = Math.sin(angleRad) * powerXZ
+
+    body.current.applyImpulse({ x: impulseX, y: powerY, z: impulseZ }, true)
+
+    const shrinkTimer = setTimeout(() => {
+      // eslint-disable-next-line no-console
+      console.log(`Ball ${id} starting to shrink`)
+      const shrinkInterval = setInterval(() => {
+        setScale((prevScale) => {
+          const newScale = prevScale - 0.5
+          return Math.max(0.1, newScale)
+        })
+      }, 50)
+
+      setTimeout(() => {
+        clearInterval(shrinkInterval)
+      }, 1000)
+    }, 2000)
+
+    const removeTimer = setTimeout(() => {
+      // eslint-disable-next-line no-console
+      console.log(`Ball ${id} being removed`)
+      if (onRemove) {
+        onRemove(id)
+      }
+    }, 3000)
+
+    return () => {
+      clearTimeout(shrinkTimer)
+      clearTimeout(removeTimer)
+      // eslint-disable-next-line no-console
+      console.log(`Ball with id: ${id} unmounted`)
+    }
+  }, [id, onRemove])
+
   return (
     <RigidBody ref={body} colliders='ball' position={position} restitution={0.7} mass={1}>
-      <mesh>
-        <sphereGeometry args={[0.1]} />
-        <meshStandardMaterial color='orange' />
+      <mesh scale={scale}>
+        <sphereGeometry args={[size]} />
+        <meshStandardMaterial color='orange' roughness={0.2} emissive='#ff4500' emissiveIntensity={0.5} />
       </mesh>
     </RigidBody>
   )
@@ -70,8 +116,16 @@ export default function Kilauea() {
   const mapContainerRef = useRef(null)
   const mapRef = useRef(null)
   const volcanoRef = useRef()
-  const sphereRef = useRef()
   const [balls, setBalls] = useState([])
+
+  const removeBall = (idToRemove) => {
+    setBalls((prevBalls) => {
+      const newBalls = prevBalls.filter((ball) => ball.id !== idToRemove)
+      // eslint-disable-next-line no-console
+      console.log(`Balls after removal: ${newBalls.length}`)
+      return newBalls
+    })
+  }
 
   mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN
 
@@ -219,21 +273,27 @@ export default function Kilauea() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       audioRef.current = new Audio('./soundEffects/volcanoErupting')
+      console.log(`AudioRef: ${audioRef.current}`)
       audioRef.current.preload = 'auto'
     }
   }, [])
 
   const handleVolcanoClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('Volcano clicked')
-    setBalls((b) => [...b, { id: Math.random(), position: [positionX, positionY + 0.6, positionZ + 0.1] }])
-  }
+    const ballCount = Math.floor(Math.random() * 3) + 3
 
-  const handleSphereClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('Sphere clicked', sphereRef)
-
-    sphereRef.current.applyTorqueImpulse({ x: 0, y: 2, z: 0 })
+    for (let i = 0; i < ballCount; i++) {
+      const offsetX = (Math.random() - 0.5) * 0.2
+      const offsetZ = (Math.random() - 0.5) * 0.2
+      setBalls((prevBalls) => [
+        ...prevBalls,
+        {
+          id: Math.random(),
+          position: [positionX + offsetX, positionY + 0.6, positionZ + offsetZ],
+          createdAt: Date.now(),
+        },
+      ])
+    }
+    // setBalls((b) => [...b, { id: Math.random(), position: [positionX, positionY + 0.6, positionZ] }])
   }
 
   const wavesSoundPath = '/soundEffects/volcanoErupting.mp3'
@@ -260,22 +320,17 @@ export default function Kilauea() {
           maxDistance={maxDistance}
         />
         <Physics debug gravity={[0, -9.81, 0]} fixedTimeStep={1 / 30}>
-          {balls.map(({ id, position }) => (
-            <LavaBall key={id} position={position} />
+          {balls.map(({ id, position, createdAt }) => (
+            <LavaBall id={id} key={id} position={position} createdAt={createdAt} onRemove={removeBall} />
           ))}
 
-          <RigidBody type='fixed' colliders='trimesh'>
-            <Volcano
-              ref={volcanoRef}
-              scale={scaleVolcano}
-              onClick={handleVolcanoClick}
-              position-x={positionX}
-              position-y={positionY}
-              position-z={positionZ}
-              rotation-x={rotationX}
-              rotation-y={rotationY}
-              rotation-z={rotationZ}
-            />
+          <RigidBody
+            type='fixed'
+            colliders='hull'
+            position={[positionX, positionY, positionZ]}
+            rotation={[rotationX, rotationY, rotationZ]}
+          >
+            <Volcano ref={volcanoRef} scale={scaleVolcano} onClick={handleVolcanoClick} />
           </RigidBody>
 
           <RigidBody type='fixed' restitution={1}>
