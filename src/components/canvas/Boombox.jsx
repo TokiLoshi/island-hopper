@@ -9,8 +9,6 @@ import * as THREE from 'three'
 import { useSpring, animated } from '@react-spring/three'
 export function Boombox({ ...props }) {
   const { nodes, materials } = useGLTF('/models/Boombox.glb')
-  // eslint-disable-next-line no-console
-  console.log('materials: ', materials)
 
   const [introAudio, setIntroAudio] = useState(null)
   const boomRef = useRef()
@@ -54,6 +52,8 @@ export function Boombox({ ...props }) {
       setIsPlaying(false)
     } else {
       introAudio.play().catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(`Error playing boombox: ${error}`)
         setIsPlaying(false)
       })
       setIsPlaying(true)
@@ -62,8 +62,6 @@ export function Boombox({ ...props }) {
 
   const boomScale = props.scale || 0.6
   const outlineScale = 0.63
-  // eslint-disable-next-line no-console
-  console.log(`Boombox scale: ${boomScale} props: ${props}`)
 
   const { pulse } = useSpring({
     from: boomScale,

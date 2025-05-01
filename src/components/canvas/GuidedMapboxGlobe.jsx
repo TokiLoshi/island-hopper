@@ -26,8 +26,6 @@ export default function GuidedMapboxGlobe() {
   const getNextDestination = useStore((state) => state.getNextDestination)
   const nextDestination = getNextDestination()
   const nextLocationName = nextDestination ? nextDestination.name : null
-  // eslint-disable-next-line no-console
-  // console.log('next destination name: ', nextDestination)
 
   const flyToLocation = (map, coordinates, locationName) => {
     spinEnabled.current = false

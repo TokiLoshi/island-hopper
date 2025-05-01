@@ -95,8 +95,6 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
       bubbleSphere.current.radius = 0.4
 
       if (!bubble.popped && sharkBox.current.intersectsSphere(bubbleSphere.current)) {
-        // eslint-disable-next-line no-console
-        // console.log('INTERSECTION DETECTED! ', bubble)
         bubble.popped = true
         bubble.popTimer = 0
         for (let k = 0; k < 20; k++) {
@@ -146,8 +144,8 @@ export default function BubbleSystem({ sharkRef, audioEnabled }) {
     if (audioRef.current && audioEnabled) {
       audioRef.current.currentTime = 0
       audioRef.current.play().catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log('error playing audio: ', error)
+        // elslint-disable-next-line no-console
+        console.log(`Error playing popping sound: ${error}`)
       })
     }
     const bubble = bubbles[index]

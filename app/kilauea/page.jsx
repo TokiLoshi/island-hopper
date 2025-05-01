@@ -59,9 +59,6 @@ function LavaBall({ position = [0, 0, 0], id, onRemove }) {
   useEffect(() => {
     if (!body.current) return
 
-    // eslint-disable-next-line no-console
-    console.log(`Ball created with id: ${id}`)
-
     const powerY = 8 + Math.random() * 10
     const angleRad = Math.random() * Math.PI * 2
     const powerXZ = 2 + Math.random() * 3
@@ -72,8 +69,6 @@ function LavaBall({ position = [0, 0, 0], id, onRemove }) {
     body.current.applyImpulse({ x: impulseX, y: powerY, z: impulseZ }, true)
 
     const shrinkTimer = setTimeout(() => {
-      // eslint-disable-next-line no-console
-      console.log(`Ball ${id} starting to shrink`)
       const shrinkInterval = setInterval(() => {
         setScale((prevScale) => {
           const newScale = prevScale - 0.5
@@ -87,8 +82,6 @@ function LavaBall({ position = [0, 0, 0], id, onRemove }) {
     }, 2000)
 
     const removeTimer = setTimeout(() => {
-      // eslint-disable-next-line no-console
-      console.log(`Ball ${id} being removed`)
       if (onRemove) {
         onRemove(id)
       }
@@ -97,8 +90,6 @@ function LavaBall({ position = [0, 0, 0], id, onRemove }) {
     return () => {
       clearTimeout(shrinkTimer)
       clearTimeout(removeTimer)
-      // eslint-disable-next-line no-console
-      console.log(`Ball with id: ${id} unmounted`)
     }
   }, [id, onRemove])
 
@@ -122,8 +113,6 @@ export default function Kilauea() {
   const removeBall = (idToRemove) => {
     setBalls((prevBalls) => {
       const newBalls = prevBalls.filter((ball) => ball.id !== idToRemove)
-      // eslint-disable-next-line no-console
-      console.log(`Balls after removal: ${newBalls.length}`)
       return newBalls
     })
   }
@@ -217,8 +206,6 @@ export default function Kilauea() {
   const [hasEnded, setHasEnded] = useState(false)
   const currentDialog = dialogSteps[currentIndex]
   const handleNextDialog = () => {
-    // eslint-disable-next-line no-console
-    console.log(`Index: ${currentIndex} and hasEnded: ${hasEnded} dialog ${dialogSteps[currentIndex].text}`)
     setCurrentIndex((prev) => Math.min(prev + 1, dialogSteps.length - 1))
     const nextIndex = currentIndex + 1
     if (nextIndex === dialogSteps.length - 1) {
