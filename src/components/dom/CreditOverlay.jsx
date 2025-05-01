@@ -1,4 +1,4 @@
-import { ArrowBigDown, AtSign, CircleDot, Code, Palette, Search, X } from 'lucide-react'
+import { AtSign, Code, Palette, Search, X } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 
 export default function CreditOverlay() {
@@ -65,11 +65,12 @@ export default function CreditOverlay() {
                 </a>
               </h3>
               <p className='text-sm text-slate-600'>
+                <span className='mt-2 font-semibold'>Made with: </span>
                 <a
                   href='https://github.com/pmndrs/react-three-next'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='mt-2 inline-block text-sm font-semibold hover:text-blue-500 hover:underline'
+                  className='mt-2 inline-block text-sm hover:text-blue-500 hover:underline'
                 >
                   Next.js (pmndrs starter kit),
                 </a>
@@ -174,18 +175,18 @@ export default function CreditOverlay() {
                   </a>
                 </li>
                 <li>
-                  Background music track for Starter Map by{' '}
+                  Background music track for Exploring Map by{' '}
                   <a
-                    href='https://docs.mapbox.com/mapbox-gl-js/api/'
+                    href='https://pixabay.com/users/lidérc-34910776/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=202298'
                     target='_blank'
                     rel='noopener noreferrer'
                     className=' text-blue-500 hover:underline'
                   >
-                    by Pufino{' '}
+                    by Lidérc{' '}
                   </a>
                   via{' '}
                   <a
-                    href='https://docs.mapbox.com/mapbox-gl-js/api/'
+                    href='https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=202298'
                     target='_blank'
                     rel='noopener noreferrer'
                     className=' text-blue-500 hover:underline'
@@ -194,7 +195,28 @@ export default function CreditOverlay() {
                   </a>
                 </li>
                 <li>
-                  Bubble Particles from
+                  Background music track for End screen Map by{' '}
+                  <a
+                    href='https://pixabay.com/users/kontraa-24653570/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=110235'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className=' text-blue-500 hover:underline'
+                  >
+                    by Kontraa Music{' '}
+                  </a>
+                  via{' '}
+                  <a
+                    href='https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=110235)
+[Link](https://pixabay.com/music/beats-whip-afro-dancehall-music-110235/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className=' text-blue-500 hover:underline'
+                  >
+                    PixaBay{' '}
+                  </a>
+                </li>
+                <li>
+                  Bubble Particles from{' '}
                   <a
                     href='https://www.kenney.nl/assets/particle-pack'
                     target='_blank'
@@ -202,15 +224,6 @@ export default function CreditOverlay() {
                     className=' text-blue-500 hover:underline'
                   >
                     Kenney&apos;s Particle Pack{' '}
-                  </a>
-                  via{' '}
-                  <a
-                    href='https://docs.mapbox.com/mapbox-gl-js/api/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className=' text-blue-500 hover:underline'
-                  >
-                    PixaBay{' '}
                   </a>
                 </li>
                 <li>
@@ -234,7 +247,7 @@ export default function CreditOverlay() {
               </h3>
               <p className='text-slate-600'>
                 Corny dialog was written by the developer, with full recognition that it might have been more
-                interesting had AI written it but she hopes you had fun anyway. Everything was researched and sources
+                interesting had AI written it but she hopes you had fun anyway. The dialog was researched and sources
                 are referenced in full on the GitHub README.
               </p>
             </div>
