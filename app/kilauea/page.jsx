@@ -117,6 +117,7 @@ export default function Kilauea() {
   const mapRef = useRef(null)
   const volcanoRef = useRef()
   const [balls, setBalls] = useState([])
+  const [autoErupt, setAutoErupt] = useState(false)
 
   const removeBall = (idToRemove) => {
     setBalls((prevBalls) => {
@@ -273,10 +274,28 @@ export default function Kilauea() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       audioRef.current = new Audio('./soundEffects/volcanoErupting')
-      console.log(`AudioRef: ${audioRef.current}`)
       audioRef.current.preload = 'auto'
     }
   }, [])
+
+  useEffect(() => {
+    if (hasEnded && audioEnabled) {
+      setCanPlay(true)
+      setAutoErupt(true)
+    }
+  }, [hasEnded, audioEnabled])
+
+  useEffect(() => {
+    if (!autoErupt) return
+    handleVolcanoClick()
+
+    const eruptionInterval = setInterval(() => {
+      handleVolcanoClick()
+    }, 4000)
+    return () => {
+      clearInterval(eruptionInterval)
+    }
+  }, [autoErupt])
 
   const handleVolcanoClick = () => {
     const ballCount = Math.floor(Math.random() * 3) + 3
@@ -319,7 +338,7 @@ export default function Kilauea() {
           minDistance={minDistance}
           maxDistance={maxDistance}
         />
-        <Physics debug gravity={[0, -9.81, 0]} fixedTimeStep={1 / 30}>
+        <Physics gravity={[0, -9.81, 0]} fixedTimeStep={1 / 30}>
           {balls.map(({ id, position, createdAt }) => (
             <LavaBall id={id} key={id} position={position} createdAt={createdAt} onRemove={removeBall} />
           ))}
@@ -351,7 +370,7 @@ export default function Kilauea() {
               rotation={[floorRotationX, floorRotationY, floorRotationZ]}
             >
               <boxGeometry args={[2.2, 0.1, 2.2]} />
-              <meshStandardMaterial color='mediumpurple' />
+              <meshStandardMaterial color='mediumpurple' transparent={true} opacity={0} />
             </mesh>
           </RigidBody>
         </Physics>
