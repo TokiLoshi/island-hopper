@@ -3,7 +3,7 @@
 ![IslandHopper](https://github.com/TokiLoshi/island-hopper/blob/main/public/githubReadme.png)
 Welcome to Island Hopper, a 3D map experience taking you on a tour of islands around the world. Visit 6 unique islands, each with a character guide sharing interesting facts about these special places.
 Discover beautiful landscapes, find hidden easter eggs, and learn odd facts about our amazing world. From active volcanoes to endangered paradises, each destination offers something different to explore.
-Built to practice Next.js, Mapbox integration, and 3D techniques, this project combines learning with fun exploration. Enjoy your journey!
+Built to learn Next.js with R3F, Mapbox integrations, and 3D techniques. I had quite a journey, and definitely need more practice with physics, so adding that to the future roadmap. I hope you enjoy your journey!
 
 # Stack
 
