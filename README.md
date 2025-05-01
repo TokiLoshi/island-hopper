@@ -1,93 +1,37 @@
-# island-hopper
+# Island-hopper
 
-This project was bootstrapped with [`create-r3f-app`](https://github.com/utsuboco/create-r3f-app)
-
-Created for three.js journey
+Welcome to Island Hopper, a 3D map experience taking you on a tour of islands around the world. Visit 6 unique islands, each with a character guide sharing interesting facts about these special places.
+Discover beautiful landscapes, find hidden easter eggs, and learn odd facts about our amazing world. From active volcanoes to endangered paradises, each destination offers something different to explore.
+Built to practice Next.js, Mapbox integration, and 3D techniques, this project combines learning with fun exploration. Enjoy your journey!
 
 # Stack
 
 Next.js starter kit by [pmndrs](https://github.com/pmndrs/react-three-next)
-Mapbox with [threebox](https://docs.mapbox.com/mapbox-gl-js/example/add-3d-model-threebox/)
-Gltfjsx by [pmndrs](https://gltf.pmnd.rs/)
+Mapbox with [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api//) including the snow and rain shaders, and helpful tutorials.
+GLTFJSX file converter by [pmndrs](https://gltf.pmnd.rs/)
+Zustand, R3F, Rapier, React Spring, Leva, Perf. Made for Three.js Journey Challenge #17.
 
-Voiceovers generated with eleven labs
+Voiceovers generated with 11labs, copy for dialogs generated and researched by the developer with full recognition the humour may have been better having let the AI take point there.
 
-#TODO:
+The goal was to learn how to use Next.js with R3F, integrate Mapbox and practice techniques and new skills.
 
-# Islands of Interest
+Known bugs: the volcano's physics did not turn out as expected, it is something I'd like to work on in the future.
 
-1. Kīlauea - Island with errupting volcano (19.40774256497103, -155.2833786)
-2. Komodo - Komodo Dragon (-8.528087535050792, 119.47468273390366)
-3. Farallon Island - Sharks (37.69792596395471, -123.00324509041576)
-4. Gallapagos Islands Tortoise (-0.29511532015757685, -90.44075279054056)
-5. Tuvalu - Threatened by Climate change (-8.529159314585927, 179.1059710111884)
-6. Madagascar - Lemurs or cyclones or Baobabs (-23.174115943183764, 43.628544161992366)
-7. Taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu
+# Islands Coordinates
+
+1. Kīlauea (19.40774256497103, -155.2833786)
+2. Komodo (-8.528087535050792, 119.47468273390366)
+3. Farallon Island (37.69792596395471, -123.00324509041576)
+4. Gallapagos Islands (-0.29511532015757685, -90.44075279054056)
+5. Tuvalu (-8.529159314585927, 179.1059710111884)
+6. Taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu
    The longest place
 
-## DONE
-
-- [x] Create Repo
-- [x] Deploy
-- [x] Decide on specs for MVP
-- [x] Get set up with Mapbox and add API key to deployed environment
-- [x] Review these tutorials https://docs.mapbox.com/mapbox-gl-js/guides/install/
-- [x] Create Globe starter
-- [x] Choose Islands of interest and get coordinates
-- [x] create a GeoJeojson object with coordinates
-- [x] load in the markers and orient them towards the horizon
-- [x] Add a button to each marker and then use router to go to new page, finish setting up router
-- [x] Fly to Effect on Click load new route with route and fly to with a different style
-- [x] Choose models for each island
-- [x] Render 3D models and map base for Kilauea
-- [x] Create companion to go with you to each Island (choose a animated C0 model)
-- [x] Fix animations on dialogs on longestPlace
-- [x] Add starter dialogs to everything
-- [x] Add back buttons to everything
-- [x] Add bunny to Gallapagos, Kileau
-- [x] Add Dialog and animations to farallon
-- [x] Add maps to Farallon
-- [x] Add Dialog to Galapagos
-- [x] Add maps to the Gallapagos
-- [x] Add back Dialog to Kilauea
-- [x] Add Dialog to Tuvalu
-- [ ] Add animations to Tuvalu
-- [x] Install Zustand
-- [x] Add all maps
-- [x] Grammarly all the dialogs
-- [x] Generate voice overs with eleven labs
-- [x] Edit the voice over into clips with the dialog
-- [x] Get audio button to show next to the dialogs
-- [x] Add a play button next to each dialog
-- [x] Change dragon's colour in Komodo
-- [x] Add dialog and back button to Komodo
-- [x] Add Leva
-- [x] Add Bunny to home screen
-- [x] Fix orbit controls and positioning of maps
-- [x] Fix colour space
-- [x] Add endscreen with bunny for when experience is done
-- [x] Finish rigging up the guided tour
-- [x] Add custom items
-- [x] Starting page - dialog, narration, add leva, make smaller (smaller and moved to text)
-- [x] Speed up animation on map
-- [x] Animate the sprite for the Turtle so that it looks like it walks back and forth
-- [x] Dolphin animation swim
-- [x] Add Rain to the Galapagos [mapbox](https://docs.mapbox.com/mapbox-gl-js/example/rain/)
-- [x] Experiment with different Pitches from this [tutorial](https://docs.mapbox.com/mapbox-gl-js/example/switch-symbol-style-pitch/)
-- [x] Add animations to onClicks for all models
-- [x] Add bloom to BoomBox
-- [x] Review the different satellite [options](https://docs.mapbox.com/api/maps/styles/)
-- [x] Add starter overlay and work on volume controls
-- [x] Add bubbles to shark
-- [x] Bubble inspiration ()[https://codesandbox.io/p/sandbox/focused-kirch-9dyrgh?file=%2Fsrc%2FApp.js]
-- [x] Work on UI
-- [x] Water shader for Tuvalu to rise when Dolphin arrives
-
-## Islands
+## Overview of the Dialog for the islands with references and assets
 
 ### Kīlauea
 
-Is one of the world's youngest and most active Volcanoes on the Island of Hawai'i. [Source](https://www.usgs.gov/volcanoes/kilauea) live streaming [USGS](https://www.youtube.com/usgs/live). It is home to a lava lake that appeared on September 29, 2021 [Source](https://www.nps.gov/havo/learn/nature/kilauea.htm)
+Is one of the world's youngest and most active volcanoes on the Island of Hawai'i. [Source](https://www.usgs.gov/volcanoes/kilauea) live streaming [USGS](https://www.youtube.com/usgs/live). It is home to a lava lake that appeared on September 29, 2021 [Source](https://www.nps.gov/havo/learn/nature/kilauea.htm)
 
 Volcano by Poly by [Google](https://poly.pizza/u/Poly%20by%20Google)[CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Low Poly Pizza](https://poly.pizza/m/dwSigTeSMCo)
 
@@ -95,7 +39,7 @@ Voice generated using Jessica on 11Labs
 
 ### Komodo
 
-The Komodo National Park can be found on volcanic islands and is home to 5,700 giant "Komodo Dragon" lizards Varanus Komodoensis that grow to an average of 2 - 3 meters. This is a Unesco site.
+The Komodo National Park can be found on volcanic islands and is home to 5,700 giant "Komodo Dragon" lizards Varanus Komodoensis that grow to an average of 2 - 3 meters. This is a UNESCO site.
 [Source](https://whc.unesco.org/en/list/609/)
 
 Dragon by [Quaternius](https://poly.pizza/m/VBvzjFIYws)
@@ -116,27 +60,26 @@ Voice generated using Jessica on 11Labs
 
 ### Tuvalu
 
-The sinking island country [Source](sinking-reality-how-climate-change-is-threatening-a-small-island-nation/) "tuvalu" or is a group of eight islands [Source](https://www.cia.gov/the-world-factbook/countries/tuvalu/). One of the world's least visited countries, and is currently facing an existential threat due to rising ocean levels. It is one of the smallest and most remote islands in the world. [Source](https://www.timelesstuvalu.com/) For COP26 Tuvalu's Foreign Minister Simon Kofe addressed the crowd knee deep in water calling for climate action. [Source](https://earth.org/tuvalus-sinking-reality-how-climate-change-is-threatening-a-small-island-nation/)
+The sinking island country [Source](https://earth.org/tuvalus-sinking-reality-how-climate-change-is-threatening-a-small-island-nation/#:~:text=Tuvalu's%20Sinking%20Reality%3A%20How%20Climate%20Change%20Is%20Threatening%20the%20Small%20Island%20Nation&text=In%20the%20vast%20expanse%20of,irreversible%20impacts%20of%20climate%20change.) "tuvalu" or is a group of eight islands [Source](https://www.cia.gov/the-world-factbook/countries/tuvalu/). One of the world's least visited countries, and is currently facing an existential threat due to rising ocean levels. It is one of the smallest and most remote islands in the world. [Source](https://www.timelesstuvalu.com/) For COP26 Tuvalu's Foreign Minister Simon Kofe addressed the crowd knee deep in water calling for climate action. [Source](https://earth.org/tuvalus-sinking-reality-how-climate-change-is-threatening-a-small-island-nation/)
 
 Boat by Poly by Google[CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/d2QPCNGeGp3)
 Rabbit With pigtails by [Quaternius](https://poly.pizza/m/SwKX8OIlw8)
-Dolphin by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/6hMLIu8wZP8)
+
 Voice generated using Jessica on 11Labs
-Dolphin by Quaternius (https://poly.pizza/m/3LzFgI3GLO)
+Dolphin by [Quaternius](https://poly.pizza/m/3LzFgI3GLO) via [PolyPizza](https://poly.pizza)
 
-### taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronu
+### Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
 
-- One of the longes names in the world with 85 characters. It translates into "he place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as 'landeater’, played his flute to his loved one." According to Newzealand.com It's known locally as Taumata HIll. Tamatea was a legendary chief and warrior. [Source](https://www.newzealand.com/us/feature/the-longest-place-name-in-new-zealand/)
+- One of the longest names in the world with 85 characters. It translates into "the place where Tamatea, the man with the big knees, who slid, climbed and swallowed mountains, known as 'landeater’, played his flute to his loved one." According to Newzealand.com It's known locally as Taumata Hill. Tamatea was a legendary chief and warrior. [Source](https://www.newzealand.com/us/feature/the-longest-place-name-in-new-zealand/)
 
 Wooden Sign by iPoly3D via [Low PolyPizza](https://poly.pizza/m/SpRHK36gNl)
 Boombox by Poly by Google [CC-BY](https://creativecommons.org/licenses/by/3.0/) via [Poly Pizza](https://poly.pizza/m/4hZk7Fg8KiP)
 
 Audio
-Speaker: MecanautesRecorder: Mecanautes, CC0, via Wikimedia Commons
-https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Mecanautes-taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu.wav
+Speaker: MecanautesRecorder: Mecanautes, CC0-BY via [Wikimedia Commons](<https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Mecanautes-taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu.wav>)
 Voice generated using Jessica on 11Labs
 
-Background music Track by [Pufino](https://pixabay.com/users/pufino-47222373/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=318954)from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=318954)
+Background music track by [Pufino](https://pixabay.com/users/pufino-47222373/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=318954)from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=318954)
 
 Background music Track by [Lidérc](https://pixabay.com/users/lidérc-34910776/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=202298) from [Pixabay](https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=202298)
 
@@ -147,4 +90,4 @@ Favicon generated by[MidJourney](https://www.midjourney.com) with the following 
 
 ## Changes made to models in Canva:
 
-Creating icons for visited, unvisited and next with different background colours using the screenshot function in low poly pizza
+Creating icons for visited, unvisited and next with different background colours using the screenshot function in low poly pizza.
